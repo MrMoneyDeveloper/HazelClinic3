@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .pet {
+            width: 100%;
+            max-width: 400px; /* Adjust this value as needed */
+            margin: 0 auto; /* Center the container */
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            background-color: #f7f7f7; /* Lighter grey background */
+            ;
+        }
+
+            .pet img {
+                width: 100%;
+                max-width: 400px; /* Ensure the image does not exceed the container width */
+                height: 200px; /* Set a fixed height */
+                object-fit: contain; /* Ensure the entire image fits without being cropped */
+                display: block;
+                margin: 0 auto 10px; /* Center the image and add some space below */
+            }
+
+        .pet-description {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .header-container {
+            text-align: center;
+            width: 100%;
+        }
+
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #003366; /* Change to deep blue */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn:hover {
+                background-color: #002244; /* Darker blue on hover */
+            }
+
+    </style>
+
+</head>
+<body>
+    <div class="header-container">
+        <h1>Adoptable Pets</h1>
+        <p>Find your perfect companion. Click on a pet to begin the adoption process.</p>
+    </div>
+    <div class="container">
+        <div class="container">
+
+            <div class="pet">
+                <img src="~/Content/themes/base/images/images.jpg" alt="Pet 1">
+                <div class="pet-description">
+                    <h2>Snowy</h2>
+                    <p>Age: 2 years</p>
+                    <p>Breed: Swiss Shepherd</p>
+                    <p>Personality: Friendly and playful</p>
+                    <a href="@Url.Action("AdoptionForm", "PetAdoption", new { petId = 1 })" class="btn btn-primary">Click here to adopt today</a>
+                </div>
+            </div>
+
+            <div class="pet">
+                <img src="~/Content/themes/base/images/_snowycat.jpg" alt="Pet 2">
+                <div class="pet-description">
+                    <h2>Misty</h2>
+                    <p>Age: 3 years</p>
+                    <p>Breed: American Short Hair</p>
+                    <p>Personality: Gentle and affectionate</p>
+                    <a href="@Url.Action("AdoptionForm", "PetAdoption", new { petId = 2 })" class="btn btn-primary">Click here to adopt today</a>
+                </div>
+            </div>
+
+            <div class="pet">
+                <img src="~/Content/themes/base/images/kb_milo_62-scaled-847x1024.jpg" alt="Pet 3">
+                <div class="pet-description">
+                    <h2>Rainbow</h2>
+                    <p>Age: 2 years</p>
+                    <p>Breed: Maltipoo</p>
+                    <p>Personality: Energetic and playful</p>
+                    <a href="@Url.Action("AdoptionForm", "PetAdoption", new { petId = 3 })" class="btn btn-primary">Click here to adopt today</a>
+                </div>
+            </div>
+
+
+            <div class="pet">
+
+                <img src="~/Content/themes/base/images/images (2).jpeg" alt="Pet 4">
+                <div class="pet-description">
+                    <h2>Mikko</h2>
+                    <p>Age: 3 years</p>
+                    <p>Breed: Domestic Short Hair </p>
+                    <p>Personality: Playful and adventurous</p>
+                    <a href="@Url.Action("AdoptionForm", "PetAdoption", new { petId = 4 })" class="btn btn-primary">Click here to adopt today</a>
+                </div>
+            </div>
+
+            <div class="pet">
+                <img src="~/Content/themes/base/images/cp1n4oyzekplez3u6k9j.jpg" alt="Pet 5">
+                <div class="pet-description">
+                    <h2>Ollie</h2>
+                    <p>Age: 2 years</p>
+                    <p>Breed: Jack Russel</p>
+                    <p>Personality: Loyal and great with kids</p>
+                    <a href="@Url.Action("AdoptionForm", "PetAdoption", new { petId = 5 })" class="btn btn-primary">Click here to adopt today</a>
+                </div>
+            </div>
+
+            <div class="pet">
+                <img src="~/Content/themes/base/images/german-shepherd-rescue-and-adoption.jpg" alt="Pet 6">
+                <div class="pet-description">
+                    <h2>Daisy</h2>
+                    <p>Age: 1 year</p>
+                    <p>Breed: German Shepherd</p>
+                    <p>Personality: Curious and playful</p>
+                    <a href="@Url.Action("AdoptionForm", "PetAdoption", new { petId = 6 })" class="btn btn-primary">Click here to adopt today</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

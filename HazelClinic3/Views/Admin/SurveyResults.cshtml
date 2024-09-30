@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HazelClinic3.Models.SurveyModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Survey Results</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" /> <!-- Optional: Include Bootstrap for styling -->
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Survey Results</h2>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Engagement Rating</th>
+                    <th>Venue Rating</th>
+                    <th>Likelihood of Returning</th>
+                    <th>Overall Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var survey in Model)
+                {
+                    <tr>
+                        <td>@survey.Email</td>
+                        <td>@survey.Name</td>
+                        <td>@survey.ERating</td>
+                        <td>@survey.VRating</td>
+                        <td>@survey.RRating</td>
+                        <td>@survey.ORating</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

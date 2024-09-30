@@ -1,0 +1,62 @@
+﻿@model HazelClinic3.Models.OngoingDriver
+
+@{
+    ViewBag.Title = "Reschedule Delivery";
+}
+
+<style>
+    .center-content {
+        display: flex;
+        justify-content: flex-start; /* Align items at the top */
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+        text-align: center;
+        margin-top: 50px; /* Add some margin to the top */
+    }
+
+    .form-container {
+        width: 300px;
+    }
+</style>
+
+<div class="center-content">
+    <h2>Reschedule Delivery</h2>
+    <p>You can only reschedule up to two times.</p>
+
+    <div class="form-container">
+        @using (Html.BeginForm("RescheduleAdoption", "Driver", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.AdopterEmail)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DeliveryDate)
+                @Html.TextBoxFor(model => model.DeliveryDate, "{0:yyyy-MM-dd}", new
+                {
+                    @class = "form-control",
+                    @type = "date",
+                    @min = DateTime.Now.ToString("yyyy-MM-dd")
+                })
+            </div>
+            <p></p>
+            <button type="submit" class="btn btn-primary">Save</button>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            @* Check if the reschedule limit flag is set *@
+            @if (ViewBag.RescheduleLimitReached != null && (bool)ViewBag.RescheduleLimitReached)
+            {
+                <text>
+                alert("You have reached the maximum number of reschedule attempts.");
+                </text>
+            }
+        });
+    </script>
+}
+

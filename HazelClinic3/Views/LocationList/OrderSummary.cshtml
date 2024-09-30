@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Order Summary";
+}
+
+<h2>Order Summary</h2>
+
+<p>Thank you for selecting your pickup location. Here are the details:</p>
+
+<ul>
+    <li><strong>Location:</strong> @ViewBag.SelectedLocation</li>
+    <li><strong>User Email:</strong> @ViewBag.UserEmail</li>
+</ul>
+
+<p>You can download your QR code for pickup below:</p>
+
+@if (Session["QRCodeBytes"] != null)
+{
+    <a href="@Url.Action("DownloadQRCode", "LocationList")" class="btn btn-primary">Download QR Code</a>
+}

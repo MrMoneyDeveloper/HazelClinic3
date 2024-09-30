@@ -1,0 +1,78 @@
+﻿@model HazelClinic3.Models.User1
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit User Details Below:</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.UserId)
+            @Html.HiddenFor(model => model.Firstname)
+            @Html.HiddenFor(model => model.Lastname)
+            @Html.HiddenFor(model => model.Email)
+            @Html.HiddenFor(model => model.Mobile)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="password-input-container">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                    <span class="password-toggle" onclick="togglePasswordVisibility(this)"><i class="fa fa-eye"></i></span>
+                </div>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <script>
+            function togglePasswordVisibility(icon) {
+                var input = icon.previousElementSibling;
+                if (input.type === "password") {
+                    input.type = "text";
+                    icon.innerHTML = '<i class="fa fa-eye-slash"></i>';
+                } else {
+                    input.type = "password";
+                    icon.innerHTML = '<i class="fa fa-eye"></i>';
+                }
+            }
+        </script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <p></p>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+
+@section scripts {
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+
+
+

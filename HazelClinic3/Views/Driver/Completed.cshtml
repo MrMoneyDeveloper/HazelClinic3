@@ -1,0 +1,44 @@
+﻿@model List<HazelClinic3.Models.CompDriver>
+
+@{
+    ViewBag.Title = "Completed Deliveries";
+}
+
+<h2>Completed Deliveries:</h2>
+
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>Email Address</th>
+                <th>Address</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var driver in Model)
+            {
+                <tr>
+                    <td>@driver.ID</td>
+                    <td>@driver.AdopterFName</td>
+                    <td>@driver.AdopterNo</td>
+                    <td>@driver.AdopterEmail</td>
+                    <td>@driver.Address</td>
+                    <td>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No Completed deliveries found.</p>
+}
+

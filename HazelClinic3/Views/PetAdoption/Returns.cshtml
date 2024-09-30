@@ -1,0 +1,61 @@
+﻿@model List<HazelClinic3.Models.ReturnPolicy>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Return Requests</title>
+</head>
+<body>
+    <h2>View Return Requests:</h2>
+    <div class="mt-3">
+        @Html.ActionLink("Create", "CreateReturn", "PetAdoption", null, new { @class = "btn btn-primary" })
+    </div>
+
+    <div class="table-responsive">
+        @if (Model == null || !Model.Any())
+        {
+            <p>No return requests found.</p>
+        }
+        else
+        {
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Return Request ID</th>
+                        <th>Adoption ID</th>
+                        <th>Return Date</th>
+                        <th>Scheduled Return Date</th>
+                        <th>Return Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model)
+                    {
+                        <tr>
+                            <td>@request.ReturnRequestID</td>
+                            <td>@request.AdoptionID</td>
+                            <td>@request.ReturnDate.ToString("yyyy-MM-dd")</td>
+                            <td>@request.ScheduledReturnDate.ToString("yyyy-MM-dd")</td>
+                            <td>@request.ReturnStatus</td>
+                            <td>
+                                @if (request.ReturnStatus != "Complete")
+                                {
+                                    using (Html.BeginForm("CompleteReturn", "PetAdoption", FormMethod.Post, new { @class = "form-inline" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("id", request.ReturnRequestID)
+                                        <button type="submit" class="btn btn-success">Complete</button>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    @Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })
+</body>
+</html>

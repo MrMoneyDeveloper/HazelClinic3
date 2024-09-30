@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "GroomingSuccess";
+}
+
+<style>
+
+    .sucess {
+        display: block;
+    }
+</style>
+
+
+
+
+
+<div class="sucess">
+    <h2>
+        <em> Successfully Booked!   </em>
+    </h2>
+
+    <br />
+
+    <p>Your booking for a grooming session is successful</p>
+
+    <img src="https://img1.wsimg.com/isteam/stock/2739/:/rs=w:800,h:300" alt="SuccessPic" />
+    <br />
+    <br />
+</div>
+
+@Html.ActionLink("Back to Menu", "LoggedIn", "Users2", null, new { @class = "btn btn-secondary" })
+
+

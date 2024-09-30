@@ -1,0 +1,164 @@
+﻿@model HazelClinic3.Models.PetSitting
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit User Details Below</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+  
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.SittingId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CellNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CellNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CellNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmergencyContactName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EmergencyContactName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EmergencyContactName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmergencyContactCellNo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EmergencyContactCellNo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EmergencyContactCellNo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ResAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ResAddress, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ResAddress, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PetName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PetName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PetName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PetType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PetType, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PetType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", id = "StartDateInput" } })
+            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", id = "EndDateInput" } })
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SpecialRequests, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SpecialRequests, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SpecialRequests, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <p></p>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var startDateInput = document.getElementById("StartDateInput");
+        var endDateInput = document.getElementById("EndDateInput");
+
+        startDateInput.addEventListener("change", function () {
+            endDateInput.min = startDateInput.value;
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var startDateInput = document.getElementById("StartDateInput");
+        var endDateInput = document.getElementById("EndDateInput");
+
+        var currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+
+        var maxEndDate = new Date();
+        maxEndDate.setMonth(maxEndDate.getMonth() + 1);
+        maxEndDate.setHours(0, 0, 0, 0);
+
+        var maxDate = new Date();
+        maxDate.setMonth(maxDate.getMonth() + 6);
+        maxDate.setHours(0, 0, 0, 0);
+
+        startDateInput.addEventListener("change", function () {
+            endDateInput.min = startDateInput.value;
+            startDateInput.max = maxDate.toISOString().split('T')[0];
+
+            var selectedStartDate = new Date(startDateInput.value);
+            if (selectedStartDate > currentDate) {
+                var maxEndDateTimestamp = +selectedStartDate + (1000 * 60 * 60 * 24 * 30);
+                endDateInput.max = new Date(Math.min(maxEndDateTimestamp, +maxEndDate)).toISOString().split('T')[0];
+            } else {
+                endDateInput.max = maxEndDate.toISOString().split('T')[0];
+            }
+        });
+
+        if (startDateInput.value) {
+            var selectedStartDate = new Date(startDateInput.value);
+            if (selectedStartDate > currentDate) {
+                var maxEndDateTimestamp = +selectedStartDate + (1000 * 60 * 60 * 24 * 30);
+                endDateInput.max = new Date(Math.min(maxEndDateTimestamp, +maxEndDate)).toISOString().split('T')[0];
+            } else {
+                endDateInput.max = maxEndDate.to
+
+</script>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

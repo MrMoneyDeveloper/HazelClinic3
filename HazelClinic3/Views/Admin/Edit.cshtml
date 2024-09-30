@@ -1,0 +1,199 @@
+﻿
+@model HazelClinic3.Models.Booking
+
+@{
+    ViewBag.Title = "Edit Booking";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Booking</h2>
+
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.BookingId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fname)
+        @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Lname)
+        @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone)
+        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address)
+        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CityPostalCode)
+        @Html.EditorFor(model => model.CityPostalCode, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Pname)
+        @Html.EditorFor(model => model.Pname, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SelectedSpecies)
+        @Html.EditorFor(model => model.SelectedSpecies, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Gender)
+        @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BreedColor)
+        @Html.EditorFor(model => model.BreedColor, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Age)
+        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Weight)
+        @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Message)
+        @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <div class="form-group">
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.Label("Start Date:", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.StartDate, "{0:yyyy-MM-dd}", new { @class = "form-control datepicker", id = "StartDate", @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("End Date:", htmlAttributes: new { @class = "control-label col-md-4" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(model => model.EndDate, "{0:yyyy-MM-dd}", new { @class = "form-control datepicker", id = "EndDate", @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalCost)
+        @Html.DisplayFor(model => model.TotalCost, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+
+    <p></p>
+    <div class="button-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        @Html.ActionLink("Back to Bookings", "ViewBookings", null, new { @class = "btn btn-secondary" })
+    </div>
+
+    @section Scripts {
+        <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+        <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+
+        <script>
+           $(function () {
+    var startDatePicker = $("#StartDate");
+    var endDatePicker = $("#EndDate");
+
+    startDatePicker.datepicker({
+        changeMonth: true,
+        minDate: new Date(),
+        onSelect: function (selectedDate) {
+            endDatePicker.datepicker("option", "minDate", selectedDate);
+            var originalEndDate = new Date("@Model.EndDate");
+            var originalStartDate = new Date("@Model.StartDate");
+            var diff = Math.ceil((originalEndDate - originalStartDate) / (1000 * 60 * 60 * 24));
+            var newEndDate = new Date(selectedDate);
+            newEndDate.setDate(newEndDate.getDate() + diff);
+            endDatePicker.datepicker("option", "maxDate", newEndDate);
+        }
+    });
+
+    endDatePicker.datepicker({
+        changeMonth: true,
+        minDate: new Date(),
+        beforeShowDay: function (date) {
+            return [date.getTime() != startDatePicker.datepicker("getDate").getTime()];
+        },
+        onSelect: function (selectedDate) {
+            var originalEndDate = new Date("@Model.EndDate");
+            var originalStartDate = new Date("@Model.StartDate");
+            var diff = Math.ceil((originalEndDate - originalStartDate) / (1000 * 60 * 60 * 24));
+            var newStartDate = new Date(selectedDate);
+            newStartDate.setDate(newStartDate.getDate() - diff);
+            startDatePicker.datepicker("option", "maxDate", newStartDate);
+        }
+    });
+
+    $("form").submit(function () {
+        var totalCostField = $("input[name='TotalCost']");
+        var originalTotalCost = totalCostField.val();
+        totalCostField.val(originalTotalCost);
+    });
+
+    $.validator.addMethod("endDateAfterStartDate", function (value, element, params) {
+        var startDate = startDatePicker.datepicker("getDate");
+        var endDate = endDatePicker.datepicker("getDate");
+        return endDate > startDate;
+    }, "End date must be after start date");
+
+    $.validator.addMethod("endDateAfterMinDate", function (value, element, params) {
+        var minDate = startDatePicker.datepicker("option", "minDate");
+        var endDate = endDatePicker.datepicker("getDate");
+        return endDate >= minDate;
+    }, "End date must be on or after the minimum allowed date");
+
+    $("form").each(function () {
+        $(this).validate({
+            rules: {
+                EndDate: {
+                    required: true,
+                    endDateAfterStartDate: true,
+                    endDateAfterMinDate: true
+                }
+            },
+            messages: {
+                EndDate: {
+                    required: "Please select an end date"
+                }
+            }
+        });
+    });
+});
+
+
+
+        </script>
+    }
+
+}
+
+
+
+
+
+

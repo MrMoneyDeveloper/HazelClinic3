@@ -1,0 +1,258 @@
+﻿@model HazelClinic3.Models.EventContentViewModel
+
+@{
+    ViewBag.Title = "Event Content";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .content-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+
+            .content-table th, .content-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+
+            .content-table th {
+                background-color: #f2f2f2;
+            }
+
+            .content-table img {
+                height: 150px;
+                object-fit: cover;
+            }
+
+            .content-table .document-link {
+                font-size: 14px;
+            }
+
+        .btn-custom {
+            background-color: #003366;
+            color: white;
+            margin-top: 10px;
+            width: auto;
+        }
+
+        .btn-dashboard {
+            background-color: #003366;
+            color: forestgreen;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .bid-section {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Event Content</h2>
+    <br />
+    <div>
+        @Html.ActionLink("Back to Dashboard", "LoggedIn", "Users2", null, new { @class = "btn-dashboard" })
+    </div>
+    <br />
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>Auction Items</th>
+                <th>Documents</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @if (Model.AuctionItems != null && Model.AuctionItems.Any())
+                    {
+                        <ul>
+                            @foreach (var item in Model.AuctionItems)
+                            {
+                                <li>
+                                    <strong>@item.Name</strong>
+                                    @if (item.Image != null)
+                                    {
+                                        <img src="@Url.Action("GetAuctionItemImage", "Events", new { id = item.Id })" alt="Auction Item Image">
+                                    }
+                                    <br />
+
+                                    <div class="timer" id="timer-@item.Id" data-endtime="@item.AuctionEndTime"></div>
+
+                                    @using (Html.BeginForm("PlaceBid", "Events", FormMethod.Post, new { @class = "place-bid-form" }))
+                                    {
+                                        @Html.Hidden("auctionItemId", item.Id)
+                                        <input type="number" name="bidAmount" class="form-control" min="20" placeholder="Enter your bid (Min: R20.00)" required />
+                                        <button type="submit" class="btn btn-custom bid-button" data-auction-id="@item.Id">Place Bid</button>
+                                        <div id="bid-info-@item.Id" class="bid-info">
+                                            <label>Current Highest Bid:</label>
+                                            <span class="highest-bid-amount">R0.00</span>
+                                        </div>
+                                    }
+                                    <br />
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No auction items available for this event.</p>
+                    }
+                </td>
+                <td>
+                    @if (Model.Documents != null && Model.Documents.Any())
+                    {
+                        <ul>
+                            @foreach (var doc in Model.Documents)
+                            {
+                                <li class="document-link">
+                                    <a href="@Url.Action("DownloadDocument", "Events", new { id = doc.Id })">@doc.FileName</a>
+                                    <br />
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p>No documents available for this event.</p>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+$(document).ready(function () {
+    // Function to fetch and update the highest bid
+    function updateHighestBid(itemId) {
+        $.getJSON('@Url.Action("GetHighestBid", "Events")', { id: itemId }, function (data) {
+            var bidAmount = data.highestBid;
+            var minBidAmount = bidAmount + 1;
+
+            if (bidAmount > 0) {
+                minBidAmount = bidAmount + 1;
+            } else {
+                minBidAmount = 20;
+                bidAmount = 0;
+            }
+
+            // Update the specific auction item fields
+            $('#bid-info-' + itemId + ' .highest-bid-amount').text('R' + bidAmount.toFixed(2));
+            $('#bid-info-' + itemId).closest('.place-bid-form').find('input[name="bidAmount"]').attr('min', minBidAmount).attr('placeholder', 'Enter your bid (Min: R' + minBidAmount.toFixed(2) + ')');
+        });
+    }
+
+    // Fetch the highest bids for all auction items on page load
+    @foreach (var item in Model.AuctionItems)
+    {
+        <text>updateHighestBid(@item.Id);</text>
+    }
+
+    // Optional: Set up an interval to periodically update the highest bid for each auction item
+    setInterval(function () {
+        @foreach (var item in Model.AuctionItems)
+        {
+            <text>updateHighestBid(@item.Id);</text>
+        }
+    }, 30000); // Update every 30 seconds
+
+    // Timer countdown logic
+    $('.timer').each(function () {
+        var endTime = new Date($(this).data('endtime'));
+        var auctionId = $(this).attr('id').split('-')[1];
+        var timerElement = $(this);
+        var emailSent = false; // Flag to check if the email has been sent
+
+        function updateTimer() {
+            var now = new Date();
+            var timeLeft = endTime - now;
+
+            if (timeLeft <= 0 && !emailSent) {
+                timerElement.text('Auction Ended');
+                $('.bid-button[data-auction-id="' + auctionId + '"]').prop('disabled', true);
+
+                // Get the highest bid and send payment link when auction ends
+                $.getJSON('@Url.Action("GetHighestBid", "Events")', { id: auctionId }, function (data) {
+                    var highestBid = data.highestBid;
+                    var highestBidderEmail = data.highestBidderEmail; // Get the highest bidder's email
+
+                    if (highestBid > 0) {
+    // Only the server knows who the highest bidder is, send request to notify that user
+    $.post('@Url.Action("SendPaymentLink", "Events")', { auctionItemId: auctionId, bidderEmail: highestBidderEmail }, function (response) {
+        if (response.success) {
+            // Optionally, you can update a status message on the page instead of alerting
+            // $('#statusMessage').text('Payment link has been sent to the highest bidder.');
+            console.log('Payment link has been sent to the highest bidder.');
+        } else {
+            // Optionally, you can log the failure or update a status message
+            // $('#statusMessage').text('Failed to send the payment link. Please try again later.');
+            console.log('Failed to send the payment link. Please try again later.');
+        }
+    });
+
+    emailSent = true; // Set the flag to true after sending the email
+}
+
+
+
+
+
+
+                });
+            } else if (timeLeft > 0) {
+                var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                timerElement.text(minutes + "m " + seconds + "s");
+            }
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    });
+
+    // When the bid form is submitted, update the highest bid for the specific auction item
+    $('.place-bid-form').submit(function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        var form = $(this);
+        var auctionItemId = form.find('input[name="auctionItemId"]').val();
+        var bidAmount = form.find('input[name="bidAmount"]').val();
+
+        $.ajax({
+            url: '@Url.Action("PlaceBid", "Events")',
+            type: 'POST',
+            data: { auctionItemId: auctionItemId, bidAmount: bidAmount },
+            success: function (response) {
+                // Check if the response indicates a successful bid
+                if (response.success) {
+                    updateHighestBid(auctionItemId); // Only update the specific auction item
+                } else {
+                    alert(response.message); // Display error message if bid was not successful
+                }
+            },
+            error: function () {
+                alert('An error occurred while placing the bid. Please try again.');
+            }
+        });
+    });
+});
+    </script>
+
+
+
+
+</body>
+</html>

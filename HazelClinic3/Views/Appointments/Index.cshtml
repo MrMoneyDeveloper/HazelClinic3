@@ -1,0 +1,108 @@
+﻿@model IEnumerable<HazelClinic3.Models.Appointment>
+
+@{
+    ViewBag.Title = "Appointments";
+}
+
+<div class="container">
+    <h2>View Appointments Below:</h2>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Add Treatment Report", "AddHistory", "History", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("View Treatment Report", "ViewHistory", "History", null, new { @class = "btn btn-primary" })
+
+    <p></p>
+
+    <div class="form-group">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search Appointments">
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Appointment ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Animal Name</th>
+                    <th>Animal Type</th>
+                    <th>Appointment Type</th>
+                    <th>Pet Species</th>
+                    <th>Services</th>
+                    <th>Vaccines</th>
+                    <th>Appointment Date</th>
+                    <th>Appointment Time</th>
+                    <th>Appointment Type</th>
+                    <th>Vaccine Cost</th>
+                    <th>Consultation Cost</th>
+                    <th>Total Fee</th>
+                    <th>Actions</th>
+                    <th>Appointment Type</th>
+                    <th>Vaccine Cost</th>
+                    <th>Consultation Cost</th>
+                    <th>Total Fee</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.AppointmentId)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AnimalName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AnimalType)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AppointmentType)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PetSpecies)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ConsultationType)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Corona)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DPV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Rabies)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Clostridial)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Leptospirosis)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Brucellosis)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AppoinmentDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AppointmentTime)</td>
+                        <td>@Html.DisplayFor(modelItem => item.AppType)</td>
+                        <td>@Html.DisplayFor(modelItem => item.VaccineCost)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ConsultationCost)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TotalFee)</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.AppointmentId }, new { @class = "btn btn-primary btn-sm" }) |
+                            &nbsp;
+                            @Html.ActionLink("Delete", "Delete", new { id = item.AppointmentId }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        @Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })
+        <script>
+
+
+            document.getElementById('searchInput').addEventListener('input', function () {
+                var searchTerm = this.value.toLowerCase();
+                var rows = document.querySelectorAll('table tbody tr');
+
+                rows.forEach(function (row) {
+                    var cells = row.querySelectorAll('td');
+                    var found = false;
+
+                    cells.forEach(function (cell) {
+                        if (cell.textContent.toLowerCase().includes(searchTerm)) {
+                            found = true;
+                        }
+                    });
+
+                    if (found) {
+                        row.style.display = 'table-row';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+
+    </div>
+</div>

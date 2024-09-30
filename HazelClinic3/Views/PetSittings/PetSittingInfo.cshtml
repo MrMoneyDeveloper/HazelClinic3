@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "PetSittingInfo";
+}
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    p {
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    /* Centering the headings */
+    .centered-text {
+        text-align: center; /* Horizontally center text */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    .left-column, .right-column {
+        width: 50%;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    .background-container {
+        background: linear-gradient(135deg, #b0e0e6 0%, #b0e0e6 50%, #eaeaea 50%, #eaeaea 100%);
+        padding: 20px; /* Adjust the padding as needed */
+    }
+
+    .centered-button-container {
+        text-align: center; /* Center-align the content horizontally */
+    }
+
+        .centered-button-container button {
+            /* Add any additional styling for the button if needed */
+        }
+
+
+    .black-outline-button {
+        background-color: transparent;
+        border: 2px solid black;
+        color: black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+
+
+        .black-outline-button:hover {
+            background-color: black;
+            color: white;
+        }
+</style>
+
+<div class="centered-text">
+    <h2><u>Welcome to Hazel View Pet Sitting</u></h2>
+</div>
+<br />
+
+<img src="https://www.care.com/c/wp-content/uploads/sites/2/2021/09/GettyImages-1206987379-1623x1080.jpg.optimal.jpg" alt="Image" align="left" width="350" height="240">
+
+<img src="https://i.ytimg.com/vi/kT7LqCA4ytM/maxresdefault.jpg" alt="Image" align="right" width="350" height="240">
+
+<center>
+    <img src="https://www.caninejournal.com/wp-content/uploads/group-of-dog-sitters-walking-a-pack-of-dogs-on-leashes.jpg.webp" alt="Image" align="middle" width="350" height="240">
+</center>
+
+<br />
+<body>
+    <p style="font-size: 18px;"> At Hazel View, we believe that the well-being of your pets goes beyond just meeting their basic needs. It's about fostering a sense of security and happiness for your furry companions. Our commitment extends to creating a seamless and personalized experience for every pet in our care. We go the extra mile to ensure they not only feel safe but also enjoy their time with us. From cozy cuddles and playtime to the peace of a familiar environment, we prioritize your pet's contentment throughout their stay with us.</p>
+    <p style="font-size: 18px;">Our team, composed of passionate animal lovers, is trained to understand the unique personalities and requirements of each pet. We pride ourselves on the quality of our service, attention to detail, and unwavering dedication to your pet's happiness. Whether you have a rambunctious puppy, a senior cat, or any furry friend in between, we adapt to their individual needs. With us, you can confidently embark on your travels, knowing that your pets are not just in good hands but in loving ones. Trust Hazel View for the ultimate pet sitting experience.</p>
+</body>
+
+<div class="centered-text">
+    <h2><u>Services We Offer</u></h2>
+</div>
+<br />
+
+<div class="background-container">
+    <table align="center" cellpadding="0" cellspacing="0" width="50%">
+        <tr>
+            <td>
+                <ul style="padding-left: 80px; font-size: 18px;">
+                    <li>Feeding</li>
+                    <li>Play and Companionship</li>
+                    <li>Walks and Exercise</li>
+                    <li>Litter Box Maintenance</li>
+                </ul>
+            </td>
+            <td>
+                <ul style="padding-left: 180px; font-size: 18px;">
+                    <li>Medication Administration</li>
+                    <li>Overnight Pet Sitting</li>
+                    <li>Pet Updates</li>
+                    <li>Customized Care</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<div class="centered-text">
+    <h2><u>Our Pet Sitters</u></h2>
+</div>
+<br />
+
+<center>
+    <img src="https://www.peggyadams.org/sites/default/files/images/2022-11/Untitled%20design%20%2896%29.png" alt="Image" align="middle" width="1000" height="500">
+</center>
+
+<br />
+<div class="centered-button-container">
+    <div class="text-center">
+        <!-- Add the "text-center" class to center the button horizontally -->
+        <button id="requestPetSitterButton" class="black-outline-button">
+            Request Pet Sitter
+        </button>
+    </div>
+</div>
+
+
+<!-- Add a JavaScript click event handler to navigate to the "Create" view -->
+<script>
+    document.getElementById("requestPetSitterButton").addEventListener("click", function () {
+        window.location.href = '@Url.Action("Create", "PetSittings")';
+    });
+</script>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<HazelClinic3.Models.Volunteer>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>VolunteerId</th>
+            <th>Full Name</th>
+            <th>Volunteer Type</th>
+            <th>Availability</th>
+            <th>Volunteer Day(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var volunteer in Model)
+        {
+            <tr>
+                <td>@volunteer.VolunteerId</td>
+                <td>@volunteer.FullName</td>
+                <td>@volunteer.VolunteerType</td>
+                <td>@volunteer.Availability</td>
+                <td>
+                    @if (volunteer.AssignedDay.HasValue)
+                    {
+                        var assignedDay = volunteer.AssignedDay.Value;
+                        @assignedDay.ToString("dddd, MMMM d, yyyy 'at' h tt")<br />
+
+                        if (volunteer.SecondAssignedDay.HasValue)
+                        {
+                            var secondAssignedDay = volunteer.SecondAssignedDay.Value;
+                            @secondAssignedDay.ToString("dddd, MMMM d, yyyy 'at' h tt")
+                        }
+                    }
+                    else
+                    {
+                        @("N/A")
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p></p>
+@Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })
+

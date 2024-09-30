@@ -1,0 +1,257 @@
+﻿@model HazelClinic3.Models.Appointment
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("Create", "Appointments", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <style>
+        h2 {
+            font-size: 3.8em;
+            font-family: 'Sitka Display';
+            margin-top: 10px;
+            margin-bottom: 40px;
+            color: #073b6e;
+            text-align: center;
+        }
+
+        h4 {
+            font-family: 'Cascadia Mono';
+            font-size: 1.1em;
+            color: #800000;
+            margin-left: -20px;
+        }
+
+        .row,
+        .form-group {
+            font-family: 'Cascadia Mono';
+            font-size: 1.0em;
+            margin-left: -25px;
+            text-align: left;
+            max-width: 250px;
+        }
+
+        .black-outline-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .black-outline-button {
+            display: inline-block;
+            max-height: 40px;
+            max-width: 200px;
+            margin-left: -20px;
+            background-color: #073b6e;
+            font-family: 'Cascadia Mono';
+            color: #f0e7da;
+            border: 2px solid black;
+            border-radius: 30px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+            .black-outline-button:hover {
+                background-color: black;
+                border-color: black;
+                color: #f0e7da;
+            }
+
+        .control-label {
+            white-space: nowrap;
+            width: auto;
+            padding-right: 10px;
+            margin-left: -20px;
+        }
+
+        .col-md-10 {
+            margin-left: -20px;
+        }
+
+        .checkbox-inline {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+            .checkbox-inline label {
+                margin-left: 5px;
+            }
+    </style>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <h2>Schedule Appointment:</h2>
+
+    {
+
+
+        <div style="text-align: center;">
+            <img src="https://i.ibb.co/sjbMQRC/2023-11-01.png" alt="Right-Aligned Image" align="right" width="450" style="margin-top: 20px;">
+        </div>
+
+        <div style="display: flex; justify-content: space-between;">
+            <div style="width: 45%;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AnimalType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <br />
+                    @Html.RadioButtonFor(x => x.AnimalType, "Domestic Animal", new { id = "DomesticRadio" }) &nbsp; Domestic Animal
+                    <br />
+                    @Html.RadioButtonFor(x => x.AnimalType, "Farm Animal", new { id = "FarmRadio" }) &nbsp; Farm Animal
+                    @Html.ValidationMessageFor(model => model.AnimalType, "", new { @class = "text-danger" })
+                </div>
+
+                <div style="margin-bottom: 20px;"></div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AppointmentType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <br /> @Html.RadioButtonFor(x => x.AppointmentType, "Clinic Visit", new { id = "ClinicVisitRadio" }) &nbsp; Clinic Visit
+                    <br /> @Html.RadioButtonFor(x => x.AppointmentType, "House Call", new { id = "HouseCallRadio" }) &nbsp; House Call
+                    @Html.ValidationMessageFor(x => x.AppointmentType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div style="width: 45%;">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConsultationType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <br />@Html.RadioButtonFor(x => x.ConsultationType, "Consult Only", new { id = "ConsultOnlyRadio" }) &nbsp; Consult Only
+                    <br />@Html.RadioButtonFor(x => x.ConsultationType, "Vaccination and Consult", new { id = "VaxandConsultRadio" }) &nbsp;Vaccination and Consult
+                    @Html.ValidationMessageFor(model => model.ConsultationType, "", new { @class = "text-danger" })
+                </div>
+
+                <!-- Vaccine Types go here -->
+                <label>Vaccine Types:</label>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="checkbox-inline">
+                            @Html.CheckBoxFor(x => x.Corona, new { @class = "vaccine-checkbox" })
+                            <label>Corona</label>
+                            @Html.ValidationMessageFor(model => model.Corona, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="checkbox-inline">
+                            @Html.CheckBoxFor(x => x.Leptospirosis, new { @class = "vaccine-checkbox" })
+                            <label>Leptospirosis</label>
+                            @Html.ValidationMessageFor(model => model.Leptospirosis, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="checkbox-inline">
+                            @Html.CheckBoxFor(x => x.DPV, new { @class = "vaccine-checkbox" })
+                            <label>DPV</label>
+                            @Html.ValidationMessageFor(model => model.DPV, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="checkbox-inline">
+                            @Html.CheckBoxFor(x => x.Clostridial, new { @class = "vaccine-checkbox" })
+                            <label>Clostridial</label>
+                            @Html.ValidationMessageFor(model => model.Clostridial, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="checkbox-inline">
+                            @Html.CheckBoxFor(x => x.Rabies, new { @class = "vaccine-checkbox" })
+                            <label>Rabies</label>
+                            @Html.ValidationMessageFor(model => model.Rabies, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <div class="checkbox-inline">
+                            @Html.CheckBoxFor(x => x.Brucellosis, new { @class = "vaccine-checkbox" })
+                            <label>Brucellosis</label>
+                            @Html.ValidationMessageFor(model => model.Brucellosis, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PetSpecies, "Pet Species", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.PetSpecies, Enumerable.Empty<SelectListItem>(), new { @class = "form-control", id = "petSpeciesDropdown" })
+                @Html.ValidationMessageFor(model => model.PetSpecies, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;"></div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppoinmentDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AppoinmentDate, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd") } })
+                @Html.ValidationMessageFor(model => model.AppoinmentDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @functions {
+            public List<SelectListItem> GetTimeOptions()
+            {
+                return new List<SelectListItem>
+                                {
+                new SelectListItem { Text = "08:00 AM", Value = "08:00" },
+                new SelectListItem { Text = "09:00 AM", Value = "09:00" },
+                new SelectListItem { Text = "10:00 AM", Value = "10:00" },
+                new SelectListItem { Text = "11:00 AM", Value = "11:00" },
+                new SelectListItem { Text = "12:00 PM", Value = "12:00" },
+                new SelectListItem { Text = "01:00 PM", Value = "13:00" },
+                new SelectListItem { Text = "02:00 PM", Value = "14:00" },
+                new SelectListItem { Text = "03:00 PM", Value = "15:00" },
+                new SelectListItem { Text = "04:00 PM", Value = "16:00" },
+                new SelectListItem { Text = "05:00 PM", Value = "17:00" }
+            };
+            }
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AppointmentTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(x => x.AppointmentTime, GetTimeOptions(), new { @class = "form-control", id = "appointmentTimeDropdown" })
+                @Html.ValidationMessageFor(model => model.AppointmentTime, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PromoCode, "Promo Code:", new { @class = "control-label required-label" })
+            <div>
+                @Html.EditorFor(model => model.PromoCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PromoCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;"></div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Book Appointment" class="black-outline-button" />
+                <div id="vaccine-error" class="text-danger"></div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/Scripts/AppointmentFunctions.js"></script>
+    }
+}

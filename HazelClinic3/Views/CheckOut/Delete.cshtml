@@ -1,0 +1,35 @@
+﻿@model HazelClinic3.Models.Checkout
+
+<h2>Delete Check-Out</h2>
+
+<p>Are you sure you want to delete this check-in record?</p>
+
+<table class="table">
+    <tr>
+        <th>Pet ID</th>
+        <td>@Model.PetId</td>
+    </tr>
+    <tr>
+        <th>First Name</th>
+        <td>@Model.FirstName</td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td>@Model.LastName</td>
+    </tr>
+    <tr>
+        <th>Contact Number</th>
+        <td>@Model.ContactNumber</td>
+    </tr>
+    <tr>
+        <th>Emergency Contact Number</th>
+        <td>@Model.EmergencyContactNumber</td>
+    </tr>
+</table>
+
+@using (Html.BeginForm("DeleteConfirmed", "CheckOut", new { id = Model.PetId }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    @Html.ActionLink("Cancel", "ViewCheckIn", "Check", null, new { @class = "btn btn-default" })
+}

@@ -1,0 +1,111 @@
+﻿@model HazelClinic3.Models.Rating
+
+@{
+    ViewBag.Title = "Rate Driver";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RateDriver</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .rating {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+            .rating input[type="radio"] {
+                display: none;
+            }
+
+            .rating label {
+                cursor: pointer;
+                width: 60px;
+                height: 60px;
+                float: right;
+                background-color: transparent;
+            }
+
+                .rating label:before {
+                    content: "\2605";
+                    font-size: 48px;
+                    color: #ddd;
+                }
+
+                .rating input[type="radio"]:checked ~ label:before,
+                .rating label:hover:before,
+                .rating label:hover ~ label:before {
+                    color: #FFD700;
+                }
+
+                .rating label.selected:before {
+                    color: #FFD700;
+                }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #45a049;
+            }
+    </style>
+</head>
+<body>
+
+    @using (Html.BeginForm("RateDelivery", "Home", FormMethod.Post))
+    {
+        <div>
+            <h2>Please rate your Delivery:</h2>
+            <div class="rating">
+                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+            </div>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Email, "Your Email:")
+            <br />
+            @Html.TextBoxFor(model => model.Email, new { @required = "required" })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+        <div>
+            @Html.LabelFor(model => model.Note, "Additional Note (Optional):")
+            <br />
+            @Html.TextAreaFor(model => model.Note, new { rows = "4", cols = "50" })
+            @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+        </div>
+        <button type="submit">Submit Rating</button>
+
+        <p>your feedback is greatly appreciated</p>
+    }
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('.rating input').click(function () {
+                    $('.rating label').removeClass('selected');
+                    $(this).closest('label').addClass('selected');
+                });
+            });
+        </script>
+    }
+</body>
+</html>

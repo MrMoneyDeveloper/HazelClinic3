@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Check-Out Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .centered-container {
+        margin: auto;
+        max-width: 600px; /* Adjust the max width as needed */
+    }
+
+    .centered-button {
+        display: block; /* Makes the button a block element */
+        width: fit-content;
+        margin: 20px auto; /* Centers the button horizontally and adds space above and below */
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="centered-container">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Check-Out Successful!</h4>
+            <p>Your check-out has been successfully recorded. We hope you had a pleasant experience at SPCA.</p>
+            <hr>
+        </div>
+        @Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary centered-button" })
+    </div>
+</div>

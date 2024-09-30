@@ -1,0 +1,77 @@
+﻿@model List<HazelClinic3.Models.AdoptionRequest>
+
+<h2>Assign Inspector For Adoption Request:</h2>
+@Html.ActionLink("Inspection Feedback", "InspecFB", "PetAdoption", null, new { @class = "btn btn-secondary" })
+@using (Html.BeginForm("ViewAdoptions", "PetAdoption", FormMethod.Get))
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Adopter Interested</th>
+                    <th>Full Name</th>
+                    <th>Contact Number</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Assign Inspector and Set Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model)
+                {
+                    if (request.InspectorId == null || request.InspectorId == 0)
+                    {
+                        <tr>
+                            <td>@request.ID</td>
+                            <td>@request.Adopterinterested</td>
+                            <td>@request.AdopterFName</td>
+                            <td>@request.AdopterNo</td>
+                            <td>@request.AdopterEmail</td>
+                            <td>@request.Address</td>
+                            <td>
+                                @using (Html.BeginForm("AssignInspector", "PetAdoption", FormMethod.Post, new { @class = "form-inline" }))
+                                {
+                                    <select class="form-control" name="inspector">
+                                        <option value="">Select Inspector</option>
+                                        <option value="1" @(request.InspectorId == 1 ? "selected" : "")>Inspector 1</option>
+                                        <option value="2" @(request.InspectorId == 2 ? "selected" : "")>Inspector 2</option>
+                                        <option value="3" @(request.InspectorId == 3 ? "selected" : "")>Inspector 3</option>
+                                    </select>
+                                    <input type="hidden" name="ID" value="@request.ID" />
+                                    <input type="date" name="inspectionDate" class="form-control date-input" required />
+                                    <button type="submit" class="btn btn-info">Assign</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    @Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var dateInputs = document.querySelectorAll('.date-input'); // Select all inputs
+            var today = new Date();
+            var maxDate = new Date();
+            maxDate.setDate(today.getDate() + 6); // Set max range to 6 days ahead
+
+            // Adjust maxDate to skip Sundays
+            while (maxDate.getDay() === 0) { // 0 is Sunday
+                maxDate.setDate(maxDate.getDate() - 1);
+            }
+
+            var minDate = today.toISOString().split('T')[0];
+            var maxDateISO = maxDate.toISOString().split('T')[0];
+
+            dateInputs.forEach(function (input) {
+                input.min = minDate;
+                input.max = maxDateISO;
+            });
+        });
+    </script>
+}

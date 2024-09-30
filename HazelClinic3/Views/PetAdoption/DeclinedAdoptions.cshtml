@@ -1,0 +1,58 @@
+﻿@model List<HazelClinic3.Models.DeclinedAdoptions>
+
+@{
+    ViewBag.Title = "Declined Adoptions";
+}
+
+<h2>Declined Adoptions</h2>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Adopter Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Inspector ID</th>
+                    <th>Status</th>
+                    <th>Safety Checked</th>
+                    <th>Cleanliness Checked</th>
+                    <th>Space Checked</th>
+                    <th>Provisions Checked</th>
+                    <th>Interactive Family Checked</th>
+                    <th>Fenced Checked</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var adoption in Model)
+                {
+                    <tr>
+                        <td>@adoption.AdopterFName</td>
+                        <td>@adoption.AdopterNo</td>
+                        <td>@adoption.AdopterEmail</td>
+                        <td>@adoption.AdopterMessage</td>
+                        <td>@adoption.InspectorId</td>
+                        <td>@adoption.Status</td>
+                        <td>@adoption.SafetyChecked</td>
+                        <td>@adoption.CleanlinessChecked</td>
+                        <td>@adoption.SpaceChecked</td>
+                        <td>@adoption.ProvisionsChecked</td>
+                        <td>@adoption.InteractiveFamilyChecked</td>
+                        <td>@adoption.FencedChecked</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>No Declined adoptions found.</p>
+}
+
+

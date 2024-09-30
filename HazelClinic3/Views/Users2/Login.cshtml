@@ -1,0 +1,138 @@
+﻿@model HazelClinic3.Models.User1
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        padding: 0; /* Ensuring no default padding is applied */
+        overflow: hidden; /* Preventing scroll bars which can disrupt background sizing */
+    }
+
+    .background-image {
+        /*  background-image: url('https://images.pexels.com/photos/5256151/pexels-photo-5256151.jpeg');*/
+        background-size: cover;
+        background-position: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        /* Keeps the background behind all other content */
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        position: relative;
+        background-color: white; /* Light grey background for the container */
+    }
+
+    .login-form {
+        background-color: #f0f0f0; /* Slightly darker light grey for the form */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        width: 400px;
+        text-align: center;
+        z-index: 10;
+    }
+
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .control-label, .form-control, .btn, .button-link {
+        width: 100%;
+    }
+
+    .password-input-container {
+        position: relative;
+    }
+
+    .password-toggle {
+        position: absolute;
+        cursor: pointer;
+        right: 10px;
+        top: 10px;
+        z-index: 20;
+    }
+
+    .button-link {
+        background-color: #002244;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 4px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+</style>
+
+<div class="background-image"></div>
+<div class="login-container">
+    <div class="login-form">
+        <h4 id="title">Enter Your Registration Details To Log Into Your Account</h4>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                <div class="password-input-container">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                    <span class="password-toggle" onclick="togglePasswordVisibility(this)"><i class="fa fa-eye"></i></span>
+                </div>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Log In" class="btn btn-default" style="background-color: #002244; color: white; " />
+            </div>
+
+            @Html.ActionLink("Forgot Password", "ForgotPassword", "Users2", null, new { @class = "button-link" })
+        }
+
+        <script>
+            function togglePasswordVisibility(icon) {
+                var input = icon.previousElementSibling;
+                if (input.type === "password") {
+                    input.type = "text";
+                    icon.innerHTML = '<i class="fa fa-eye-slash"></i>';
+                } else {
+                    input.type = "password";
+                    icon.innerHTML = '<i class="fa fa-eye"></i>';
+                }
+            }
+        </script>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

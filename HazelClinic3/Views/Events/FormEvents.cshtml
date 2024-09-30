@@ -1,0 +1,57 @@
+﻿@model HazelClinic3.Models.RsvpModel
+
+@{
+    ViewBag.Title = "RSVP Below:";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("SubmitRsvp", "Events", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName)
+        @Html.TextBoxFor(model => model.FullName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone)
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label>RSVP for Events:</label>
+    </div>
+
+    <div class="form-check">
+        @Html.LabelFor(model => model.PetTalentShow, new { @class = "form-check-label" })
+        @Html.CheckBoxFor(model => model.PetTalentShow, new { @class = "form-check-input" })
+    </div>
+
+    <div class="form-check">
+        @Html.LabelFor(model => model.PetParty, new { @class = "form-check-label" })
+        @Html.CheckBoxFor(model => model.PetParty, new { @class = "form-check-input" })
+    </div>
+
+    <div class="form-check">
+        @Html.LabelFor(model => model.CharityAuction, new { @class = "form-check-label" })
+        @Html.CheckBoxFor(model => model.CharityAuction, new { @class = "form-check-input" })
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="RSVP" class="btn btn-primary" />
+    </div>
+    <p></p>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+}
+

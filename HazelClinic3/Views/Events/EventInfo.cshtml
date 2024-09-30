@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = " ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/styles/styles.css" rel="stylesheet" type="text/css" />
+    <style>
+        .events-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .event {
+            flex: 0 0 calc(33.333% - 20px);
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .event img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+            }
+
+        .event-details {
+            padding: 20px;
+        }
+
+        .btn-rsvp {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .center-button {
+            text-align: center;
+        }
+
+        .event-price {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        header {
+            text-align: center; 
+            background-color: #87CEEB;
+            color: #fff; 
+            padding: 20px 0; 
+        }
+
+        h1 {
+            font-size: 36px; 
+            margin: 0; 
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Upcoming Events:</h1>
+    </header>
+
+    
+    <footer>
+        <p>&copy; @DateTime.Now.Year HazelView Clinic</p>
+    </footer>
+</body>
+</html>
+

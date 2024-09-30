@@ -1,0 +1,130 @@
+﻿@model IEnumerable<HazelClinic3.Models.Event>
+
+@{
+    ViewBag.Title = "Upcoming Events";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/styles/styles.css" rel="stylesheet" type="text/css" />
+    <style>
+        .events-container {
+            display: flex;
+
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .event {
+            flex: 0 0 calc(33.333% - 20px);
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            max-width: 300px;
+        }
+
+            .event img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+        .event-details {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .btn-rsvp {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #003366;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .center-button {
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .event-price {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        header {
+            text-align: center;
+            background-color: #003366;
+            color: #fff;
+            padding: 20px 0;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+        .btn-dashboard {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Upcoming Events:</h1>
+        <div>
+            @Html.ActionLink("Back To My Dashboard", "LoggedIn", "Users2", null, new { @class = "btn-dashboard" })
+        </div>
+        <br />
+    </header>
+
+    <div class="events-container">
+        @foreach (var @events in Model)
+        {
+            <div class="event">
+                @if (@events.Image != null)
+                {
+                    <img src="data:image;base64,@Convert.ToBase64String(@events.Image)" alt="@events.EventName" />
+                    }
+            <div class="event-details">
+                <h2>@events.EventName</h2>
+                <p><strong>Date:</strong> @events.EventDate.ToString("MMMM dd, yyyy")</p>
+                <p><strong>Time:</strong> @events.EventTime.ToString(@"hh\:mm")</p>
+                <p><strong>Location:</strong> @events.EventLocation</p>
+                <p><strong>Price:</strong> @events.EventPrice.ToString("C")</p>
+                <p><strong>Limit of Attendees:</strong> @events.LimitOfAttendees</p>
+                <p><strong>Pets Allowed:</strong> @events.ArePetsAllowed ? "Yes" : "No"</p>
+
+                <div class="center-button">
+                    <a href="@Url.Action("BookEvent", "Events", new { id = @events.Id })" class="btn-rsvp">Book Event</a>
+                    @if (Session["HasPurchasedTicket"] != null && (bool)Session["HasPurchasedTicket"])
+                    {
+                        <a href="@Url.Action("Content", "Events", new { id = events.Id })" class="btn-rsvp">My Purchased Tickets</a>
+                    }
+                </div>
+
+            </div>
+            </div>
+                    }
+    </div>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year HazelView Clinic</p>
+    </footer>
+</body>
+</html>

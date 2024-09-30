@@ -1,0 +1,55 @@
+﻿@model List<HazelClinic3.Models.ApprovedAdoptions>
+
+@{
+    ViewBag.Title = "Approved Adoptions";
+}
+
+<h2>Approved Adoptions</h2>
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Adopter ID</th>
+                    <th>Adopter Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Inspector ID</th>
+                    <th>Schedule Delivery</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var adoption in Model)
+                {
+                    <tr>
+                        <td>@adoption.ID</td>
+                        <td>@adoption.AdopterFName</td>
+                        <td>@adoption.AdopterNo</td>
+                        <td>@adoption.AdopterEmail</td>
+                        <td>@adoption.Address</td>
+                        <td>@adoption.InspectorId</td>
+                        <td>
+                            @using (Html.BeginForm("AssignDriver", "PetAdoption", FormMethod.Post))
+                            {
+                                @Html.Hidden("adoptionId", adoption.ID)
+                                var deliveryDate = ViewBag.AdoptionDeliveryDates.ContainsKey(adoption.AdopterEmail) ? ViewBag.AdoptionDeliveryDates[adoption.AdopterEmail]?.ToString("yyyy-MM-dd") : "";
+                                var isDisabled = ViewBag.AdoptionDeliveryDates.ContainsKey(adoption.AdopterEmail);
+
+                                <input type="date" name="deliveryDate" class="delivery-date" min="@DateTime.Now.ToString("yyyy-MM-dd")" value="@deliveryDate" @(isDisabled ? "disabled" : "")>
+                                <button type="submit" class="assign-driver-button" data-adoption-id="@adoption.AdopterEmail" @(isDisabled ? "style=display:none;" : "")>Assign Driver</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>No approved adoptions found.</p>
+}
+

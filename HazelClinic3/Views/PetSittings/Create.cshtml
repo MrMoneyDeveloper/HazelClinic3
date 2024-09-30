@@ -1,0 +1,315 @@
+﻿@model HazelClinic3.Models.PetSitting
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style>
+
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+    }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+
+    .black-outline-button {
+        background-color: transparent;
+        border: 2px solid black;
+        color: black;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+
+
+        .black-outline-button:hover {
+            background-color: black;
+            color: white;
+        }
+
+    .wider-and-taller {
+        width: 300px;
+        height: 100px;
+    }
+
+
+    .image-container {
+        position: absolute;
+        top: 70%;
+        right: 0;
+        transform: translateY(-50%);
+    }
+
+        .image-container img {
+            display: block;
+            margin: 10px;
+        }
+
+    .text-danger {
+        color: red;
+    }
+
+    .image-container {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 10px;
+    }
+
+        .image-container img {
+            display: block;
+        }
+
+    .word-wrap-example {
+        word-wrap: break-word;
+        width: 4000px;
+    }
+
+    .centered-button-container {
+        text-align: center;
+    }
+
+        .centered-button-container button {
+        }
+
+
+    .centered-checkbox {
+        text-align: center;
+    }
+
+
+    .centered-content {
+        text-align: center;
+        display: block;
+    }
+</style>
+
+<h2>Book a Pet-Sitter Below:</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="image-container">
+        <img src="https://i.pinimg.com/736x/7e/e5/09/7ee509542b577d62624807cf7af98095.jpg" alt="Right-Aligned Image" width="500">
+    </div>
+
+
+    <br />
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="word-wrap-example">
+                @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="word-wrap-example">
+            @Html.LabelFor(model => model.CellNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CellNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CellNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="word-wrap-example">
+            @Html.LabelFor(model => model.EmergencyContactName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmergencyContactName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmergencyContactName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="word-wrap-example">
+            @Html.LabelFor(model => model.EmergencyContactCellNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmergencyContactCellNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EmergencyContactCellNo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="word-wrap-example">
+            @Html.LabelFor(model => model.ResAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ResAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="word-wrap-example">
+            @Html.LabelFor(model => model.PetName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PetName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PetName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="word-wrap-example">
+            @Html.LabelFor(model => model.PetType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.PetType, new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Dog" },
+                    new SelectListItem { Text = "Cat" },
+                    new SelectListItem { Text = "Bird" },
+                    new SelectListItem { Text = "Rabbit" }
+                }, new { @class = "form-control", id = "PetTypeDropdown" })
+                @Html.ValidationMessageFor(model => model.PetType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", id = "StartDateInput" } })
+            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control", id = "EndDateInput" } })
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <div class="word-wrap-example">
+            @Html.LabelFor(model => model.SpecialRequests, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <br />
+                @Html.TextAreaFor(model => model.SpecialRequests, new { @class = "wider-and-taller textarea-top", style = "height: 150px;" })
+                @Html.ValidationMessageFor(model => model.SpecialRequests, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <br />
+    <div class="centered-checkbox">
+        <input type="checkbox" id="TnC" name="TnC" required>
+        <label for="TnC">I agree to the Terms and Conditions</label>
+    </div>
+
+    <br />
+    <div class="centered-button-container">
+        <div class="text-center">
+
+            <button id="Submit" class="black-outline-button">
+                Submit
+            </button>
+        </div>
+    </div>
+    <br />
+}
+
+<div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+
+        var today = new Date().toISOString().split('T')[0];
+
+        document.querySelectorAll('input[type="date"]').forEach(function (input) {
+            input.setAttribute('min', today);
+        });
+    </script>
+
+    <script>
+        document.getElementById("petSittingForm").addEventListener("submit", function (event) {
+            if (!document.getElementById("TnC").checked) {
+                alert("You must agree to the Terms and Conditions before submitting the form.");
+                event.preventDefault();
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var startDateInput = document.getElementById("StartDateInput");
+            var endDateInput = document.getElementById("EndDateInput");
+
+            startDateInput.addEventListener("change", function () {
+                endDateInput.min = startDateInput.value;
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var startDateInput = document.getElementById("StartDateInput");
+            var endDateInput = document.getElementById("EndDateInput");
+
+            var currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
+
+            var maxEndDate = new Date();
+            maxEndDate.setMonth(maxEndDate.getMonth() + 1);
+            maxEndDate.setHours(0, 0, 0, 0);
+
+            var maxDate = new Date();
+            maxDate.setMonth(maxDate.getMonth() + 6);
+            maxDate.setHours(0, 0, 0, 0);
+
+            startDateInput.addEventListener("change", function () {
+                endDateInput.min = startDateInput.value;
+                startDateInput.max = maxDate.toISOString().split('T')[0];
+
+                var selectedStartDate = new Date(startDateInput.value);
+                if (selectedStartDate > currentDate) {
+                    var maxEndDateTimestamp = +selectedStartDate + (1000 * 60 * 60 * 24 * 30);
+                    endDateInput.max = new Date(Math.min(maxEndDateTimestamp, +maxEndDate)).toISOString().split('T')[0];
+                } else {
+                    endDateInput.max = maxEndDate.toISOString().split('T')[0];
+                }
+            });
+
+            if (startDateInput.value) {
+                var selectedStartDate = new Date(startDateInput.value);
+                if (selectedStartDate > currentDate) {
+                    var maxEndDateTimestamp = +selectedStartDate + (1000 * 60 * 60 * 24 * 30);
+                    endDateInput.max = new Date(Math.min(maxEndDateTimestamp, +maxEndDate)).toISOString().split('T')[0];
+                } else {
+                    endDateInput.max = maxEndDate.to
+
+    </script>
+</div>

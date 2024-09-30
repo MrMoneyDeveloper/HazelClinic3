@@ -1,0 +1,51 @@
+﻿
+@model HazelClinic3.Models.RsvpModel
+
+@{
+    ViewBag.Title = "Delete RSVP";
+}
+
+<h2>Delete RSVP</h2>
+
+<div>
+    <h4>Are you sure you want to delete this RSVP?</h4>
+    <table class="table">
+        <tr>
+            <th>RSVP Number</th>
+            <td>@Model.Rsvpno</td>
+        </tr>
+        <tr>
+            <th>Full Name</th>
+            <td>@Model.FullName</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>@Model.Phone</td>
+        </tr>
+        <tr>
+            <th>Pet Talent Show</th>
+            <td>@Model.PetTalentShow</td>
+        </tr>
+        <tr>
+            <th>Pet Party</th>
+            <td>@Model.PetParty</td>
+        </tr>
+        <tr>
+            <th>Charity Auction</th>
+            <td>@Model.CharityAuction</td>
+        </tr>
+    </table>
+    <hr />
+
+    @Html.ActionLink("Back to List", "ViewRSVP", "Events", null, new { @class = "btn btn-secondary" })
+    <p></p>
+    @using (Html.BeginForm("DeleteConfirmed", "Events", new { id = Model.Rsvpno }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    }
+</div>

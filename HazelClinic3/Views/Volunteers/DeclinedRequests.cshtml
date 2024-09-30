@@ -1,0 +1,39 @@
+﻿@model IEnumerable<HazelClinic3.Models.DeclinedVolunteer>
+
+<h2>Declined Volunteers:</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Cell Number</th>
+            <th>Emergency Contact Name</th>
+            <th>Emergency Contact Cell Number</th>
+            <th>Experience</th>
+            <th>Availability</th>
+            <th>Volunteer Type</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FullName</td>
+                <td>@item.Surname</td>
+                <td>@item.Email</td>
+                <td>@item.CellNo</td>
+                <td>@item.EmergencyContactName</td>
+                <td>@item.EmergencyContactCellNo</td>
+                <td>@item.Experience</td>
+                <td>@item.Availability</td>
+                <td>@item.VolunteerType</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p></p>
+@Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })

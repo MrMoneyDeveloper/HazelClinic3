@@ -1,0 +1,55 @@
+﻿@model IEnumerable<HazelClinic3.Models.AdoptionRequest>
+@{
+    ViewBag.Title = "Inspector Adoptions";
+}
+
+<h2>Your Assigned Adoptions</h2>
+
+<table class="table" style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">ID</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Adopter's Name</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Status</th>
+            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Inspection Checklist</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 8px;">@Html.DisplayFor(modelItem => item.ID)</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">@Html.DisplayFor(modelItem => item.AdopterFName)</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">@Html.DisplayFor(modelItem => item.Status)</td>
+                <td style="border: 1px solid #ddd; padding: 8px;">
+                    @if (!item.IsInspectionComplete)
+                    {
+                        using (Html.BeginForm("UpdateStatus", "PetAdoption", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                            <input type="hidden" name="adoptionId" value="@item.ID" />
+                            <div style="padding: 8px 0;">
+                                <label style="margin-right: 20px;"><input type="checkbox" name="safety" value="Safety Checked" @(item.SafetyChecked ? "checked='checked'" : "") style="margin-right: 5px;">Safety</label>
+                                <label style="margin-right: 20px;"><input type="checkbox" name="cleanliness" value="Cleanliness Checked" @(item.CleanlinessChecked ? "checked='checked'" : "") style="margin-right: 5px;">Cleanliness</label>
+                                <label><input type="checkbox" name="space" value="Adequate Living Space" @(item.SpaceChecked ? "checked='checked'" : "") style="margin-right: 5px;">Adequate Pet Living Space</label>
+                            </div>
+                            
+                            <div style="padding: 8px 0;">
+                                <label style="margin-right: 20px;"><input type="checkbox" name="provisions" value="Provisions Available" @(item.ProvisionsChecked ? "checked='checked'" : "") style="margin-right: 5px;">Pet Provisions</label>
+                                <label style="margin-right: 20px;"><input type="checkbox" name="interactive" value="Interactive Family" @(item.InteractiveFamilyChecked ? "checked='checked'" : "") style="margin-right: 5px;">Interactive Family</label>
+                                <label><input type="checkbox" name="fenced" value="Fenced Property" @(item.FencedChecked ? "checked='checked'" : "") style="margin-right: 5px;">Fenced Property</label>
+                            </div>
+                            <textarea class="form-control" name="status" placeholder="Enter additional status or comments here" rows="3" style="width: 100%; margin-top: 10px;"></textarea>
+                            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Update Status</button>
+                        }
+                    }
+                    else
+                    {
+                        <p>Inspection Completed. No further updates required.</p>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Back to Dashboard", "Dashboard", "Home", null, new { @class = "btn btn-default", style = "margin-top: 20px;" })

@@ -1,0 +1,275 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Main content */
+    .main-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .centered-text {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 50px; /* Increase font size */
+        color: #00008B; /* Dark blue color */
+        font-weight: bolder; /* Make font bold */
+    }
+
+
+    .background-container {
+        background-color: #f0f0f0;
+        padding: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    /* Container for the cards */
+    .card-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow cards to wrap into a new row */
+        justify-content: space-between; /* Space evenly between cards */
+        margin: 20px auto;
+        width: 90%;
+    }
+
+    /* Style for each flip card */
+    .flip-card {
+        perspective: 1000px; /* Add 3D effect */
+        position: relative;
+        width: 45%; /* Adjust width for two cards in a row */
+        max-width: 600px; /* Ensure cards don't exceed this width */
+        margin: 10px 0; /* Adjust margin as needed */
+        height: 350px; /* Increase height to fit more text */
+    }
+
+    /* Style for the inner part of the flip card */
+    .flip-card-inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: transform 0.6s; /* Smooth flipping animation */
+        transform-style: preserve-3d; /* Maintain 3D effect */
+    }
+
+    /* Style for the front side of the flip card */
+    .flip-card-front, .flip-card-back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        backface-visibility: hidden; /* Hide backside until flip */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0; /* Light grey background */
+        padding: 20px;
+        text-align: center;
+        background-size: cover; /* Ensures image covers entire front */
+        background-position: center; /* Center image */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Optional: add shadow for card */
+    }
+
+    /* Style for the back side of the flip card */
+    .flip-card-back {
+        transform: rotateY(180deg); /* Start flipped to the back */
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 100%; /* Ensures the card fills the entire back area */
+        padding: 50px; /* Adjust padding as needed */
+        text-align: left; /* Align text to the left */
+    }
+
+    /* Style for heading and paragraph inside the flip card */
+    .card-text {
+        height: 100%; /* Ensure text fills the entire card */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .card-text h2 {
+            font-size: 35px; /* Increase font size */
+            margin-bottom: 10px;
+            color: white; /* Change color to white */
+            font-weight: bold; /* Make font bold */
+        }
+
+        .card-text p {
+            font-size: 14px; /* Adjusted font size for paragraphs */
+            margin: 0;
+            text-align: left; /* Align text to the left */
+            height: 100%; /* Ensure text fills the entire card */
+        }
+
+    /* Flip animation effect */
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg); /* Rotate to show back side */
+    }
+
+    .background-container {
+        background-color: #f0f0f0; /* Light grey background */
+        padding: 20px; /* Adjust the padding as needed */
+        width: 90%; /* Equal width for both containers */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Start content at the top */
+        align-items: center;
+        box-sizing: border-box; /* Include padding and border in width */
+    }
+
+        .background-container h2,
+        .background-container p,
+        .background-container ul,
+        .background-container table {
+            text-align: center;
+            width: 100%; /* Ensure elements take full width inside container */
+        }
+
+        .background-container ul {
+            padding-left: 80px; /* Left padding for list items */
+            font-size: 18px;
+            list-style-type: none; /* Remove default list styles */
+        }
+
+        .background-container table {
+            margin-top: 20px; /* Space between paragraphs and table */
+        }
+</style>
+
+
+
+<body>
+    <!-- Main content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="centered-text">
+            About Us
+        </div>
+        <div class="background-container">
+            <p>At SPCA Durban & Coast, your pet's well-being is our top priority. As a full-service veterinary and animal care center, we are dedicated to offering a comprehensive range of services to meet the diverse needs of animals and their owners in our community.</p>
+            <p>At the core of our operations lies a steadfast commitment to providing top-notch veterinary services. Our team of experienced and compassionate veterinarians are skilled at diagnosing and treating a wide array of health conditions with an emphasis on preventative care. Using state-of-the-art technology, we are equipped to perform advanced surgical procedures ensuring your pets receive the best possible treatment to lead a happy and healthy life.</p>
+        </div>
+        <div class="card-container">
+            <!-- Card 1: Pet Boarding -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front" style="background-image: url('https://www.cascadekennels.com/wp-content/uploads/2023/03/tips-for-a-great-pet-boarding-experience.jpg');">
+                        <div class="card-text">
+                            <h2>Pet Boarding</h2>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="behind">
+                            <p>
+                                We understand that sometimes you need a reliable place for your pets when you are away. Our pet boarding services offer a home-away-from-home for your beloved companions, where they receive affectionate care, nutritious meals, and ample playtime in a safe, clean, and comfortable environment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 2: Clinic Appointments -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQICAo84mhLIgJbpZqIBQK3gKDyt8-oM8uB7w&s');">
+                        <div class="card-text">
+                            <h2>Clinic Appointments</h2>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="behind">
+                            <p>
+                                Our clinic offers a range of essential veterinary services including spaying, neutering, and vaccinations. Schedule a consultation with our experienced veterinarians to ensure your pets receive the best preventative care, promoting their health and well-being.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 3: Adoptions -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front" style="background-image: url('https://dogtime.com/wp-content/uploads/sites/12/2021/01/GettyImages-1034613012-e1692376010626.jpg?w=1024'); ">
+                        <div class="card-text">
+                            <h2>Adoptions</h2>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="behind">
+                            <p>
+                                At SPCA Durban & Coast, we firmly believe that every animal deserves a loving home. Our adoption services are designed to connect abandoned and rescued animals with caring families. We facilitate a smooth adoption process and provide necessary guidance to prospective pet parents, fostering a community where love for animals thrives.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 4: Volunteering -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front" style="background-image: url('https://www.spca.nz/Images/Assets/21108/13/');">
+                        <div class="card-text">
+                            <h2>Volunteering</h2>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="behind">
+                            <p>
+                                Join us in making a difference for animals in need through volunteering opportunities at SPCA Durban & Coast. Whether you're passionate about animal care, events, or administrative support, your dedication helps us provide love and shelter to our furry friends awaiting adoption. Discover how you can contribute to our mission of compassion and care today.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 5: Charity Shop -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front" style="background-image: url('https://images.caxton.co.za/wp-content/uploads/sites/73/2020/07/SPCADogBox1_69504_tn.jpg');">
+                        <div class="card-text">
+                            <h2>Charity Shop</h2>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="behind">
+                            <p>
+                                Explore our charity shop at SPCA Durban & Coast, where every purchase supports our mission of caring for animals in need. Discover a wide range of quality goods, from pet supplies to unique finds, knowing that your contribution directly benefits the well-being and rescue efforts of animals in our community. Shop with purpose and make a difference today.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Card 6: Events -->
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front" style="background-image: url('https://dv9b2v6p3dpu5.cloudfront.net/transforms/_1200x630_crop_center-center_82_none/BVSPCA-Events-SEO.jpeg?mtime=1667929859'); ">
+                        <div class="card-text">
+                            <h2>Events</h2>
+                        </div>
+                    </div>
+                    <div class="flip-card-back">
+                        <div class="behind">
+                            <p>
+                                At SPCA Durban & Coast, we host a variety of engaging events throughout the year to connect with our community and support our mission. From adoption drives and fundraising galas to educational workshops and pet-friendly gatherings, our events celebrate the bond between pets and their owners while raising awareness and funds for animal welfare. Join us in creating memorable experiences that make a difference in the lives of animals in need.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+

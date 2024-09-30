@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SPCA Pet Boarding</title>
+
+    <style>
+
+        body {
+            background-color: rgba(240, 231, 218, 0.8);
+            background-image: url("/Content/themes/base/images/background_circle.png");
+            background-size: 150% 85%;
+            background-position: calc(50% + 80px) center;
+            background-repeat: no-repeat;
+            color: black;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+
+
+        .header-container {
+            background-color: transparent;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+
+
+        .heading {
+            font-size: 3.8em;
+            font-family: 'Sitka Display';
+            margin-top: 10px;
+            margin-bottom: 40px;
+            color: #073b6e;
+        }
+
+
+
+        .header-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+
+
+        .content-container {
+            background-color: transparent;
+            width: 100%;
+            padding-top: 350px;
+            text-align: center;
+        }
+
+
+
+        .content {
+            font-family: 'Cascadia Mono';
+            font-size: 1.0em;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+
+
+        .content-2 {
+            font-family: 'Cascadia Mono';
+            font-size: 1.0em;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+
+
+        .content-3 {
+            font-family: 'Cascadia Mono';
+            font-size: 1.0em;
+            text-align: center;
+            font-weight: 800;
+        }
+
+
+
+        .button-container {
+            text-align: center;
+        }
+
+
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-left: 60px;
+            background-color: #073b6e;
+            font-family: 'Cascadia Mono';
+            color: #F0e7da;
+            border: 2px solid black;
+            border-radius: 30px;
+            text-decoration: none;
+            cursor: url('/Content/themes/base/images/pet_cursor.png'), pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+
+
+            .button:hover {
+                background-color: black;
+                color: #F0e7da;
+            }
+
+
+
+        table {
+            table-layout: fixed;
+            border-collapse: collapse;
+            width: 60%;
+            margin: 0 auto;
+            border: 1px solid black;
+            border-radius: 1px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+            padding: 8px;
+            background-color: #d8d0c4;
+            width: 25%;
+        }
+
+
+
+        .table-container {
+            margin-top: 20px;
+        }
+
+
+
+        .image-wrapper {
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 10px;
+            margin-left: 30px;
+            margin-top: -20px;
+        }
+
+
+
+            .image-wrapper img {
+                max-width: 20px;
+                height: auto;
+            }
+
+
+
+        .text-wrapper {
+            display: inline-block;
+            vertical-align: top;
+            margin-top: -18px;
+            font-size: 1.1em;
+        }
+
+
+
+        .image-container {
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: 20px;
+            margin-top: -500px;
+            text-align: right;
+        }
+
+
+
+            .image-container img {
+                max-width: 250px;
+                height: auto;
+                margin-top: 50px;
+                margin-right: 80px;
+            }
+
+
+
+        .custom-text-wrapper {
+            max-width: 200px;
+            text-align: center;
+            margin-top: -150px;
+            margin-left: 950px;
+            font-size: 1.1em;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="header-container">
+
+        <h1 class="heading">Pet Boarding</h1>
+
+        <img src="~/Content/themes/base/images/cat_and_dog_happy_boarding_transparent.png" alt="happy animals">
+
+    </div>
+
+    <div class="image-container">
+
+        <img src="~/Content/themes/base/images/speech_bubble.png" alt="speech bubble">
+
+    </div>
+
+    <div class="wrapper">
+
+        <div class="image-wrapper">
+
+            <img src="~/Content/themes/base/images/tick_icon.png" alt="tick">
+
+
+
+        </div>
+
+        <div class="text-wrapper">
+
+            <p>Planning on going away</p>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="wrapper">
+
+        <div class="image-wrapper">
+
+            <img src="~/Content/themes/base/images/tick_icon.png" alt="tick">
+
+        </div>
+
+        <div class="text-wrapper">
+
+            <p>Unable to take your pets with you</p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="wrapper">
+
+        <div class="image-wrapper">
+
+            <img src="~/Content/themes/base/images/tick_icon.png" alt="tick">
+
+        </div>
+
+        <div class="text-wrapper">
+
+            <p>Read to let us help</p>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="custom-text-wrapper">
+
+        <p>You make the booking and I'll pack!</p>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="content-container">
+
+        <p class="content">
+
+            We offer temporary boarding facilities for dogs and cats at very reasonable rates. Your pets will receive the best possible care, including regular walks and play in our exercise yard.
+
+        </p>
+
+        <p class="content-2">
+
+            <span style="color: #800000;">PLEASE NOTE:</span> Proof of vaccines must be produced. Animals that are not fully vaccinated will not be admitted under any circumstances. Dogs under 10 months of age cannot be accommodated.
+
+        </p>
+
+        <p class="content-3">
+
+            Please call 031 579-6510 for more information.
+
+        </p>
+
+        <br />
+
+
+
+        <div class="table-container">
+
+            <h2 style="font-size: 1.2em; font-family: 'Mongolian Baiti'; text-decoration: underline; text-align: center; margin-left: 45px; font-family: 'Cascadia Mono'; ">Our Boarding Rates</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Weight</th>
+
+                        <th>Rates</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>2kg-10kg</td>
+
+                        <td>R100</td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>10kg-20kg</td>
+
+                        <td>R120</td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>20kg-40kg</td>
+
+                        <td>R150</td>
+
+                    </tr>
+
+
+
+                    <tr>
+
+                        <td>40kg+</td>
+
+                        <td>R170</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <br />
+
+        <br />
+
+        <div class="button-container">
+            <p>If you have an existing booking, please click the reschedule button below:</p>
+            <a href="@Url.Action("Reschedule")" class="button">Reschedule your Booking</a>
+            <a href="@Url.Action("Bookingform")" class="button">Proceed to Boarding Booking</a>
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

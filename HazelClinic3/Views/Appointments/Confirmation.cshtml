@@ -1,0 +1,81 @@
+﻿@model HazelClinic3.Models.Appointment
+@{
+    ViewBag.Title = "Appointment Confirmation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .details-container {
+        max-height: 400px; /* Adjust based on your preference */
+        overflow-y: auto; /* Enables vertical scrolling */
+        padding: 15px;
+        border: 1px solid #ccc; /* Optional border */
+        border-radius: 5px; /* Rounded corners */
+    }
+
+    .container h2, .container p {
+        margin-bottom: 20px;
+    }
+
+    dt {
+        float: left;
+        clear: left;
+        width: 180px;
+        text-align: left;
+        font-weight: bold;
+        padding-right: 10px;
+    }
+
+    dd {
+        margin: 0 0 10px;
+    }
+
+    .btn-secondary, .btn-success {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container text-center">
+    <h2 class="text-success">Appointment Booking Successful</h2>
+    <p class="lead">Thank you for choosing SPCA Durban!</p>
+    <p>Your booking is successfully processed. Here are the details:</p>
+    <div class="details-container">
+        <h4>Appointment Details:</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Appointment ID:</dt>
+            <dd>@Html.DisplayFor(model => model.AppointmentId)</dd>
+            <dt>@Html.DisplayNameFor(model => model.FullName)</dt>
+            <dd>@Html.DisplayFor(model => model.FullName)</dd>
+            <dt>@Html.DisplayNameFor(model => model.Email)</dt>
+            <dd>@Html.DisplayFor(model => model.Email)</dd>
+            <dt>@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+            <dd>@Html.DisplayFor(model => model.PhoneNumber)</dd>
+            <dt>@Html.DisplayNameFor(model => model.AnimalName)</dt>
+            <dd>@Html.DisplayFor(model => model.AnimalName)</dd>
+            <dt>@Html.DisplayNameFor(model => model.AnimalType)</dt>
+            <dd>@Html.DisplayFor(model => model.AnimalType)</dd>
+            <dt>@Html.DisplayNameFor(model => model.AppointmentType)</dt>
+            <dd>@Html.DisplayFor(model => model.AppointmentType)</dd>
+            <dt>@Html.DisplayNameFor(model => model.PetSpecies)</dt>
+            <dd>@Html.DisplayFor(model => model.PetSpecies)</dd>
+            <dt>@Html.DisplayNameFor(model => model.ConsultationType)</dt>
+            <dd>@Html.DisplayFor(model => model.ConsultationType)</dd>
+            <dt>@Html.DisplayNameFor(model => model.AppoinmentDate)</dt>
+            <dd>@Html.DisplayFor(model => model.AppoinmentDate)</dd>
+            <dt>@Html.DisplayNameFor(model => model.AppointmentTime)</dt>
+            <dd>@Html.DisplayFor(model => model.AppointmentTime)</dd>
+            <dt>@Html.DisplayNameFor(model => model.VaccineCost)</dt>
+            <dd>R @Html.DisplayFor(model => model.VaccineCost)</dd>
+            <dt>@Html.DisplayNameFor(model => model.AppType)</dt>
+            <dd>R @Html.DisplayFor(model => model.AppType)</dd>
+            <dt>@Html.DisplayNameFor(model => model.ConsultationCost)</dt>
+            <dd>R @Html.DisplayFor(model => model.ConsultationCost)</dd>
+            <dt>@Html.DisplayNameFor(model => model.TotalFee)</dt>
+            <dd>R @Html.DisplayFor(model => model.TotalFee)</dd>
+            <a href="@Url.Action("DownloadInvoice", "Appointments", new { Id = Model.AppointmentId})" class="btn btn-success">Download Invoice</a>
+        </dl>
+    </div>
+    <p class="text-muted">Please wait for our call to confirm your booking.</p>
+    @Html.ActionLink("Back to Menu", "LoggedIn", "Users2", null, new { @class = "btn btn-secondary" })
+</div>

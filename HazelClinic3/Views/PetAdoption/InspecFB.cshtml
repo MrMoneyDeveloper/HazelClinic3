@@ -1,0 +1,157 @@
+﻿@model IEnumerable<HazelClinic3.Models.AdoptionRequest>
+@{
+    ViewBag.Title = "Inspector Feedback Overview";
+}
+
+<h2>Inspector Feedback Overview</h2>
+
+<p>Select an Inspector:</p>
+<select id="inspectorSelect" onchange="location.href='?inspectorId='+this.value;">
+    <option value="">-- Select Inspector --</option>
+    @foreach (var inspector in new[] { "1", "2", "3" })
+    {
+        <option value="@inspector">Inspector @inspector</option>
+    }
+</select>
+
+<style>
+    .custom-checkbox {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+
+        .custom-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+            background-color: #fff;
+            border-radius: 4px;
+            border: 2px solid #ccc;
+        }
+
+            .custom-checkbox input[type="checkbox"]:checked + .checkbox-bg {
+                background-color: darkblue;
+                border-color: darkblue;
+            }
+
+        .custom-checkbox .checkbox-bg {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            background: transparent;
+            position: relative;
+        }
+
+    input[type="checkbox"]:disabled + .checkbox-bg {
+        opacity: 0.5;
+    }
+
+    .feedback-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        align-items: center;
+        border-left: 1px solid #ddd;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f8f8f8;
+        }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+    }
+</style>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Adopter's Name</th>
+            <th>Status</th>
+            <th>Feedback Details</th>
+            <th>Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Where(x => x.InspectorId == ViewBag.SelectedInspectorId))
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                <td>@Html.DisplayFor(modelItem => item.AdopterFName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>
+                    <div class="feedback-details">
+                        <div>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" disabled @(item.SafetyChecked ? "checked" : "")>
+                                <span class="checkbox-bg"></span>
+                                Safety Checked
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" disabled @(item.CleanlinessChecked ? "checked" : "")>
+                                <span class="checkbox-bg"></span>
+                                Cleanliness Checked
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" disabled @(item.SpaceChecked ? "checked" : "")>
+                                <span class="checkbox-bg"></span>
+                                Adequate Pet Living Space
+                            </label>
+                        </div>
+                        <div>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" disabled @(item.ProvisionsChecked ? "checked" : "")>
+                                <span class="checkbox-bg"></span> <!-- Corrected class attribute -->
+                                Pet Provisions Available
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" disabled @(item.InteractiveFamilyChecked ? "checked" : "")>
+                                <span class="checkbox-bg"></span> <!-- Corrected class attribute -->
+                                Interactive Family
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" disabled @(item.FencedChecked ? "checked" : "")>
+                                <span class="checkbox-bg"></span> <!-- Corrected class attribute -->
+                                Fenced Property
+                            </label>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <form method="post" action="@Url.Action("Approve", "PetAdoption")">
+                            <input type="hidden" name="adoptionId" value="@item.ID" />
+                            <button type="submit">Approve</button>
+                        </form>
+                        <form method="post" action="@Url.Action("Decline", "PetAdoption")">
+                            <input type="hidden" name="adoptionId" value="@item.ID" />
+                            <button type="submit">Decline</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.getElementById('inspectorSelect').value = '@ViewBag.SelectedInspectorId';
+    </script>
+}

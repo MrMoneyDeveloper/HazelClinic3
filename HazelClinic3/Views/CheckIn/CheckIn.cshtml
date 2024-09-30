@@ -1,0 +1,58 @@
+﻿@model HazelClinic3.Models.Check
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Assuming your Navbar is included here
+}
+
+<style>
+    .centered-form {
+        margin: auto;
+        width: 50%; /* Adjust width as necessary */
+        padding: 10px;
+    }
+</style>
+
+<div class="centered-form">
+    <h2>Check-In Below:</h2>
+    @using (Html.BeginForm("CheckIn", "CheckIn", FormMethod.Post, new { @class = "needs-validation", novalidate = "true" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.BookId, new { @class = "control-label" })
+            @Html.EditorFor(model => model.BookId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BookId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.KennelId, new { @class = "control-label" })
+            @Html.EditorFor(model => model.KennelId, new { @class = "form-control", Value = ViewBag.KennelId, @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.KennelId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })
+            @Html.EditorFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name" })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.LastName, new { @class = "control-label" })
+            @Html.EditorFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name" })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.ContactNumber, new { @class = "control-label" })
+            @Html.EditorFor(model => model.ContactNumber, new { @class = "form-control", placeholder = "Contact Number" })
+            @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(model => model.EmergencyContactNumber, new { @class = "control-label" })
+            @Html.EditorFor(model => model.EmergencyContactNumber, new { @class = "form-control", placeholder = "Emergency Contact Number" })
+            @Html.ValidationMessageFor(model => model.EmergencyContactNumber, "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Check In</button>
+    }
+</div>
+

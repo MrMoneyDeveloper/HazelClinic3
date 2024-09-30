@@ -1,0 +1,403 @@
+﻿@{
+    ViewBag.Title = "VolunteerInfo";
+}
+
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    p {
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    /* Centering the headings */
+    .centered-text {
+        text-align: center; /* Horizontally center text */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    .left-column, .right-column {
+        width: 50%;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    .background-container {
+        background-color: #f0f0f0; /* Light grey background */
+        padding: 20px; /* Adjust the padding as needed */
+        width: 48%; /* Equal width for both containers */
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Start content at the top */
+        align-items: center;
+        box-sizing: border-box; /* Include padding and border in width */
+    }
+
+        .background-container h2,
+        .background-container p,
+        .background-container ul,
+        .background-container table {
+            text-align: center;
+            width: 100%; /* Ensure elements take full width inside container */
+        }
+
+        .background-container ul {
+            padding-left: 80px; /* Left padding for list items */
+            font-size: 18px;
+            list-style-type: none; /* Remove default list styles */
+        }
+
+        .background-container table {
+            margin-top: 20px; /* Space between paragraphs and table */
+        }
+
+    .centered-button-container {
+        text-align: center; /* Center-align the content horizontally */
+    }
+
+    .black-outline-button {
+        background-color: #003366; /* Deep blue color */
+        border: 2px solid #003366; /* Border matching the background color */
+        color: white; /* White text color */
+        font-size: 1.1em; /* Increase the font size */
+        padding: 12px 100px; /* Increase the size of the button */
+        border-radius: 5px; /* Rounded corners */
+        cursor: pointer;
+        display: block;
+        margin: 20px auto; /* Center the button with margin */
+    }
+
+        .black-outline-button:hover {
+            background-color: #002244; /* Darker blue on hover */
+            border-color: #002244; /* Match the border color on hover */
+        }
+
+    /* Navbar styling */
+    .navbar {
+        width: 100%;
+        background-color: #333;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: left;
+            padding: 7px 9px;
+            text-decoration: none;
+        }
+
+            .navbar a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+    /* Adjust body padding to prevent content overlap with navbar */
+    body {
+        padding-top: 120px;
+    }
+
+    /* Container for the cards */
+    .card-container {
+        display: flex;
+        justify-content: space-around; /* Space evenly between cards */
+        margin: 20px auto;
+        width: 90%;
+    }
+
+    /* Style for each flip card */
+    .flip-card {
+        width: 300px;
+        height: 400px;
+        perspective: 1000px; /* Add 3D effect */
+        position: relative;
+    }
+
+    /* Style for the inner part of the flip card */
+    .flip-card-inner {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: transform 0.6s; /* Smooth flipping animation */
+        transform-style: preserve-3d; /* Maintain 3D effect */
+    }
+
+    /* Style for the front side of the flip card */
+    .flip-card-front, .flip-card-back {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        backface-visibility: hidden; /* Hide backside until flip */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #f0f0f0; /* Light grey background */
+        padding: 20px;
+        text-align: center;
+        background-size: cover; /* Ensures image covers entire front */
+        background-position: center; /* Center image */
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Optional: add shadow for card */
+    }
+
+    /* Style for the back side of the flip card */
+    .flip-card-back {
+        transform: rotateY(180deg); /* Start flipped to the back */
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        height: 100%; /* Ensures the card fills the entire back area */
+        padding: 50px; /* Adjust padding as needed */
+        text-align: center; /* Center align text within the card */
+    }
+
+    /* Style for heading and paragraph inside the flip card */
+    .card-text {
+        margin-top: auto; /* Push content to the top */
+    }
+
+        .card-text h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .card-text p {
+            font-size: 16px;
+            color: black;
+        }
+
+    /* Flip animation effect */
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg); /* Rotate to show back side */
+    }
+
+    .background-container2 {
+        background-color: #f0f0f0; /* Light grey background */
+        padding: 20px; /* Adjust padding as needed */
+        margin-bottom: 20px; /* Space below the container */
+        width: 90%; /* Set container width */
+        max-width: 1500px; /* Maximum width of the container */
+        margin: 0 auto; /* Center align container */
+    }
+
+    .centered-text2 {
+        text-align: center;
+        margin-bottom: 10px; /* Space below centered text */
+    }
+</style>
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-secondary">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/Content/themes/base/images/SPCA_logo.png">
+        </a>
+
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li><a class="nav-brand" href="/Home/About">About</a></li>
+                <li><a class="nav-brand" href="/Home/Contact">Contact</a></li>
+                <li><a class="nav-brand" href="/Users2/Logout">Logout</a></li>
+                <li><a href="/Users2/MyProfile" class="nav-brand">My Profile</a></li>
+                <li><a href="/Users2/LoggedIn" class="nav-brand">Back To Home</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="centered-text">
+    <h2>
+        <br />
+        <img src="https://m.media-amazon.com/images/I/41OhOpWzpfL._AC_.jpg" alt="Image at the beginning" style="width: 0.9cm; height: 0.8cm" />
+        Volunteer At The Durban & Coast SPCA
+        <img src="https://m.media-amazon.com/images/I/41OhOpWzpfL._AC_.jpg" alt="Image at the end" style="width: 0.9cm; height: 0.8cm; transform: scaleX(-1);" />
+    </h2>
+</div>
+
+
+<br />
+
+<body>
+    <div class="background-container2">
+        <div class="centered-text2">
+            <h2>Why Volunteer?</h2>
+        </div>
+        <p style="font-size: 18px;">Time is the most precious of commodities in our modern world. Our SPCA relies on the generosity of volunteers to invest their time together with their big hearts to help us fulfill our mission in improving the lives of neglected, abused and unwanted companion animals.</p>
+        <p style="font-size: 18px;">Perhaps you can help by cuddling kitties or walking dogs in your spare time? Maybe you are a book lover who can contribute sorting books at our charity shops? Do you have marketing or fundraising skills that can help us reach more people? Perhaps you’re an educator and have some spare time to help us extend our education outreach programme? Only have time on the weekends? No problem! If you have a skill, we have a need that you can fill.</p>
+        <p style="font-size: 18px;">“Volunteers do not necessarily have the time, they just have the heart.” ~ Elizabeth Andrew</p>
+    </div>
+</body>
+
+
+<br />
+
+<div class="card-container">
+    <!-- Card 1 -->
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front" style="background-image: url('https://images.unsplash.com/photo-1608363789080-2d1f019445fa?q=80&w=1926&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                <div class="card-text">
+                    <h2>Dog Walking</h2>
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="card-text">
+                    <p>
+                        Dogs love going for walks! And signing up as a dog walker means you get to take our shelter dogs out for walks to mingle, have fun and maintain their fitness. Spending time outside with new sights, sounds and smells is the highlight of our dogs' day.
+                    </p>
+
+                    <p>
+                        Walking at the SPCA happens Wed - Sun from 08h30 - 13h30.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front" style="background-image: url('https://images.unsplash.com/photo-1542297248590-62c4f19f133a?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); ">
+                <div class="card-text">
+                    <h2>Cat Cuddling</h2>
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="card-text">
+                    <p>Our kitties love to be cuddled! Help us get them ready for easy adoption by spending time socialising and loving them.<p />
+
+                    <p>You are welcome to attend any day (Mon - Sun) between 10h00 - 15h00.</p>
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front" style="background-image: url('https://images.unsplash.com/photo-1627366247844-b4b5df8854d8?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+
+                <div class="card-text">
+                    <h2>Puppy Training</h2>
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="card-text">
+                    <p>
+                        Come sit, stay and play with rescued pups! We're is on the lookout for volunteers to dedicate an hour or two of their time to help train and love our rescued pups at the SPCA Puppy School.
+                    </p>
+                    <br />
+
+                    <p>
+                        The SPCA Puppy School happens every Wednesday - Sunday from 13h30.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front" style="background-image: url('https://plus.unsplash.com/premium_photo-1663036401821-d60fe33f066f?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+                <div class="card-text">
+                    <h2>Pet Grooming</h2>
+                </div>
+            </div>
+            <div class="flip-card-back">
+                <div class="card-text">
+                    <p>
+                        Volunteers get the chance to pamper our furry friends by signing up for pet grooming. This involves bathing, brushing, and nail trimming to keep our animals clean and healthy. Grooming helps by making our animals ready for adoption.
+                    </p>
+
+                    <p>
+                        Join us for pet grooming sessions every Monday, Wednesday, and Friday from 10:00 to 12:00.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="centered-button-container">
+    <div class="text-center">
+        <br />
+        <!-- Add the "text-center" class to center the button horizontally -->
+        <button id="submitButton" class="black-outline-button">
+            Sign Up Now
+        </button>
+        <br />
+    </div>
+</div>
+<br />
+
+<div style="display: flex; justify-content: space-between; width: 100%; margin-top: 20px;">
+    <div class="background-container equal-height">
+        <h2 class="centered-text">Volunteering at the Kennels</h2>
+
+        <table align="left" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td>
+                    <p style="font-size: 18px; text-align: center;">Help make rescued tails wag! Volunteers are an integral part of the SPCA Kennels and assist with exercising, training, interacting with, and helping make the dogs and puppies more adoptable. The greater our volunteer force, the more quality work can be done with the dogs and puppies in our care. If you love dogs and have some spare time on your hands, we’d love to have you join as a volunteer!</p>
+
+                    <ul style="padding-left: 20px; font-size: 18px;">
+                        <li>Training and Enrichment: Wednesday to Sunday from 13h30 - 16h00</li>
+                        <li>Dog Walking: Wednesday to Sunday from 08h30 - 13h30</li>
+                        <li>Puppy School: Friday and Saturday from 13h30 - 14h30</li>
+                    </ul>
+                    <p style="font-size: 18px; text-align: center;">Volunteers need to have successfully completed a Volunteer Orientation.</p>
+                    <p style="font-size: 18px; text-align: center;">No Volunteer Orientation needed. Please email for any queries <a href="mailto:spcadurbanza@gmail.com">spcadurbanza@gmail.com</a></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="background-container equal-height">
+        <h2 class="centered-text">Volunteering at the Cattery</h2>
+
+
+        <table align="left" cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td>
+                    <p style="font-size: 18px; text-align: center;">Our SPCA kitties love someone to play and give them some love.</p>
+                    <p style="font-size: 18px; text-align: center;">Age restrictions: Volunteers need to be 14 years and older (accompanied by a guardian if under 16 years of age).</p>
+                    <ul style="padding-left: 30px; font-size: 18px;">
+                        <li>Monday to Sunday from 10h00 – 15h00</li>
+                    </ul>
+                    <p style="font-size: 18px; text-align: center;">All information regarding orienation will be emailed to you, for futher queries feel free to send us an email <a href="mailto:spcadurbanza@gmail.com">spcadurbanza@gmail.com</a></p>
+                    <p style="font-size: 18px; text-align: center;">Remember to bring some kitty treats and toys with you!</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+<!-- Add a JavaScript click event handler to navigate to the "Create" view -->
+<script>
+    document.getElementById("submitButton").addEventListener("click", function () {
+        window.location.href = '@Url.Action("Create", "Volunteers")';
+    });
+</script>

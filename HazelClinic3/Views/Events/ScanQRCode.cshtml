@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Scan QR Code";
+}
+
+<h2>Scan QR Code</h2>
+
+<div id="qr-reader" style="width: 500px"></div>
+<button id="start-scanning" class="btn btn-primary">Start Scanning</button>
+
+<!-- Placeholder to display user information -->
+<div id="user-info" style="margin-top: 20px;"></div>
+
+<!-- Include the html5-qrcode library -->
+<script src="~/Content/js/html5-qrcode.min.js"></script>
+
+<script type="text/javascript">document.getElementById("start-scanning").addEventListener("click", function () {
+        // Ensure the button is only used once
+        document.getElementById("user-info").innerHTML = "";
+        this.disabled = false;
+
+        // Create the Html5Qrcode scanner
+        const qrCodeScanner = new Html5Qrcode("qr-reader");
+
+        // Start scanning
+        qrCodeScanner.start(
+            { facingMode: "environment" }, // Use the environment-facing camera
+            {
+                fps: 10, // Frame per second
+                qrbox: { width: 250, height: 250 } // Define the scanning box size
+            },
+            qrCodeMessage => {
+                // Process the scanned QR code message
+                console.log("QR Code detected: ", qrCodeMessage);
+                qrCodeScanner.stop().then(() => {
+                    // Make an AJAX call to validate the QR code with your server
+                    fetch("/Events/ValidateQRCode", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ qrCodeText: qrCodeMessage })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Display a title and user information in a table
+                                const userInfoHtml = `
+                                <h3 style="color: green;">Checked In</h3>
+                                <table class="table table-bordered">
+                                    <tr><th>Full Name</th><td>${data.userInfo.FullName}</td></tr>
+                                    <tr><th>Contact Number</th><td>${data.userInfo.ContactNumber}</td></tr>
+                                    <tr><th>Email</th><td>${data.userInfo.Email}</td></tr>
+                                    <tr><th>Event Name</th><td>${data.userInfo.EventName}</td></tr>
+                                    <tr><th>Event Date</th><td>${data.userInfo.EventDate}</td></tr>
+                                    <tr><th>Event Time</th><td>${data.userInfo.EventTime}</td></tr>
+                                    <tr><th>Event Location</th><td>${data.userInfo.EventLocation}</td></tr>
+                                    <tr><th>Ticket Number</th><td>${data.userInfo.TicketNumber}</td></tr>
+                                </table>`;
+                                document.getElementById("user-info").innerHTML = userInfoHtml;
+                            } else {
+                                alert(data.message);
+                                if (data.reload) {
+                                    location.reload();
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error during QR code validation:", error);
+                            alert("An error occurred. Please try again.");
+                            location.reload();
+                        });
+                }).catch((err) => {
+                    console.error("Failed to stop the camera", err);
+                });
+            },
+            errorMessage => {
+                console.warn("QR Code scan failed:", errorMessage);
+            })
+            .catch(err => {
+                console.error("Unable to start QR code scanner", err);
+            });
+    });</script>

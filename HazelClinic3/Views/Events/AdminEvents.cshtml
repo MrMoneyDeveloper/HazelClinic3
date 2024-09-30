@@ -1,0 +1,83 @@
+﻿@model IEnumerable<HazelClinic3.Models.Event>
+@{
+    ViewBag.Title = "Manage Events";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .card {
+            width: 18rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card-img-top {
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .card-body h5 {
+                margin-bottom: 10px;
+            }
+
+            .card-body p {
+                margin-bottom: 15px;
+            }
+
+        .btn-custom {
+            width: 100%;
+            margin-bottom: 10px;
+            background-color: #003366;
+            color: white;
+        }
+        .btn-dashboard {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Manage Events</h2>
+    <br />
+    <div>
+        @Html.ActionLink("Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn-dashboard" })
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        @foreach (var events in Model)
+        {
+            <div class="col-md-3">
+                <div class="card">
+                    <img class="card-img-top" src="@Url.Action("GetEventImage", "Events", new { id = events.Id })" alt="Event Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@events.EventName</h5>
+                        <p class="card-text">@events.EventDate.ToString("yyyy-MM-dd") @events.EventTime.ToString(@"hh\:mm")</p>
+                        <a href="@Url.Action("Edit", "Events", new { id = events.Id })" class="btn btn-custom">Edit Event</a>
+                        <a href="@Url.Action("AddAuctionItem", "Events", new { eventId = events.Id })" class="btn btn-custom">Add Auction Item</a>
+                        <a href="@Url.Action("AddDocument", "Events", new { eventId = events.Id })" class="btn btn-custom">Upload PDF</a>
+                        <a href="@Url.Action("Content", "Events", new { id = events.Id })" class="btn btn-custom">Content</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

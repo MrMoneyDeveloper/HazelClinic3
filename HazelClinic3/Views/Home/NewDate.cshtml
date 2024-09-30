@@ -1,0 +1,92 @@
+﻿@model HazelClinic3.Models.RescheduleViewModel
+
+@{
+    ViewBag.Title = "NewDate";
+}
+
+<h2>Choose New Boarding Date:</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StartDate, "Start Date:", new { @class = "control-label required-label" })
+                            @Html.TextBoxFor(model => model.StartDate, new { @class = "datepicker form-control", id = "start-date", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "field-validation-valid text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EndDate, "End Date:", new { @class = "control-label required-label" })
+                            @Html.TextBoxFor(model => model.EndDate, new { @class = "datepicker form-control", id = "end-date", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "field-validation-valid text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p></p>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            var startDatePicker = $("#start-date");
+            var endDatePicker = $("#end-date");
+
+            startDatePicker.datepicker({
+                changeMonth: true,
+                minDate: new Date(),
+                onSelect: function (selectedDate) {
+                    endDatePicker.datepicker("option", "minDate", selectedDate);
+                    endDatePicker.datepicker("option", "beforeShowDay", function (date) {
+                        var start = startDatePicker.datepicker("getDate");
+                        return [date.getTime() != start.getTime()];
+                    });
+                }
+            });
+
+            endDatePicker.datepicker({
+                changeMonth: true,
+                minDate: new Date(),
+                onSelect: function (selectedDate) {
+                }
+            });
+        });
+
+
+
+
+
+    </script>
+}

@@ -1,0 +1,290 @@
+﻿
+@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .jumbotron {
+        background: none;
+        color: #333;
+        text-align: center;
+        padding: 40px;
+        margin-bottom: 20px;
+        margin-top: 50px;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .col-md-4 {
+        flex-basis: calc(33.33% - 20px);
+    }
+
+    .card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #ddd;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .card img {
+            max-width: 100%;
+            max-height: 100px;
+            object-fit: contain;
+        }
+
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .card-text {
+        font-size: 14px;
+        color: #555;
+        margin-top: 10px;
+    }
+
+    .btn-card {
+        margin-top: 15px;
+        width: 100%;
+    }
+</style>
+
+<div class="container mt-5">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to Admin Dashboard</h1>
+        <p class="lead">Manage your admin tasks efficiently.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3">
+
+                <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRb6CJRXKxz9zb5_9CX3HiYV6N5PcxEqhNJyDZgHUA7pYMVsLJQ" alt="User Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Users</h5>
+                    <p class="card-text">Manage user accounts.</p>
+                    <a href="@Url.Action("Index", "Users2", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+
+                <img src="https://media.istockphoto.com/id/1400204803/vector/online-booking-vector-illustration-digital-appointment-booking.jpg?s=612x612&w=0&k=20&c=J1YvZPwDNmKPjc2T-pAdJZc1n24SvusQuKNdwVuJOpE=" alt="Booking Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Bookings</h5>
+                    <p class="card-text">Manage booking records.</p>
+                    <a href="@Url.Action("ViewBookings", "Admin", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+
+                <img src="https://static.thenounproject.com/png/3642370-200.png" alt="Appointment Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Appointments</h5>
+                    <p class="card-text">Manage appointment schedules.</p>
+                    <a href="@Url.Action("Index", "Appointments", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAABAlBMVEX////5z8/5p6ekyf83Yszg6/z90c//088lW8zEr879qaaYlM0lXs4rXsy/kbOmy/+PtfQ4ZM3r7/okV8mot+binqyQfr7Z4PQeVMl/ecCnnc11g80tXMrE0O/Wma/l8P61w+qarOKfxP2Jr/FafNTP2PF/mN2Bp+1Vcsyems3y9fxFbM/xy8/LtM5Od9ZyjdnZvM7lw8+8yOyWqeFne81eht2Nj82GnN1ymOa2p85qh9dIcdOs0f92kNpddcxchNzJ3v281v7T5P1/iM3PzOnkzdy0yvfZzeKwoct4n+nLvd2/2P7m3erk4fDwwciqvuuui7eHfL9tc8SdhLzZm667j7WuErVTAAAS10lEQVR4nO2dC1fiyBKAhyGQVukJoblLVpsFERAJooII8tAZnTurd3bX2df//yu3qjsJASLPYNpzqD1n1x2HkC/17O7qzocPoUmlr9ntzObXqR8PtH5+8+uELlmLahonx/XNLlM/plzTqHUczl2FKBlLE0LM7CaXebGJvA7LhXVnYckL3FnT5Mhot9a9SEvwca0JV1FOiW2ukVK8Jxit5lpuVCmjHVCtV4oDZjfsO9xUBKFhlPqUohv1Vzay3AXDT/IOXgUIq9u4y02kC4TxeNww0vfC0shopbBa7xJh4c20YcSNkqkmITPiX//7zRimm3iz3OouHVbrbSY+MjgZGt/++1UQjrZ5t+tIFXRoGLFkEhiNk4G4YS5SRz1TKWaPAyRbrGTEQ3gxhdrtU8P49msyqRslW6MXEQPNyIhr3PgWi8WSsV8Nwzi1kZHZ2XbfZowQHiCEMGZft4sDhnzmM5j4r/DxWFIQ9qMmmpYLqlFBiIxf40b8WaZHTrW5QrlMgD34yFfkg89/U5KwDyQOoWA04j2HjVIejIl/7v6iXzLyjaTz6W/xgUavoyaaFiA0PcKYHjvQ0EzBF+1y7zQdLCenvbLNxd+jWhU+5CcsR000LWVBKLWQ1PeEG1Iy6KUhvc2TeLo3ECrm9q2edAmbahLaDqHeOCLCOjtpwTBX8G+k+1Qkw+uGLgkNFQmhlHQI9XMNixNwreECOo9yWOqJz9A93SXUalETTctA0waCUH9Koc2V08vySU2W7oUaDwEx2TLKUMZHTTQttkOoHxCMkqeLrHOW8RTVSG50QUiVJGwaLV2/AUDeLK3IJxhLWO2RRx0I76k22HAoHbqYkvAA6hPeWVWBrho7XGhRENrqEdKykX9CDfbXA0TEHiIefjU6ChKC85WHMEhEwPX4BKNAbA8VJeyUNGGi6wPG48M+PqQSVkghTNuFKkDYhwhIm+uaqKvFJlykrCBhHdRnY4G5ThSdIITRr7yUaoRykMBPNgQExBMuRx6KEWYEId3MCR3EDlWSUD74TW1UEAo71UgiaqZJEYS8FwKgkzKUI0zgTZlhqBARxbS+YoQ5rLfDUaGjREuxhYsc1iIhqRA8kapHWMGFmWE4gIAItYNqi08tpvHnkFQIhKdcIxut0oUo+UEZF5qqHKrJIMIFEzXBEzliaQan9Sv3g7WX6sKSAaesn/lQgyF+IEH6+WQOo1E6PQ16MMYAKrcPmRGh3I6asIwjQlI1g+sZo0c4b8ZfQzTSlPOgSs+A0pt3cbmGRz7nlumLZT8t0A2NNJtbCBgDLNDsWS2iI4opZdZXIC3mm0wU3c+zk2uyOoHB/yuAsj6j6enfG8NnUZuy9RfMw5UXbMOAoeHMBKIk1JqvEmpBhMawdC8uyBRay++LOyKdKXtbSBikQ6PUI0KDZZXmMbpyaCEWAecQeosVr+vQME5N52JKrXMDoWl7C9VThFQSlkpG63+XIP9rGaVSsA6NYVouH8MgX61VYCQs9cRqoH862DgZx9Lh50Ri35FE4rOo8Awx8TEekjhz+xRqePi3Uiv5gnBY6ohWE9unxA7ku0EpbnxPFBKJxG8fUfZ/gx8Lie/4BDAfno6fiFTgfWloUMWs9BjuDJfSRBsG93viSe+0FP8i+ATi/sePv8mfC4kvGFV6Pi80hA1AEYSjC96OmsovL0TjeKcYJ9hEgsfA8uDwgfz+xx+/e/+TeDAm61bjmWliTcdIK1R6C6nA0OJ0iDTD4VQZWhom5siX0sRflp8HOeEaUyLb1ytSihzq0hMp6UnAL4V5hIXvk4hp5yIdqpGic/EoJ90y1GJCiGytEMLuDT+gBJnFdP/Ij2h03MYbjMpEXtuiEY6Fiyyoi8Q/UHQAu53WNGO1X5G/8xmqwYOuxyJ0yARzhcjWEtHq5CvSDAmRtThzwFqVgmRm3JbQhfHkh3Hv6FBczbt2lPMZmbwjWbip5qmQE1/h5hhkG+JGHngKFdtibQQrNIHBVeuYMH4ir1EGwKxz6ZYC4ycUrL+GIpaOq7bSZ4cQrXlQTCSKNg4kuw+Jz1UITfcu4WfPTsXHQXCIr1LdjQJqwvYEbEv0hsKGF1UEGaVOSc0p2qFV9FzTtVPjlNonMleo1yOcsEBNw7SY1HA18uCFlbzmxBDq/qCx7jj2PDhKFDVNOT1sqtjJLoaI96Lvx3R06Ev1hUrfEpmknG9TjCbMzPqCqxtsDFv0DUEypMo1DImyRhNji4FTaLpe6KqxXa2285AGH7LdUfclMZE9HE+UDSd4GabglpKKKcfAp16kmUqAhYKT5AveT2PxIs2JGGZqpBI1z7RkqmJHCe2NU8Vwbrk2JV+8aGrIvlTrQi1HPMYAgj5076XvKSNdIA9ewsBOEzE7yZfvhN+6tEQnOivLOUWXcBXAcdYXM6WmmIQl2kvUZFLkVhfcC5S3fL0KxmIqv7jRNC0y5Ye8aG9nAwXcsV5lIpuLjQdd0KXphNLvqxF+dwAhXhExQZMVhm+ttjFlG9LHxV+r6txHGQOhQCw9LKbyy4PMFiZOY8hr1bs40UwiX7ewKWVlL+zVMWVLxNUAhSMaaQzHtqe13D2jNPL6tGU3/bMNGRMj4akRnzt3ESCFL1iVYkXkH0rka3bxjYFmZeoRZzBj885quQLlc7wnMk5i7uVVkHoTi297Zky/SId58WjsyAPLMjISgf6isgJj4aEqPxT1vS8pWTkKrOYDJqCC8AqVrhg6UqVmSOdKUU7b0M5LbhEk/P5FbijR+PsBFIttckWR3rdbcjARKInWcUcTq4VUteW0uVLH7SU9OQyinDGz3B9VZ2TUL5uMyW1t3OzBZ+jUdRLZUbnfVqBwm5Ec02hnWHpucnfuglI+I9Tdmsd587k0hEGTNQED9SDBuZ01dk1vXbIEC3Bciuo1+SubDx10znF/m7NSwf3r9pkBcWeYuXJqxCkbMe+NC0snz52mbZqzdKZpNzvPJ+7qE853+3cCifRo2mLJW7VOzA/M38Un16NKAeKsM7l/r0w1Ps73bdRgNldIFEXzfoQ0AZJns01CgZsrJ//GM9eIV+JmiCanyROFhK1cKyYePjDTBLRQjBL35YsLuEbbmbiC7KrWailuY9PWaTXFHOMU2mAGmu1VBVyx8wcSZL1dCdit5y4zge+RF68aMhXrPAGj8rVXrEB44q3dvzDfuk3igSm2ioFnD6y3w9J0zhmoQ5ghea9y7aqypu9I3X69kW2+4IIMFxNaGHM8FWILOYmayi+VgFyxpBKfuVivwJ0N2njwAe4Z5Tr3rOBC4uq5QhCm5bIhIh27KsRcoUXeCT0hePTAmhsvhlDbmdj2T8vjAeSAKrYQlcEwOJx/UsRrgksWVg78mHuzPIVj8tapIrdAYFxBe6+c9LFQcNkJW7/LbgNEvoUDkKL/C7ZchGc0wuU/eIDOxH/knxLujAfXEm/cMR5FyjGW7zvZdlNjNbCl521lqyv8uAdv/MT5gh8X/T7wx+Bfj38G/W7TLbEL5uggUoE4xLY35M9hxR/TI5U9ss3xMBb/t+5ZRxGJfgfj4W3lx4qlabVktICx5Dl2kG2JsAbVxV7EKgQlXsNtFLcCiNXUXeSAseQl2VZbH467z6M2UhD9cUuDjSKo8EgBQFAiJEVzC0rEfTqXKhDG9Bu6jSNqsaJ+jN4LUZIN3MwethJx6iR1pYQKY+I8sdDnpnDkfqOGCkEaUIDzcIdReLAHbUQN5on+RMKeJMaJ+jNlVAgy0LRQNyng7JetjgpBibck3DNcR6DCJ5VUGEvWtKkl440kh334UTNNChbgNLwCvAwZNvqSe1JwFBXaXD924dcUA4TaDZQY1vmY6IUqlNyToh+Fd4YNGGktap5ZSZ6T0MwU5+ljelIxwYQR1nR/G3LP9Z5qcmiGV7llcL8PUU1SWoiFW9FacHR8NEJCnMvIN50dzaILNBWh+HZAs2qoQ8SEXAqCCpz++BSh/EU1syhupbKdDnAY6af+sx+h/ES3MkUzTfgxMhGEW2123xHuCHeEO8Id4Y5wR7gj3BHuCHeEO8Id4Y5wR7gj3BHuCHeEO8Id4Y5wR7gj3BHuCHeEO8Id4Y5wR/jOCddqung3hHivn378/efPq8lP/34M/BblCPc//vKTTVLLbeSekBT9EfQ1ihHuf/xRS63dEZf6KeB7VCIE6/zbTuGtUoKNaNYqwvDk3lSAFtUh3N//z5/iAAGaMo+ezq8aydX2M189wsOh6upwf/+fn4V5cnq0F9P15MpN4kncRpn6NPNNahDu73/6S+iP0Jsrfc0OeNwLS/9eibBeyVb75XK/erxJ2+JiQuCrOXxnjXX5QBpMo7Ox5nXCXNcUxyxSygkzR2s38S8ihPApwwsZPMU24Islr9gqOkxcWBMndnCrvCbjXEIIL3+bKRE978D91seLyb0GASkxmLDeFkeqcGLW7u5qpvgfaq33UrMiEP4STIjh05Svnrw+35BP7jAM+Kb9nwM6aF/Esf7EPrtsxMBsGpdnNXEocX8dd6yA7fwZWGxA+JTpgRxdbmKeLuE11UiAE5gzby+piBP4iX0bc2M2ZKbzmjiQeh1EzMSfAurkX/4SZ+USc/3w6ZdkA6y9Nvs1f03v4k70cR8BNw+TE1aT1A/xj9fZ3JbFvRd/fvplUv6V1Rkxz0LhAxWecQil/0x9zY8aHrTvU4x0QJqCxzpzhXO65oYMfBkQna6lZfi0nzZJD35JNuTrO6ercfgzy7fVSToguwt0C4G41saofuC71iip7emh7eDDfWmBwknRuxHXAfdeeay4MUrT1iD88DJgTOzLGR8QTFPX5+HxxfRD8SrsGWF0/PIZyIDSAV8P2+IAjfV2t+VaxWKxlc9emI7+Hi9XLz3nAOLDJ+3ijOS9TFhv4ylg8MWzDjiW5NVGr/7KtEa2HMelwgmf3n0JDbK5p5cXNZEBgx3Q96icV+5mpiSXny+tYrZbZpY8SR3ybFjhxeG7ukYNztuJvsgBvWs15AtpqwHjz/nieWCKXN82FrrfCpsm9djlDUbMee9ISFzIl7nPcUD3YR3gSbYfMtZykwrTsRMq+Luzq+QS4eV8+U2TjzKvzisp23SxAwrRGzf4rDKCcOpI+IV7Gyk1rw/2GvpS5nm3wqZJKvPq6ycJLOmAaDhP+K4hfDs7ENKjswm5nf+kz88vAW5J5xOnOq0gnA1ef41VpemUoAv5ZGEq4xUQpg6nZkkWOsxScI7cMfLKyfqUTzm4xZrd1/WXGQkHxIH1gq/Ur46Qj8s3gkjCVW55NUnG9g4PjmommwFtjo7zFSc8o+QruXljAZkB2RIOGDsQrwd3X0K1bUIxmEG7uNo7PLLNFBmf4Uk5LbeLc7HGDkiXdsBb8cYTVnb3eW+f0PtqnCW8vL25tilxJ4oxJFv2RbuVmzuB5r7abRkHvBOPYjCu1t6MUN4BYjauzg8f7yjz1CnfY1LNVoK312dGWF3Q1HIOiNUqy/oM420JpYjcHru6PbjWIEf41MnNcrc1PYV0LEvQo6UdkFUnDCIKQinSbM+fHmtgtnysTsuyR9l8Rmohc7yCA2op4YBTjyg6Que+0Gwv9yDcamOzFd7ZH1UvmkxOMt0uylCuAzJ7ZrgUMaFzf2i2jUswW5P5opBULCVLOSB+jFsB5ykqQShFpBVMKgN8UZTkBBu9WczXOBCxiASesqAQoRDPbK9rtj24e9xbODhLxm7lfM0rb01SjVCKNNvGEsW9lwFnHVBpwqVFb8gMaL1+Fua7JgQHFNU4Gc0p/d4xIWRAGw3UKs89mu7dEib1S+mA5oIJw/dK6Jagiw+jfZ+EeuNMZsAlXoj8HgldB2TzHfDdEnoOqBWX4HuHhK4D8mVPg35nhOCAdFkHfI+ESX0VB3x/hJ4D0uLyfO+JUL96ZGIWdMU2kvdC6DogW94B3xWh54DN1U9HfgeEbn8MZMB11qxVJZTribqYvzmryWWI9lo9h0oReljJxtXl5d7T2c3RtdentrIDKkPoUuHaxuX53uHBI07RmFR0ezgTUnzBGFA5wqSrLGy0u7rcuz28ObqzqWxioXRijUr0i15scPz6GxJ6WI2GVBbY4MAkTC4rTy0tckKYRTS7WR5t1PP7BuuHrg2ia53fog3eDWwtJW1wBgub+pnZ7Ffbx8V8LpMJ4azSbRAmx64V82zQ1CgVypq0QYkFeqQDwHpp5ZdbT4yA0BfdwQhBWWeIlWIBNkilDTJugg1edEFZlfnLhxES+qO7sMEbtEHpWjxQWRbTBmVQVrZYySXCsMHlCJ9W2+4x7mjAgHGLyqqBEfqj+xiLSNeym6CsbKuSqNffBGuSULNrE3J9tIxcDwAgIGA4yoI0bdpgg1kMGG/MNEs4JUtuL5sKgwILozvaYAts8K119ZrU1z9v3UlaFsHo3j1+yb+VZ60orfKUDJbjQxM8fmnNb4JRQP4PMAQtMM09U0EAAAAASUVORK5CYII=" alt="Adoption Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Adoption Requests</h5>
+                    <p class="card-text">Manage adoption requests.</p>
+                    <a href="@Url.Action("ViewAdoptions", "PetAdoption", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://media.istockphoto.com/id/1145021938/vector/dog-icon-with-check-sign-labrador-retriever-icon-and-approved-confirm-done-tick-completed.jpg?s=612x612&w=0&k=20&c=ouc1kcBPZXqY9xXnWdIijIBP9mG6QlrDNvJ5OXkZ-qw=" alt="Check-In Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Check-In</h5>
+                    <p class="card-text">Manage check-in records.</p>
+                    <a href="@Url.Action("ViewCheckIn", "CheckIn", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://cdn.iconscout.com/icon/free/png-256/free-dog-website-browser-5917942-5014633.png" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Check-Out</h5>
+                    <p class="card-text">Manage check-out records.</p>
+                    <a href="@Url.Action("ViewCheckOut", "CheckOut", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="data:image/jpeg;base64,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" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Approved Adoptions</h5>
+                    <p class="card-text">Manage</p>
+                    <a href="@Url.Action("ApprovedAdoptions", "PetAdoption", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQYW3zS3_DKYud9Tbh3ciqNs_06gbCaiNQUA&usqp=CAU" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Declined Adoptions</h5>
+                    <p class="card-text">Manage</p>
+                    <a href="@Url.Action("DeclinedAdoptions", "PetAdoption", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="data:image/png;base64,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" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Return Requests</h5>
+                    <p class="card-text">Pet Returns.</p>
+                    <a href="@Url.Action("Returns", "PetAdoption", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://img.freepik.com/premium-vector/volunteering-volunteer-organization-collects-humanitarian-aid-volunteers-are-holding-letters_491047-317.jpg" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">View Volunteer Requests</h5>
+                    <p class="card-text">Volunteers.</p>
+                    <a href="@Url.Action("ViewVolunteerRequests", "Volunteers", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_Xz-lGuE8TV_LkmCnK9BdCiaQFxGdQ9_n6A&s" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Approved Volunteer Requests</h5>
+                    <p class="card-text">Approved Volunteers.</p>
+                    <a href="@Url.Action("ApprovedRequests", "Volunteers", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://st2.depositphotos.com/5266903/8994/i/450/depositphotos_89947314-stock-photo-thumb-down-icon.jpg" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Declined Volunteer Requests</h5>
+                    <p class="card-text">Declined Volunteers.</p>
+                    <a href="@Url.Action("DeclinedRequests", "Volunteers", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2n-0G9yktzpiKnoMQQpTo5Kedd4VPE3qOPg&s" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Volunteer Distribution Chart</h5>
+                    <p class="card-text">Volunteer Positions.</p>
+                    <a href="@Url.Action("VolunteerTypeChart", "Volunteers", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://images.pexels.com/photos/6001546/pexels-photo-6001546.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Events</h5>
+                    <p class="card-text"></p>
+                    <a href="@Url.Action("Create", "Events", new { area = "" })" class="btn btn-primary btn-block btn-card">Schedule Event</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe-1gA46yvsFdzd11sl3k4Ro_oW16l7XqjDA&usqp=CAU" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Events Planner</h5>
+                    <p class="card-text">Manage Events</p>
+                    <a href="@Url.Action("AdminEvents", "Events", new { area = "" })" class="btn btn-primary btn-block btn-card">View</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/2925/2925817.png" alt="QR Code Scan Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Scan QR Code</h5>
+                    <p class="card-text">Scan and validate event tickets.</p>
+                    <a href="@Url.Action("ScanQRCode", "Events", new { area = "" })" class="btn btn-primary btn-block btn-card">Scan</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="~/Content/themes/base/images/surveyresult.jpg" alt="Check-Out Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Survey Results</h5>
+                    <p class="card-text">View the survey results.</p>
+                    <a href="@Url.Action("SurveyResults", "Admin")" class="btn btn-primary">View Survey Results</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="https://cdn-icons-png.flaticon.com/512/2925/2925817.png" alt="QR Code Scan Icon" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">Scan QR Code</h5>
+                    <p class="card-text">Scan and validate package QR codes.</p>
+                    <a href="@Url.Action("ScanPackage", "LocationList")" class="btn btn-primary">Go to Scan Package</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    document.getElementById('sendSurveyBtn').addEventListener('click', function () {
+        // Make an AJAX request to the server-side method to send the email
+        $.ajax({
+            url: '@Url.Action("SendSurveyEmail", "Home")', // Make sure you have this action in your AdminController
+            type: 'POST',
+            success: function (response) {
+                alert('Survey email sent successfully!');
+            },
+            error: function (error) {
+                alert('Failed to send survey email. Please try again.');
+            }
+        });
+    });
+</script>

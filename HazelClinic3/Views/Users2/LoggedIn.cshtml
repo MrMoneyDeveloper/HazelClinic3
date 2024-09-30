@@ -1,0 +1,139 @@
+﻿@model HazelClinic3.Models.DashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card-body {
+        height: 250px;
+    }
+
+    .kennel-img {
+        max-width: 150px; /* Adjust the size as needed */
+        position: fixed;
+        right: 10px; /* Position to the right */
+        top: 100px; /* Adjust based on header/nav bar height */
+    }
+
+    .container h2, .container p {
+        text-align: center;
+        font-size: 1.2em; /* Slightly increase the font size */
+    }
+
+    .btn {
+        font-size: 1.2em; /* Increase the font size of buttons */
+        padding: 8px 12px; /* Increase the size of buttons */
+        background-color: #003366; /* Deeper blue color */
+        margin-top: 35px; /* Add more space between card titles and buttons */
+        display: block; /* Make the button a block element */
+        margin-left: auto; /* Center the button horizontally */
+        margin-right: auto; /* Center the button horizontally */
+    }
+
+        .btn:hover {
+            background-color: #002244; /* Darker blue on hover */
+        }
+
+    .card-title {
+        font-size: 1.5em; /* Slightly increase the font size of card titles */
+        text-align: center; /* Centralize the card titles */
+    }
+
+    .card-text {
+        font-size: 1.1em; /* Slightly increase the font size of card text */
+        text-align: center;
+    }
+
+    .row {
+        justify-content: center;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h2>Welcome to your Dashboard</h2>
+            @if (Model != null && !string.IsNullOrEmpty(Model.PetName))
+            {
+                <p>Currently selected pet: @Model.PetName</p>
+            }
+            else
+            {
+                <p>No pet selected.</p>
+            }
+            <img src="https://i.postimg.cc/qRMDx9MV/Screenshot-12.png" class="img-fluid rounded mx-auto d-block mt-4" style="max-width: 700px;">
+            <p>Please choose an option below:</p>
+        </div>
+    </div>
+
+    <div style="position: fixed; right: 10px; top: 100px; width: 150px;">
+        @Html.Partial("_UserSwitcher", Model)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="https://media.istockphoto.com/id/511105254/photo/dog-kennel.jpg?s=612x612&w=0&k=20&c=Tspg82MafVo2dQ87H7EY8YF9kA1jK4dM_9slYzomNSA=" class="card-img-top" alt="Booking">
+            <div class="card-body">
+                <h5 class="card-title">Pet Boarding Service</h5>
+
+                <a href="@Url.Action("BookingInfo", "Home")" class="btn btn-primary btn-block">Book A Boarding</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="https://media.istockphoto.com/id/1303362255/photo/young-happy-veterinary-nurse-smiling-while-playing-with-a-dog-high-quality-photo.jpg?s=612x612&w=0&k=20&c=_kIKIzB4GF5WDLCf2yK1XMQk9JtxoL9XPK_nJmTZ5JQ=" class="card-img-top" alt="Appointment">
+            <div class="card-body">
+                <h5 class="card-title">Appointment Service</h5>
+
+                <a href="@Url.Action("AppointmentInfo", "Appointments")" class="btn btn-primary btn-block">Make a Clinic Appointment</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="https://media.istockphoto.com/id/837572972/photo/lost-and-homeless-abandoned-dog.jpg?s=612x612&w=0&k=20&c=eN1O0_oSgK1K15LEofqxQJAVDJPNne4QsiaxKg3RIOI=" class="card-img-top" alt="Adoptions">
+            <div class="card-body">
+                <h5 class="card-title">Looking to Adopt A Pet?</h5>
+
+                <a href="@Url.Action("AdoptionInfo", "PetAdoption")" class="btn btn-primary btn-block">Explore Our Adoptions</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card for Location Selection -->
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="https://www.sfspca.org/wp-content/uploads/2023/05/san-francisco-spca-become-a-volunteer-dog-park.jpg" class="card-img-top" alt="Select Location">
+            <div class="card-body">
+                <h5 class="card-title">Select a Location</h5>
+                <a href="@Url.Action("SelectLocation", "LocationList")" class="btn btn-primary btn-block">Select Location</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="https://insights.workwave.com/wp-content/uploads/2023/03/pretty-westhighland-terrier-puppy-and-hands-with-groomer-tools-isolated-on-white.jpg_s1024x1024wisk20cde9rkIMhmG7MHJTO3fMOhYThJrnc2-Qf65sZhcOQIzs.jpg" class="card-img-top" alt="Pet-Grooming">
+            <div class="card-body">
+                <h5 class="card-title">Pet-Grooming</h5>
+                <a href="@Url.Action("Landing", "Groomings")" class="btn btn-primary btn-block">Make a Pet-Grooming Appointment</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="https://img.freepik.com/premium-photo/joyful-dog-wearing-bright-birthday-hat_863013-76937.jpg" class="card-img-top" alt="Events">
+            <div class="card-body">
+                <h5 class="card-title">Events</h5>
+                <a href="@Url.Action("UserEvent", "Events")" class="btn btn-primary btn-block">View Upcoming Events</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+﻿@model HazelClinic3.Models.EventReg
+
+@{
+    ViewBag.Title = "Book Event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-image: url('../../content/themes/base/images/pexels-minan1398-1157557.jpg');
+            background-size: cover;
+            color: #003366;
+        }
+
+        .translucent-form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 50px auto;
+            max-width: 800px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .form-content {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .form-check-input {
+            margin-right: 0.5rem;
+        }
+
+        .form-check-label {
+            color: #003366;
+        }
+
+        .btn-primary {
+            background-color: #003366;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+            .image-container img {
+                max-width: 100%;
+                height: auto;
+                margin: 10px 0;
+            }
+    </style>
+</head>
+<body>
+    <div class="translucent-form-container">
+        <div class="form-content">
+            <h2 class="text-center">Purchase Ticket</h2>
+
+            @using (Html.BeginForm("BookEvent", "Events", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.HiddenFor(model => model.EventId)
+                @Html.HiddenFor(model => model.TotalCost)
+                @Html.HiddenFor(model => model.FullName)
+                @Html.HiddenFor(model => model.ContactNumber)
+                @Html.HiddenFor(model => model.Email)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Quantity, new { @class = "form-label" })
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @id = "quantity" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        @Html.CheckBoxFor(model => model.IsNotRefundable, new { @class = "form-check-input" })
+                        @Html.LabelFor(model => model.IsNotRefundable, new { @class = "form-check-label" })
+                    </div>
+                    @Html.ValidationMessageFor(model => model.IsNotRefundable, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group text-center">
+                    <input type="submit" value="Make Payment" class="btn btn-primary" />
+                </div>
+            }
+
+            <div class="text-center">
+                <p>Price Per Ticket: <span id="totalCost">@Model.TotalCost.ToString("C", new System.Globalization.CultureInfo("en-ZA"))</span></p>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <img src="~/Content/themes/base/images/pexels-sam-lion-5731904.jpg" />
+            <img src="~/Content/themes/base/images/gettyimages-1941865306-612x612.jpg" />
+        </div>
+    </div>
+
+    @section Scripts {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                var eventPrice = @Html.Raw(Model.TotalCost / Model.Quantity);
+
+                $('#quantity').on('input', function() {
+                    var quantity = parseInt($(this).val());
+                    if (!isNaN(quantity) && quantity > 0) {
+                        var totalCost = eventPrice * quantity;
+                        $('#totalCost').text(totalCost.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' }));
+                        $('input[name="TotalCost"]').val(totalCost);
+                    } else {
+                        $('#totalCost').text(eventPrice.toLocaleString('en-ZA', { style: 'currency', currency: 'ZAR' }));
+                        $('input[name="TotalCost"]').val(eventPrice);
+                    }
+                });
+            });
+        </script>
+    }
+</body>
+</html>

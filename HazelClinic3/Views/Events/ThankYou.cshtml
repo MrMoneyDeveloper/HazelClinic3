@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Thank You";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .thank-you-container {
+        text-align: center;
+        margin: 50px auto;
+        max-width: 600px;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .thank-you-content {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #333;
+    }
+
+    .thank-you-message {
+        font-size: 18px;
+        color: #555;
+        margin: 10px 0;
+    }
+</style>
+
+<div class="thank-you-container">
+    <div class="thank-you-content">
+        <h2>@ViewBag.Title</h2>
+        <p class="thank-you-message">Thank you for submitting your RSVP!</p>
+        <p class="thank-you-message">We look forward to seeing you at the event.</p>
+
+    </div>
+
+
+
+
+
+</div>
+@Html.ActionLink("Back to Menu", "LoggedIn", "Users2", null, new { @class = "btn btn-secondary" })

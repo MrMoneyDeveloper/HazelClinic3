@@ -1,0 +1,106 @@
+﻿@model IEnumerable<HazelClinic3.Models.History>
+
+@{
+    ViewBag.Title = "View History";
+}
+
+<h2>View Report:</h2>
+
+<div class="search-container">
+    <input type="text" id="search-input-id" placeholder="Search Appointment ID...">
+    <input type="text" id="search-input-number" placeholder="Search ID Number...">
+    <button type="button" id="search-button">Search</button>
+    <a href="@Url.Action("ViewAll", "History")" class="btn btn-primary">View All</a>
+</div>
+
+<div id="history-table-container" style="display: none;">
+    <table id="history-table" class="table">
+        <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>ID Number</th>
+                <th>Report</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AppointmentId</td>
+                    <td>@item.IdNumber</td>
+                    <td>@item.Details</td>
+                    <td>@item.Timestamp</td>
+                    <td style="display: flex; gap: 5px;">
+                        <form action="@Url.Action("SendReport", "History")" method="post">
+                            <input type="hidden" name="appointmentId" value="@item.AppointmentId" />
+                            <input type="hidden" name="report" value="@item.Details" />
+                            <button type="submit" class="btn btn-primary">Send Email</button>
+                        </form>
+                        <form action="@Url.Action("DeleteReport", "History")" method="post">
+                            <input type="hidden" name="reportId" value="@item.HistoryId" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center">
+        <a href="@Url.Action("Index", "Appointments")" class="btn btn-primary">Back to List</a>
+    </div>
+</div>
+
+<div id="error-message" class="alert alert-danger" style="display: none;">No history found for the specified criteria.</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#search-input-id, #search-input-number').on('input', function () {
+                var idInput = $('#search-input-id');
+                var numberInput = $('#search-input-number');
+
+                
+                if (idInput.val().trim() !== '') {
+                    numberInput.prop('disabled', true);
+                } else {
+                    numberInput.prop('disabled', false);
+                }
+
+                if (numberInput.val().trim() !== '') {
+                    idInput.prop('disabled', true);
+                } else {
+                    idInput.prop('disabled', false);
+                }
+            });
+
+            $('#search-button').click(function () {
+                var searchTermId = $('#search-input-id').val().trim();
+                var searchTermNumber = $('#search-input-number').val().trim();
+                if (searchTermId !== '' || searchTermNumber !== '') {
+                    var found = false;
+                    $('#history-table tbody tr').hide();
+                    $('#history-table tbody tr').each(function () {
+                        var id = $(this).find('td:first').text();
+                        var number = $(this).find('td:nth-child(2)').text();
+                        if ((searchTermId === '' || id === searchTermId) && (searchTermNumber === '' || number === searchTermNumber)) {
+                            found = true;
+                            $(this).show();
+                        }
+                    });
+                    if (found) {
+                        $('#history-table-container').show();
+                        $('#error-message').hide();
+                    } else {
+                        $('#history-table-container').hide();
+                        $('#error-message').show();
+                    }
+                } else {
+                    $('#history-table-container').hide();
+                    $('#error-message').hide();
+                }
+            });
+        });
+    </script>
+}

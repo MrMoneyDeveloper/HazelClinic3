@@ -1,0 +1,211 @@
+﻿@{
+    var volunteerLimits = ViewBag.VolunteerLimits as Dictionary<string, int>;
+    var maxVolunteersPerType = ViewBag.MaxVolunteersPerType;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Volunteer Type Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #volunteerChart {
+            width: 70%; /* Limiting the max width of the chart */
+            margin: auto;
+        }
+
+        .centered {
+            text-align: center;
+            margin-top: 20px; /* Adjust as needed */
+        }
+
+        .btn-custom {
+            background-color: #444444; /* Slightly lighter grey background */
+            color: #ffffff; /* Lighter grey text color */
+            padding: 10px 20px; /* Increased padding for larger size */
+            font-size: 16px; /* Increased font size */
+            border: 1px solid #cccccc; /* Lighter border */
+            border-radius: 5px; /* Rounded corners */
+            text-decoration: none; /* Remove underline */
+            display: inline-block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+            .btn-custom:hover {
+                background-color: #cccccc; /* Slightly darker grey on hover */
+                color: #ffffff; /* White text color on hover */
+                text-decoration: none; /* Remove underline */
+            }
+
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .select-volunteer-type {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 80%; margin: auto;">
+        <h2 style="text-align: center; margin-bottom: 20px;">Volunteer Distribution Chart</h2>
+        <br />
+        <canvas id="volunteerChart"></canvas>
+    </div>
+    <br />
+    <script>
+        var ctx = document.getElementById('volunteerChart').getContext('2d');
+
+        var chartLabels = @Html.Raw(ViewBag.ChartLabels); // Labels for types
+        var chartCounts = @Html.Raw(ViewBag.ChartCounts); // Count of volunteers
+        var backgroundColors = {
+            'Cat Cuddling': 'rgba(131, 166, 156, 0.6)',   // #83a69c
+            'Dog Walking': 'rgba(203, 223, 216, 0.6)',   // #cbdfd8
+            'Puppy Training': 'rgba(219, 221, 182, 0.6)',  // #dbddb6
+            'Pet Grooming': 'rgba(243, 239, 222, 0.6)',   // #F3EFDE
+            'No Preference': 'rgba(255, 241, 193, 0.6)'   // #fff1c1
+        };
+        var borderColors = {
+            'Cat Cuddling': 'rgba(131, 166, 156, 1)',   // #83a69c
+            'Dog Walking': 'rgba(203, 223, 216, 1)',   // #cbdfd8
+            'Puppy Training': 'rgba(219, 221, 182, 1)',  // #dbddb6
+            'Pet Grooming': 'rgba(243, 239, 222, 1)',   // #F3EFDE
+            'No Preference': 'rgba(255, 241, 193, 1)'   // #fff1c1
+        };
+
+        if (!chartLabels.includes("No Preference")) {
+            chartLabels.push("No Preference");
+            chartCounts.push(0);
+        }
+        if (!chartLabels.includes("Cat Cuddling")) {
+            chartLabels.push("Cat Cuddling");
+            chartCounts.push(0);
+        }
+        if (!chartLabels.includes("Puppy Training")) {
+            chartLabels.push("Puppy Training");
+            chartCounts.push(0);
+        }
+        if (!chartLabels.includes("Dog Walking")) {
+            chartLabels.push("Dog Walking");
+            chartCounts.push(0);
+        }
+        if (!chartLabels.includes("Pet Grooming")) {
+            chartLabels.push("Pet Grooming");
+            chartCounts.push(0);
+        }
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: chartLabels,
+                datasets: [{
+                    label: 'Volunteer Count',
+                    data: chartCounts,
+                    backgroundColor: chartLabels.map(label => backgroundColors[label]),
+                    borderColor: chartLabels.map(label => borderColors[label]),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            generateLabels: function(chart) {
+                                return chartLabels.map(function(label) {
+                                    return {
+                                        text: label,
+                                        fillStyle: backgroundColors[label],
+                                        hidden: false,
+                                        lineWidth: 0,
+                                        strokeStyle: borderColors[label],
+                                        pointStyle: 'rectRounded',
+                                        rotation: 0
+                                    };
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <br />
+
+    <div style="width: 80%; margin: auto;">
+        <h2 style="text-align: center; margin-bottom: 20px;">Volunteer Details</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Volunteer Type</th>
+                    <th>Allocate</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var volunteer in ViewBag.Volunteers)
+                {
+                    <tr>
+                        <td>@volunteer.FullName</td>
+                        <td>@volunteer.Email</td>
+                        <td>@volunteer.VolunteerType</td>
+                        <td>
+                            @if (volunteer.VolunteerType == "No Preference")
+                            {
+                                <form action="@Url.Action("AllocateVolunteer", "Volunteers")" method="post">
+                                    <input type="hidden" name="id" value="@volunteer.VolunteerId" />
+                                    <select name="newVolunteerType" class="select-volunteer-type">
+                                        @foreach (var type in ViewBag.VolunteerLimits.Keys)
+                                        {
+                                            var count = ViewBag.VolunteerCounts.ContainsKey(type) ? ViewBag.VolunteerCounts[type] : 0;
+                                            var limit = ViewBag.VolunteerLimits.ContainsKey(type) ? ViewBag.VolunteerLimits[type] : 0;
+                                            <option value="@type" @(count >= limit ? "disabled" : "")>
+                                                @type @(count >= limit ? "(Limit Reached)" : "")
+                                            </option>
+                                        }
+                                    </select>
+                                    <button type="submit">Choose</button>
+                                </form>
+
+
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div class="centered">
+        @Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-custom" })
+    </div>
+    <br />
+</body>
+</html>

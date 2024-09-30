@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopt from SPCA</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero {
+            background-image: url('../../content/themes/base/images/istock-1364309212-1024x683.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 130px 0;
+            margin-left: -11vw;
+            margin-right: -11vw;
+        }
+
+        .content {
+            background-image: url('../../content/themes/base/images/sl-011023-55240-04.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 50px 100px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: calc(100% + 400px);
+            margin: 0 auto;
+            margin-left: -185px;
+            margin-right: -185px;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            overflow-x: hidden;
+            background-color: #f0f0f0; /* Light grey background */
+        }
+
+
+        .step {
+            width: 250px;
+            color: white;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            margin-right: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+            background: none;
+            border: 2px solid white;
+            background-color: #f0f0f0; /* Light grey background */
+        }
+
+        
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .button.btn-emerald {
+            background-color: #003366; /* Change to deep blue */
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .button.btn-emerald:hover {
+                background-color: #002244; /* Darker blue on hover */
+            }
+
+
+
+
+        
+
+            .step:last-child {
+                margin-right: 0;
+            }
+            
+        .step-number {
+            font-size: 48px;
+            color: #fff;
+            background-color: #003366; /* Change to deep blue */
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 2px solid #003366; /* Change to deep blue */
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #003366; /* Change to deep blue */
+        }
+
+        .step-description {
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: bold;
+            color: #000000;
+            max-height: 10em; 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 10; 
+            -webkit-box-orient: vertical;
+        }
+
+        .impact, .fee {
+            width: 100%;
+            text-align: center;
+            margin-top: 50px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+            .impact h2, .fee h2 {
+                color: #003366; /* Change to deep blue */
+                font-size: 28px;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+
+            .impact p, .fee p {
+                font-size: 18px;
+                line-height: 1.6;
+                color: #666;
+            }
+
+        .bottom-image {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Adopt from SPCA</h1>
+        <p>Find your new best friend in a few simple steps</p>
+    </div>
+
+    <div class="content">
+        <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-title">Apply Online</div>
+            <div class="step-description">Apply online by filling out a simple form and providing some basic information about yourself.</div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-title">Visit Shelter</div>
+            <div class="step-description">Visit our shelter to meet the animals available for adoption and find your perfect match.</div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-title">Home Check</div>
+            <div class="step-description">We conduct a home check to ensure the safety and suitability of the environment for the animal.</div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-title">Adopt!</div>
+            <div class="step-description">Complete the adoption process and take your new furry friend home to start your journey together.</div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">5</div>
+            <div class="step-title">Pet Arrival</div>
+            <div class="step-description">Your new pet will be delivered to your home at no extra cost, ready to become a part of your family.</div>
+        </div>
+    </div>
+
+    <div class="impact">
+        <h2>The Impact of Adoption</h2>
+        <p>A SPCA Durban adoption not only provides you with a new family member, it frees up a space for another dog or cat to be rescued, rehabilitated, and rehomed.</p>
+    </div>
+
+    <div class="button-container">
+        @Html.ActionLink("Meet Our Adoptable Pets", "Index", null, new { @class = "button btn btn-emerald" })
+    </div>
+    
+    <div class="fee">
+        <h2>Our Adoption Fee and What it Covers</h2>
+        <p>Adoption from SPCA Animal Rescue means changing lives. Your new companion will have been vet checked, tested, sterilized, and microchipped. Our adoption fee of R950 helps us cover the costs of all the below.</p>
+    </div>
+    <div class="bottom-image">
+
+        <img src="~/Content/themes/base/images/image1.png" alt="Image Description">
+    </div>
+</body>
+</html>

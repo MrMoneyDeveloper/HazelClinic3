@@ -1,0 +1,59 @@
+﻿@model IEnumerable<HazelClinic3.Models.PetSitting>
+
+@{
+    ViewBag.Title = "Pet Sitting Records";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Assuming you have a layout page
+}
+
+<div class="container">
+    <h2 class="text-center">Pet Sitting Records:</h2>
+
+    <p class="text-right">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })
+
+    </p>
+    <p></p>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Cell Number</th>
+                <th>Emergency Contact</th>
+                <th>Emergency Contact Number</th>
+                <th>Residential Address</th>
+                <th>Pet Name</th>
+                <th>Pet Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Special Requests</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CellNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EmergencyContactName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EmergencyContactCellNo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ResAddress)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PetName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PetType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.SpecialRequests)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.SittingId }, new { @class = "btn btn-primary btn-sm" })
+                        <p></p>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.SittingId }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

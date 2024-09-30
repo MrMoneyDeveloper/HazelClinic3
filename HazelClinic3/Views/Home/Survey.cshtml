@@ -1,0 +1,133 @@
+﻿@model HazelClinic3.Models.SurveyModel
+
+@{
+    ViewBag.Title = "Event Survey";
+}
+
+<h2>Event Survey</h2>
+<style>
+    .rating {
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+        .rating input[type="radio"] {
+            display: none;
+        }
+
+        .rating label {
+            cursor: pointer;
+            width: 60px;
+            height: 60px;
+            float: right;
+            background-color: transparent;
+        }
+
+            .rating label:before {
+                content: "\2605";
+                font-size: 48px;
+                color: #ddd;
+            }
+
+            .rating input[type="radio"]:checked ~ label:before,
+            .rating label:hover:before,
+            .rating label:hover ~ label:before {
+                color: #FFD700;
+            }
+
+            .rating label.selected:before {
+                color: #FFD700;
+            }
+
+    .btn-custom {
+        background-color: #5cb85c;
+        border-color: #4cae4c;
+        color: white;
+    }
+
+        .btn-custom:hover {
+            background-color: #4cae4c;
+            border-color: #398439;
+        }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Survey</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5>How engaging was the event?</h5>
+            <div class="rating">
+                <input type="radio" id="star5ERating" name="ERating" value="5" /><label for="star5ERating"></label>
+                <input type="radio" id="star4ERating" name="ERating" value="4" /><label for="star4ERating"></label>
+                <input type="radio" id="star3ERating" name="ERating" value="3" /><label for="star3ERating"></label>
+                <input type="radio" id="star2ERating" name="ERating" value="2" /><label for="star2ERating"></label>
+                <input type="radio" id="star1ERating" name="ERating" value="1" /><label for="star1ERating"></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5>Rate the Venue:</h5>
+            <div class="rating">
+                <input type="radio" id="star5VRating" name="VRating" value="5" /><label for="star5VRating"></label>
+                <input type="radio" id="star4VRating" name="VRating" value="4" /><label for="star4VRating"></label>
+                <input type="radio" id="star3VRating" name="VRating" value="3" /><label for="star3VRating"></label>
+                <input type="radio" id="star2VRating" name="VRating" value="2" /><label for="star2VRating"></label>
+                <input type="radio" id="star1VRating" name="VRating" value="1" /><label for="star1VRating"></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5>Likelihood of you returning to another event or recommending it to another:</h5>
+            <div class="rating">
+                <input type="radio" id="star5RRating" name="RRating" value="5" /><label for="star5RRating"></label>
+                <input type="radio" id="star4RRating" name="RRating" value="4" /><label for="star4RRating"></label>
+                <input type="radio" id="star3RRating" name="RRating" value="3" /><label for="star3RRating"></label>
+                <input type="radio" id="star2RRating" name="RRating" value="2" /><label for="star2RRating"></label>
+                <input type="radio" id="star1RRating" name="RRating" value="1" /><label for="star1RRating"></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <h5>Overall rating:</h5>
+            <div class="rating">
+                <input type="radio" id="star5ORating" name="ORating" value="5" /><label for="star5ORating"></label>
+                <input type="radio" id="star4ORating" name="ORating" value="4" /><label for="star4ORating"></label>
+                <input type="radio" id="star3ORating" name="ORating" value="3" /><label for="star3ORating"></label>
+                <input type="radio" id="star2ORating" name="ORating" value="2" /><label for="star2ORating"></label>
+                <input type="radio" id="star1ORating" name="ORating" value="1" /><label for="star1ORating"></label>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-custom btn-lg" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Check-In Success";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Make sure this includes your navigation bar or common layout styles if needed
+}
+
+<style>
+    .centered-alert {
+        display: flex;
+        justify-content: center; /* Centers the alert horizontally */
+        align-items: center; /* Centers the alert vertically if needed */
+        flex-direction: column; /* Stacks elements vertically */
+        min-height: 80vh; /* Provides a minimum height to ensure vertical centering is more apparent */
+    }
+
+    .alert {
+        width: 60%; /* Adjust the width of the alert box */
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Adds a slight shadow for depth */
+        border-radius: 5px; /* Rounds the corners of the alert box */
+    }
+
+    .btn-secondary {
+        margin-top: 20px; /* Adds space above the button */
+    }
+</style>
+
+<div class="container mt-5 centered-alert">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Check-In Successful!</h4>
+        <p>Your Check-In has been successfully recorded. Thank you for choosing SPCA.</p>
+        <hr>
+    </div>
+    @Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })
+</div>

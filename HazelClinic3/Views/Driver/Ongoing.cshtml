@@ -1,0 +1,128 @@
+﻿@model List<HazelClinic3.Models.OngoingDriver>
+
+@{
+    ViewBag.Title = "Ongoing Deliveries";
+}
+
+<h2>Ongoing Deliveries</h2>
+
+@if (Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Phone Number</th>
+                <th>Email Address</th>
+                <th>Delivery Date</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var driver in Model)
+            {
+                <tr>
+                    <td>@driver.ID</td>
+                    <td>@driver.AdopterFName</td>
+                    <td>@driver.AdopterNo</td>
+                    <td>@driver.AdopterEmail</td>
+                    <td>@driver.DeliveryDate.ToString("yyyy-MM-dd")</td>
+                    <td>@driver.Address</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <form action="@Url.Action("OutForDelivery", "Driver")" method="post" class="mr-2">
+                                <input type="hidden" name="driverId" value="@driver.ID" />
+                                <button type="submit" class="btn btn-primary" style="margin-right: 5px;">Out for Delivery</button>
+                            </form>
+
+                            <form action="@Url.Action("CompleteDelivery", "Driver")" method="post" class="mr-2">
+                                <input type="hidden" name="driverId" value="@driver.ID" />
+                                <div class="form-group" id="otpInput_@driver.ID" style="display: none;">
+                                    <label for="otp">Enter OTP:</label>
+                                    <input type="text" name="otp" class="form-control" required />
+                                </div>
+                                <button type="submit" class="btn btn-success" onclick="toggleOTPInput('@driver.ID')" style="margin-right: 5px;">Complete Delivery</button>
+                            </form>
+
+                            <button type="button" class="btn btn-danger" onclick="showReasonPopup('@driver.ID')" style="margin-right: 5px;">Cannot Complete</button>
+
+                            <button type="button" class="btn btn-info" onclick="getDirections('@driver.Address')">Get Directions</button>
+                        </div>
+                    </td>
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No ongoing deliveries found.</p>
+}
+
+<div id="reasonPopup" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeReasonPopup()">&times;</span>
+        <h3>Select Reasons for Unable to Complete Delivery</h3>
+        <form id="reasonForm">
+            <input type="hidden" id="reasonDriverId" name="driverId" />
+            <input type="hidden" name="AdopterFName" />
+            <input type="hidden" name="AdopterNo" />
+            <input type="hidden" name="AdopterEmail" />
+
+            <label><input type="checkbox" name="reasons" value="CustomerUnavailable"> Customer Unavailable</label><br>
+            <label><input type="checkbox" name="reasons" value="NotAbleToProvideOTP"> Not able to provide OTP</label><br>
+            <label><input type="checkbox" name="reasons" value="NotAtAddress"> Not at Address</label><br>
+            <label><input type="checkbox" name="reasons" value="Breakdown"> Vehicle Breakdown</label><br>
+            <label><input type="checkbox" name="reasons" value="Other"> Other</label><br>
+            <textarea id="otherReason" name="otherReason" class="form-control" style="display: none;" placeholder="Please specify other reason"></textarea><br>
+            <button type="button" class="btn btn-primary" onclick="submitReasons()">Submit</button>
+        </form>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function showReasonPopup(driverId) {
+            document.getElementById("reasonDriverId").value = driverId;
+            var popup = document.getElementById("reasonPopup");
+            popup.style.display = "block";
+        }
+
+        function closeReasonPopup() {
+            var popup = document.getElementById("reasonPopup");
+            popup.style.display = "none";
+        }
+
+        function toggleOTPInput(driverId) {
+            var otpInput = document.getElementById("otpInput_" + driverId);
+            otpInput.style.display = otpInput.style.display === "none" ? "block" : "none";
+        }
+
+        $('input[name="reasons"]').on("change", function () {
+            var otherReasonInput = $("#otherReason");
+            if ($(this).val() === "Other" && $(this).prop("checked")) {
+                otherReasonInput.show();
+            } else {
+                otherReasonInput.hide();
+            }
+        });
+
+        function submitReasons() {
+            var formData = $("#reasonForm").serialize();
+            $.post("@Url.Action("CompleteDelivery", "Driver")", formData, function (data) {
+                console.log(data);
+                closeReasonPopup();
+            });
+        }
+
+        function getDirections(address) {
+            var mapUrl = "https://www.google.com/maps?q=" + encodeURIComponent(address);
+            window.open(mapUrl, "_blank");
+        }
+    </script>
+}

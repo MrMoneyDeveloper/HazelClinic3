@@ -1,0 +1,57 @@
+﻿@model List<HazelClinic3.Models.Location>
+
+@{
+    ViewBag.Title = "Select Pickup Location";
+}
+
+<h2>Select Pickup Location</h2>
+
+<!-- Google Maps Integration -->
+<div id="map" style="height: 500px; width: 100%;"></div>
+
+<!-- Form for confirming location -->
+<form id="locationForm" action="@Url.Action("ConfirmLocation", "LocationList")" method="post">
+    <input type="hidden" id="selectedLocationId" name="selectedLocationId" value="" />
+    <button type="submit" id="confirmButton" class="btn btn-primary">Confirm Location</button>
+</form>
+
+<!-- Include your API key here -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs-MRgfsM5pk2Fte7h78bMPhMw8PA84fc&callback=initMap" async defer></script>
+<script type="text/javascript">
+    let map;
+    let locations = @Html.Raw(Json.Encode(Model));
+    let selectedLocationId = null;
+
+    function initMap() {
+        // Center the map on Durban
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -29.8587, lng: 31.0218 },  // Coordinates of Durban SPCA
+            zoom: 10  // Adjust zoom for a closer view
+        });
+
+        // Create markers for each location
+        locations.forEach(location => {
+            let marker = new google.maps.Marker({
+                position: { lat: location.Latitude, lng: location.Longitude },
+                map: map,
+                title: location.Name
+            });
+
+            // When the user clicks a marker, store the location ID and show confirmation message
+            marker.addListener('click', function () {
+                selectedLocationId = location.Id;
+                document.getElementById('selectedLocationId').value = location.Id;
+                alert("You have selected " + location.Name);
+            });
+        });
+    }
+
+
+    // Prevent form submission without selecting a location
+    document.getElementById('locationForm').addEventListener('submit', function (e) {
+        if (!selectedLocationId) {
+            e.preventDefault(); // Stop form submission if no location is selected
+            alert('Please select a location from the map before confirming.');
+        }
+    });
+</script>

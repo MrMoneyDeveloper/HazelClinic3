@@ -1,0 +1,44 @@
+﻿@model IEnumerable<HazelClinic3.Models.RsvpModel>
+
+@{
+    ViewBag.Title = "RSVP Information:";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+@Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })
+<p></p>
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>RSVP Number</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Pet Talent Show</th>
+                <th>Pet Party</th>
+                <th>Charity Auction</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Rsvpno</td>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Phone</td>
+                    <td>@(item.PetTalentShow ? "Yes" : "No")</td>
+                    <td>@(item.PetParty ? "Yes" : "No")</td>
+                    <td>@(item.CharityAuction ? "Yes" : "No")</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Rsvpno }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Rsvpno }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

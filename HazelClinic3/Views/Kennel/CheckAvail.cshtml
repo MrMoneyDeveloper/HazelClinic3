@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kennel Booking</title>
+    <style>
+
+        .kennel-container .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+            .container .kennel {
+                width: 170px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                padding: 10px;
+                text-align: center;
+            }
+
+                .container .kennel img {
+                    width: 100%;
+                    height: auto;
+                }
+
+            .container .button {
+                display: block;
+                width: 90%;
+                margin: 5px auto;
+                padding: 10px;
+                color: black;
+                border: none;
+                cursor: pointer;
+            }
+
+            .container .available {
+                background-color: green;
+            }
+
+            .container .booked {
+                background-color: red;
+            }
+    </style>
+</head>
+<body>
+    <div class="kennel-container">
+        <div class="container">
+
+            <div class="kennel" id="kennel1">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel1', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel1', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+
+            <div class="kennel" id="kennel2">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel2', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel2', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel3">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel3', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel3', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel4">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel4', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel4', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel5">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel5', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel5', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel6">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel6', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel6', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel7">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel7', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel7', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel8">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel8', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel8', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel9">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel9', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel9', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel10">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel10', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel10', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel11">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel11', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel11', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+            <div class="kennel" id="kennel12">
+                <img src="https://th.bing.com/th/id/R.0ac9365fa4de651b0208712bf1ccc8ac?rik=5hHDchXw6b4Irw&riu=http%3a%2f%2fclipground.com%2fimages%2fkennel-clipart-3.jpg&ehk=HQUXVA8wJhLwb8rDGik9aU5HD67TK5GltcOJ5RqHa0U%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1" alt="Kennel 1">
+                <button class="button" onclick="bookKennel(this, 'kennel12', 'CheckIn', 'CheckIn')">Check In</button>
+                <button class="button" onclick="checkOutKennel(this, 'kennel12', 'CheckOut', 'CheckOut')">Check Out</button>
+            </div>
+           
+
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            document.querySelectorAll('.kennel').forEach(function (kennel) {
+                var kennelId = kennel.id;
+                var status = localStorage.getItem(kennelId);
+                var button = kennel.querySelector('button');
+                if (status === 'booked') {
+                    button.classList.add('booked');
+                    button.textContent = 'Booked';
+                } else {
+                    button.classList.add('available');
+                    button.textContent = 'Check In';
+                }
+            });
+        };
+
+        function bookKennel(button, kennelId, controller, action) {
+            if (button.classList.contains('available')) {
+                button.classList.remove('available');
+                button.classList.add('booked');
+                button.textContent = 'Booked';
+                localStorage.setItem(kennelId, 'booked');
+            } else {
+                button.classList.remove('booked');
+                button.classList.add('available');
+                button.textContent = 'Check In';
+                localStorage.setItem(kennelId, 'available');
+            }
+            var redirectUrl = '/' + controller + '/' + action + '?KennelId=' + kennelId;
+            window.location.href = redirectUrl;
+        }
+
+        function checkOutKennel(button, kennelId, controller, action) {
+            var checkInButton = button.previousElementSibling;
+            checkInButton.classList.remove('booked');
+            checkInButton.classList.add('available');
+            checkInButton.textContent = 'Check In';
+            localStorage.setItem(kennelId, 'available');
+            var redirectUrl = '/' + controller + '/' + action + '?KennelId=' + kennelId;
+            window.location.href = redirectUrl;
+        }
+    </script>
+
+</body>
+</html>

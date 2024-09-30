@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Adoption Success";
+}
+<style>
+    .container {
+        padding-top: 50px; /* Adds space at the top for better visual spacing */
+    }
+
+    .alert {
+        margin: 20px 0; /* Adds vertical spacing around the alert box */
+        font-size: 16px; /* Ensures the text is neither too small nor too large */
+    }
+
+    .btn-secondary {
+        margin-top: 20px; /* Provides space above the button */
+    }
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="alert alert-success text-center">
+                <h3>Your request has been successfully submitted!</h3>
+                <p>An agent will be in touch with you shortly to discuss your adoption request.</p>
+            </div>
+            <div class="text-center">
+                @Html.ActionLink("Back to Menu", "LoggedIn", "Users2", null, new { @class = "btn btn-secondary" })
+            </div>
+        </div>
+    </div>
+</div>

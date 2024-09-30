@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HazelClinic3.Models.Grooming>
+
+@{
+    ViewBag.Title = "Pet Grooming Requests:";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <h2>@ViewBag.Title</h2>
+
+    @Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })
+<p></p>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Postal Code</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Pet Name</th>
+                <th>Pet Type</th>
+                <th>Breed</th>
+                <th>Hair Length</th>
+                <th>Medical Issues</th>
+                <th>Grooming Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                    <td>@Html.DisplayFor(modelItem => item.City)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PostalCode)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PetName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PetType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Breed)</td>
+                    <td>@Html.DisplayFor(modelItem => item.HairLength)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MedicalIssues)</td>
+                    <td>@item.GroomingAppoinmentDate</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.GroomingId }, new { @class = "btn btn-primary btn-sm" })
+                        <p></p>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.GroomingId }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

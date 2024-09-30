@@ -1,0 +1,89 @@
+﻿@model HazelClinic3.Models.Booking
+
+@{
+    ViewBag.Title = "Booking Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .details-container {
+        max-height: 400px; /* Adjust based on your preference */
+        overflow-y: auto; /* Enables vertical scrolling */
+        padding: 15px;
+        border: 1px solid #ccc; /* Optional border */
+        border-radius: 5px; /* Rounded corners */
+    }
+
+    .container h2, .container p {
+        margin-bottom: 20px;
+    }
+
+    dt {
+        float: left;
+        clear: left;
+        width: 200px; /* Adjust the width as necessary */
+        text-align: left;
+        font-weight: bold;
+        padding-right: 10px;
+    }
+
+    dd {
+        margin: 0 0 10px;
+    }
+
+    .btn-secondary, .btn-success {
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container text-center">
+    <h2 class="text-success">Booking Successful</h2>
+    <p class="lead">Thank you for choosing us!</p>
+    <p>Your booking is being successfully processed. Here are the details:</p>
+
+    <div class="details-container">
+        <h4>Booking Details:</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Booking ID:</dt>
+            <dd>@Model.BookingId</dd>
+            <dt>First Name:</dt>
+            <dd>@Model.Fname</dd>
+            <dt>Last Name:</dt>
+            <dd>@Model.Lname</dd>
+            <dt>Phone:</dt>
+            <dd>@Model.Phone</dd>
+            <dt>Email:</dt>
+            <dd>@Model.Email</dd>
+            <dt>Address:</dt>
+            <dd>@Model.Address</dd>
+            <dt>City and Postal Code:</dt>
+            <dd>@Model.CityPostalCode</dd>
+            <dt>Pet Name:</dt>
+            <dd>@Model.Pname</dd>
+            <dt>Pet Species:</dt>
+            <dd>@Model.SelectedSpecies</dd>
+            <dt>Pet Gender:</dt>
+            <dd>@Model.Gender</dd>
+            <dt>Pet Breed or Color:</dt>
+            <dd>@Model.BreedColor</dd>
+            <dt>Pet Age:</dt>
+            <dd>@Model.Age</dd>
+            <dt>Pet Weight:</dt>
+            <dd>@Model.Weight</dd>
+            <dt>Message:</dt>
+            <dd>@Model.Message</dd>
+            <dt>Start Date:</dt>
+            <dd>@Model.StartDate.ToShortDateString()</dd>
+            <dt>End Date:</dt>
+            <dd>@Model.EndDate.ToShortDateString()</dd>
+            <dt>Total Cost:</dt>
+            <dd>R @Html.DisplayFor(model => model.TotalCost)</dd>
+        </dl>
+    </div>
+
+    <a href="@Url.Action("DownloadInvoice", "Home", new { bookingId = Model.BookingId })" class="btn btn-success">Download Invoice</a>
+    <p class="text-muted">Please wait for our call to confirm your booking.</p>
+    @Html.ActionLink("Back to Menu", "LoggedIn", "Users2", null, new { @class = "btn btn-secondary" })
+</div>
+

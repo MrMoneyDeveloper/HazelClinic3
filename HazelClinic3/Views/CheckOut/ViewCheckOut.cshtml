@@ -1,0 +1,38 @@
+﻿@model IEnumerable<HazelClinic3.Models.Checkout>
+
+<h2>View Check-Out:</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Pet ID</th>
+            <th>Booking ID</th>
+            <th>Kennel ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Contact Number</th>
+            <th>Emergency Contact Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PetId</td>
+                <td>@item.BookingId</td>
+                <td>@item.KennelId</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.ContactNumber</td>
+                <td>@item.EmergencyContactNumber</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PetId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PetId }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p></p>
+@Html.ActionLink("Back to Admin Dashboard", "AdminLog", "Users2", null, new { @class = "btn btn-secondary" })

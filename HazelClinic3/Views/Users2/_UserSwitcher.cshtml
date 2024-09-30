@@ -1,0 +1,52 @@
+﻿@model HazelClinic3.Models.DashboardViewModel
+
+@using (Html.BeginForm("SwitchUser", "Users2", FormMethod.Post, new { id = "switchUserForm" }))
+{
+    <select id="usernameDropdown" name="selectedUsername" class="form-control">
+        @if (Model != null && Model.Pets != null)
+        {
+            foreach (var pet in Model.Pets)
+            {
+                <option value="@pet.Username" data-email="@pet.Email">@pet.Username</option>
+            }
+        }
+    </select>
+    <button type="submit" class="btn btn-primary mt-2">Switch User</button>
+}
+
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+}
+
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success">@ViewBag.SuccessMessage</div>
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).on('submit', '#switchUserForm', function(e) {
+        e.preventDefault();
+        var selectedUsername = $('#usernameDropdown').val();
+        var selectedEmail = $('#usernameDropdown option:selected').data('email'); // Get email associated with selected username
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("SwitchUser", "Users2")',
+            data: { selectedUsername: selectedUsername, selectedEmail: selectedEmail },
+            dataType: 'json',  // Ensuring the response is treated as JSON
+            success: function(response) {
+                if (response.success) {
+                    alert('Switched to: ' + selectedUsername + '. ' + response.message);
+                    window.location.reload(true);  // Force a full page reload from the server
+                } else {
+                    alert("Error: " + response.message);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Failed to switch user. Status: ' + textStatus + '. Error: ' + errorThrown);
+            }
+        });
+    });
+</script>

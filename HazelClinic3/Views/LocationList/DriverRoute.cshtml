@@ -1,0 +1,50 @@
+﻿@model HazelClinic3.Models.Location
+
+@{
+    ViewBag.Title = "Driver Route";
+}
+
+<h2>Driver Route</h2>
+<p>The route from Durban SPCA to @Model.Name is displayed on the map below:</p>
+
+<!-- Google Maps Directions Integration -->
+<div id="map" style="height: 500px; width: 100%;"></div>
+
+<script type="text/javascript">
+    function initMap() {
+        let directionsService = new google.maps.DirectionsService();
+        let directionsRenderer = new google.maps.DirectionsRenderer();
+
+        // Set up the map
+        let map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: { lat: -29.8587, lng: 31.0218 }  // Center map at Durban SPCA
+        });
+        directionsRenderer.setMap(map);
+
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+        directionsService.route(
+            {
+                origin: { lat: -29.8587, lng: 31.0218 },  // Durban SPCA coordinates
+                destination: {
+                    lat: parseFloat('@Model.Latitude.ToString(System.Globalization.CultureInfo.InvariantCulture)'),
+                    lng: parseFloat('@Model.Longitude.ToString(System.Globalization.CultureInfo.InvariantCulture)')
+                },  // Destination from model
+                travelMode: google.maps.TravelMode.DRIVING
+            },
+            function(response, status) {
+                if (status === "OK") {
+                    directionsRenderer.setDirections(response);
+                } else {
+                    alert("Directions request failed due to " + status);
+                }
+            }
+        );
+    }
+</script>
+
+<!-- Load Google Maps API with your API key -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDs-MRgfsM5pk2Fte7h78bMPhMw8PA84fc&callback=initMap" async defer></script>

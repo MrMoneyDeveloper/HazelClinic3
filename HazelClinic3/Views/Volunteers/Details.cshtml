@@ -1,0 +1,98 @@
+﻿@model HazelClinic3.Models.Volunteer
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Volunteer</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.FullName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CellNo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CellNo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EmergencyContactName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EmergencyContactName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EmergencyContactCellNo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EmergencyContactCellNo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Experience)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Experience)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Availability)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Availability)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.VolunteerType)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.VolunteerType)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.VolunteerId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

@@ -1,0 +1,54 @@
+﻿@model HazelClinic3.Models.User1
+
+@{
+    ViewBag.Title = "Delete User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Delete User Below:</h2>
+</div>
+
+<div class="container mt-3">
+    <div>
+        <h4>Are you sure you want to delete this user?</h4>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Username)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Username)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Firstname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Lastname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Lastname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Mobile)
+            </dd>
+        </dl>
+    </div>
+    @using (Html.BeginForm("DeleteConfirmed", "Users2", new { id = Model.UserId }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Delete</button>
+        @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+    }
+</div>

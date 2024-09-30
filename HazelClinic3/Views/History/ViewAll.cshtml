@@ -1,0 +1,50 @@
+﻿@model IEnumerable<HazelClinic3.Models.History>
+
+@{
+    ViewBag.Title = "View All Reports";
+}
+
+<h2>All Reports:</h2>
+
+<div id="history-table-container">
+    <table id="history-table" class="table">
+        <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>ID Number</th>
+                <th>Report</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AppointmentId</td>
+                    <td>@item.IdNumber</td>
+                    <td>@item.Details</td>
+                    <td>@item.Timestamp</td>
+                    <td>
+                    <td style="display: flex; gap: 5px;">
+                        <form action="@Url.Action("SendReport", "History")" method="post">
+                            <input type="hidden" name="appointmentId" value="@item.AppointmentId" />
+                            <input type="hidden" name="report" value="@item.Details" />
+                            <button type="submit" class="btn btn-primary">Send Email</button>
+                        </form>
+                        <form action="@Url.Action("DeleteReport", "History")" method="post">
+                            <input type="hidden" name="reportId" value="@item.HistoryId" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-center">
+        <a href="@Url.Action("ViewHistory", "History")" class="btn btn-primary">Back to List</a>
+    </div>
+
+</div>
+

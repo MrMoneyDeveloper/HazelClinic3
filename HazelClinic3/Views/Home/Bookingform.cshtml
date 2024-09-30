@@ -1,0 +1,206 @@
+﻿@model HazelClinic3.Models.Booking
+
+@{
+    ViewBag.Title = "Booking Page";
+}
+
+@using (Html.BeginForm("Bookingform", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <style>
+        .required-label::after {
+            content: " *";
+            color: red;
+        }
+    </style>
+    <div class="container">
+        <h4>Booking Form:</h4>
+        <p class="big">
+            Complete the form below and wait for us to call you to confirm your booking. If you have any inquiries about our services, we will be happy to answer all your questions.
+        </p>
+        <p style="font-weight: bold; margin-top: 0;">Payment and costing details will be processed at the clinic</p>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <h>Personal Information:</h>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div>
+                        @Html.LabelFor(m => m.SelectedSpecies, "Species", new { @class = "control-label required-label" })
+                    </div>
+                    <div>
+                        @Html.RadioButtonFor(m => m.SelectedSpecies, "Dog", new { id = Html.IdFor(m => m.SelectedSpecies) })
+                        <label for="@Html.IdFor(m => m.SelectedSpecies)">Dog</label>
+                        @Html.RadioButtonFor(m => m.SelectedSpecies, "Cat", new { id = Html.IdFor(m => m.SelectedSpecies) })
+                        <label for="@Html.IdFor(m => m.SelectedSpecies)">Cat</label>
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.Gender, "Gender", new { @class = "control-label required-label" })
+                    </div>
+                    <div>
+                        @Html.RadioButtonFor(m => m.Gender, "Male", new { id = Html.IdFor(m => m.Gender) })
+                        <label for="@Html.IdFor(m => m.Gender)">Male</label>
+                        @Html.RadioButtonFor(m => m.Gender, "Female", new { id = Html.IdFor(m => m.Gender) })
+                        <label for="@Html.IdFor(m => m.Gender)">Female</label>
+                        @Html.RadioButtonFor(m => m.Gender, "Spayed Male", new { id = Html.IdFor(m => m.Gender) })
+                        <label for="@Html.IdFor(m => m.Gender)">Spayed Male</label>
+                        @Html.RadioButtonFor(m => m.Gender, "Spayed Female", new { id = Html.IdFor(m => m.Gender) })
+                        <label for="@Html.IdFor(m => m.Gender)">Spayed Female</label>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h>Pet Information:</h>
+                </div>
+                <div class="form-group">
+
+                    <div>
+                        @Html.LabelFor(m => m.BreedColor, "Breed/Color", new { @class = "control-label required-label" })
+                    </div>
+                    <div>
+                        @Html.EditorFor(m => m.BreedColor, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BreedColor, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.Age, "Age", new { @class = "control-label required-label" })
+                    </div>
+                    <div>
+                        @Html.EditorFor(m => m.Age, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+                    </div>
+                    <div>
+                        @Html.LabelFor(m => m.Weight, "Weight", new { @class = "control-label required-label" })
+                    </div>
+                    <div>
+                        @Html.EditorFor(m => m.Weight, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StartDate, "Start Date", new { @class = "control-label required-label" })
+                    @Html.TextBoxFor(model => model.StartDate, new { @class = "datepicker form-control", id = "start-date" })
+                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "field-validation-valid text-danger" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndDate, "End Date", new { @class = "control-label required-label" })
+                    @Html.TextBoxFor(model => model.EndDate, new { @class = "datepicker form-control", id = "end-date" })
+                    @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "field-validation-valid text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.PromoCode, "Promo Code:", new { @class = "control-label required-label" })
+            <div>
+                @Html.EditorFor(model => model.PromoCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PromoCode, "", new { @class = "field-validation-valid text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="row row-end">
+                <label>TOTAL COST DUE:</label>
+                <span id="totalCost"></span>
+            </div>
+        </div>
+    </div>
+    <p></p>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-12 text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Book Now</button>
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+
+    <script>
+
+
+
+
+        var startDatePicker = $("#start-date");
+        var endDatePicker = $("#end-date");
+
+        startDatePicker.datepicker({
+            changeMonth: true,
+            minDate: new Date(),
+            onSelect: function (selectedDate) {
+                endDatePicker.datepicker("option", "minDate", selectedDate);
+                endDatePicker.datepicker("option", "beforeShowDay", function (date) {
+                    var start = startDatePicker.datepicker("getDate");
+                    return [date.getTime() != start.getTime()];
+                });
+                calculateTotalCost();
+            }
+        });
+
+        endDatePicker.datepicker({
+            changeMonth: true,
+            minDate: new Date(),
+            onSelect: function (selectedDate) {
+                calculateTotalCost();
+            }
+        });
+
+        function calculateTotalCost() {
+            var weight = parseInt($('#Weight').val());
+            var startDate = startDatePicker.datepicker('getDate');
+            var endDate = endDatePicker.datepicker('getDate');
+
+            if (!startDate || !endDate) {
+                $('#totalCost').text('');
+                return;
+            }
+
+            var totalCostPerDay = 0;
+
+            if (weight >= 1 && weight <= 5)
+                totalCostPerDay = 100;
+            else if (weight > 5 && weight <= 10)
+                totalCostPerDay = 100;
+            else if (weight > 10 && weight <= 20)
+                totalCostPerDay = 120;
+            else if (weight > 20 && weight <= 40)
+                totalCostPerDay = 150;
+            else if (weight > 40)
+                totalCostPerDay = 170;
+
+            var totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+            if (isNaN(totalDays)) {
+                $('#totalCost').text('');
+                return;
+            }
+
+            var totalCost = totalDays * totalCostPerDay;
+
+            $('#totalCost').text('R' + totalCost.toFixed(2));
+        }
+
+    </script>
+}

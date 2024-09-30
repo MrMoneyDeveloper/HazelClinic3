@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Scan Package";
+}
+
+<h2>Scan Package QR Code</h2>
+
+<!-- Placeholder for QR code reader -->
+<div id="qr-reader" style="width: 500px; margin-bottom: 20px;"></div>
+<button id="start-scanning" class="btn btn-primary">Start Scanning</button>
+
+<!-- Placeholder to display scan result or user information -->
+<div id="resultMessage" style="margin-top: 20px;"></div>
+
+<!-- Include the HTML5 QR code library -->
+<script src="~/Content/js/html5-qrcode.min.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("start-scanning").addEventListener("click", function () {
+        // Ensure the button is only used once
+        document.getElementById("resultMessage").innerHTML = "";
+        this.disabled = true; // Disable button after clicking
+
+        // Create the Html5Qrcode scanner
+        const qrCodeScanner = new Html5Qrcode("qr-reader");
+
+        // Start scanning
+        qrCodeScanner.start(
+            { facingMode: "environment" }, // Use the environment-facing camera
+            {
+                fps: 10, // Frame per second
+                qrbox: { width: 250, height: 250 } // Define the scanning box size
+            },
+            qrCodeMessage => {
+                // Process the scanned QR code message
+                console.log("QR Code detected: ", qrCodeMessage);
+                qrCodeScanner.stop().then(() => {
+                    // Make an AJAX call to validate the QR code with your server
+                    fetch("@Url.Action("ScanPackage", "LocationList")", {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ qrCode: qrCodeMessage }) // Send scanned QR code to the server
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Display success message or user information
+                            const resultMessageHtml = `
+                                <h3 style="color: green;">Package Status: ${data.message}</h3>
+                                <p><strong>Name:</strong> ${data.userDetails.name}</p>
+                                <p><strong>Email:</strong> ${data.userDetails.email}</p>
+                                <p><strong>Contact Number:</strong> ${data.userDetails.contactNumber}</p>`;
+                            document.getElementById("resultMessage").innerHTML = resultMessageHtml;
+                        } else {
+                            alert(data.message);
+                            location.reload();
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error during QR code validation:", error);
+                        alert("An error occurred. Please try again.");
+                        location.reload();
+                    });
+                }).catch((err) => {
+                    console.error("Failed to stop the camera", err);
+                });
+            },
+            errorMessage => {
+                console.warn("QR Code scan failed:", errorMessage);
+            })
+            .catch(err => {
+                console.error("Unable to start QR code scanner", err);
+            });
+    });
+</script>

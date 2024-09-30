@@ -1,0 +1,178 @@
+﻿@model HazelClinic3.Models.Grooming
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<style>
+    .black-outline-button {
+        background-color: deepskyblue;
+        border: 2px solid black;
+        color: black;
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+
+        .black-outline-button:hover {
+            background-color: white;
+            color: black;
+        }
+</style>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<h2>Book Pet Grooming</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Enter details below: </h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PetName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PetName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PetName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PetType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <br /> @Html.RadioButtonFor(x => x.PetType, "Cat", new { id = "CatRadio" }) Cat
+                <br /> @Html.RadioButtonFor(x => x.PetType, "Dog", new { id = "DogRadio" }) Dog
+                <br />@Html.ValidationMessageFor(model => model.PetType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Breed, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Breed, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Breed, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.HairLength, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <br /> @Html.RadioButtonFor(x => x.HairLength, "Short", new { id = "ShortRadio" }) Short
+                <br /> @Html.RadioButtonFor(x => x.HairLength, "Medium", new { id = "MediumRadio" }) Medium
+                <br /> @Html.RadioButtonFor(x => x.HairLength, "Long", new { id = "LongRadio" }) Long
+                <br /> @Html.ValidationMessageFor(model => model.HairLength, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MedicalIssues, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MedicalIssues, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MedicalIssues, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <p style="margin: 0;">Select grooming appointment date:</p>
+            <p style="margin: 0;">(Only Sundays are to be  selected)</p>
+            @Html.EditorFor(model => model.GroomingAppoinmentDate, new { htmlAttributes = new { @class = "form-control", type = "date", min = DateTime.Now.ToString("yyyy-MM-dd"), id = "appointment-date" } })
+            @Html.ValidationMessageFor(model => model.GroomingAppoinmentDate, "", new { @class = "text-danger" })
+        </div>
+        <br>
+
+        <script>
+        
+        var dateInput = document.getElementById("appointment-date");
+
+      
+        dateInput.addEventListener("change", function () {
+            var selectedDate = new Date(dateInput.value);
+            if (selectedDate.getDay() !== 0) {
+              
+                dateInput.value = "";
+                alert("Please select a Sunday date.");
+            }
+        });
+        </script>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Book Grooming" class="black-outline-button" />
+            </div>
+        </div>
+    </div>
+    <br />
+}
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

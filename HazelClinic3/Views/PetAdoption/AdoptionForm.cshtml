@@ -1,0 +1,193 @@
+﻿@model HazelClinic3.Models.AdoptionRequest
+@{
+    ViewBag.Title = "AdoptionForm";
+}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption Form</title>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #003366; /* Deep blue */
+            padding: 10px;
+            text-align: center;
+            color: white;
+          
+        }
+
+        .form-container {
+            background-color: #e6e6e6; /* Light grey */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            flex-grow: 1;
+        }
+
+        h2 {
+            color: #003366; /* Deep blue */
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .btn-submit {
+            background-color: #003366; /* Deep blue */
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn-submit:hover {
+                background-color: #002244; /* Darker blue on hover */
+            }
+
+        .text-danger {
+            color: red;
+            font-size: 14px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .footer {
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+            color: #333;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+
+    <div class="form-container">
+        <h2>Adoption Form</h2>
+        @using (Html.BeginForm("SubmitAdoption", "PetAdoption", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <label for="AdopterInterested">Pet No:</label>
+            <input type="text" id="AdopterInterested" name="AdopterInterested" readonly>
+            @Html.ValidationMessageFor(model => model.Adopterinterested, "", new { @class = "text-danger" })
+
+            <label for="AppointDate">Appointment Date:</label>
+            <input type="date" id="AppointDate" name="AppointDate" min="@(DateTime.Now.ToString("yyyy-MM-dd"))" onchange="getExistingAppointments()" required>
+            @Html.ValidationMessageFor(model => model.AppointDate, "", new { @class = "text-danger" })
+
+            <label for="AppointTime">Appointment Time:</label>
+            <select id="AppointTime" name="AppointTime" required></select>
+            @Html.ValidationMessageFor(model => model.AppointTime, "", new { @class = "text-danger" })
+
+            <label for="NonRefundableDeposit">
+                <input type="checkbox" id="NonRefundableDeposit" name="NonRefundableDeposit" required>
+                I acknowledge that the deposit payment is non-refundable.
+            </label>
+
+            <input type="submit" value="Submit" class="btn-submit">
+        }
+
+        <script>
+        window.onload = function () {
+            var petId = getQueryParam('petId');
+            document.getElementById('AdopterInterested').value = petId;
+        }
+
+        function getQueryParam(name) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function filterWeekends(selectedDate) {
+            var day = selectedDate.getDay();
+            return (day === 0 || day === 6);
+        }
+
+       function getExistingAppointments() {
+    var selectedDate = new Date(document.getElementById("AppointDate").value);
+    var currentDate = new Date();
+    if (selectedDate.toDateString() === currentDate.toDateString()) {
+        var currentHour = currentDate.getHours();
+        var currentMinute = currentDate.getMinutes();
+    } else {
+        var currentHour = 0;
+        var currentMinute = 0;
+    }
+
+    if (filterWeekends(selectedDate)) {
+        alert('Please select a date from Monday to Friday.');
+        document.getElementById('AppointTime').innerHTML = '';
+        return;
+    }
+
+    $.ajax({
+        url: '@Url.Action("GetExistingAppointments", "PetAdoption")',
+        type: 'POST',
+        data: { selectedDate: selectedDate.toISOString() },
+        dataType: 'json',
+        success: function(existingAppointments) {
+            var timeSelect = document.getElementById("AppointTime");
+            timeSelect.innerHTML = "";
+
+            for (var hour = 8; hour <= 16; hour++) {
+                for (var minute = 0; minute < 60; minute += 30) {
+                    if (selectedDate.toDateString() === currentDate.toDateString() && hour < currentHour) {
+                        continue;
+                    }
+                    if (selectedDate.toDateString() === currentDate.toDateString() && hour === currentHour && minute < currentMinute) {
+                        continue;
+                    }
+                    var timeSlot = hour.toString().padStart(2, '0') + ":" + minute.toString().padStart(2, '0');
+                    var option = document.createElement("option");
+                    option.value = timeSlot;
+                    option.text = timeSlot;
+                    if (existingAppointments.includes(timeSlot)) {
+                        option.disabled = true;
+                    }
+                    timeSelect.appendChild(option);
+                }
+            }
+        }
+    });
+}
+
+        </script>
+    </div>

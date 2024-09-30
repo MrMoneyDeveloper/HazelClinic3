@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "ConfirmPickup";
+}
+
+<h2>Confirm Pickup</h2>
+
+<div>
+    <p>Please scan the QR code or enter the code to confirm the pickup.</p>
+
+    <form method="post" action="@Url.Action("ConfirmPickup", "LocationList")">
+        <input type="text" id="qrCodeInput" name="qrCode" placeholder="Enter/Scan QR Code" required />
+        <button type="submit" class="btn btn-primary">Confirm Pickup</button>
+    </form>
+</div>
+
+<script type="text/javascript">// Optional: Add QR code scanning functionality for better user experience</script>

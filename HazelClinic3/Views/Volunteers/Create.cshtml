@@ -1,0 +1,690 @@
+﻿@model HazelClinic3.Models.Volunteer
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        min-height: 100vh;
+    }
+
+    /*.background-image {
+        background-image: url('https://media.istockphoto.com/id/1324099927/photo/friends-red-cat-and-corgi-dog-walking-in-a-summer-meadow-under-the-drops-of-warm-rain.jpg?s=612x612&w=0&k=20&c=ZQiqn4SPj_7WhjhbahGJ1UwaJMrwuuSkJRjYAi9YYx0=');
+        background-size: cover;
+        background-position: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;  Keeps the background behind all other content */
+    }
+
+
+    p {
+        text-align: center;
+        margin: 15px 0;
+    }
+
+    .centered-text {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+
+    .background-container {
+        background-color: rgba(240, 240, 240, 0.75); /* Slightly transparent background color */
+        padding: 20px;
+        width: 48%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        box-sizing: border-box;
+        margin-top: 50px; /* Ensure space at the top */
+        margin-bottom: 50px; /* Ensure space at the bottom */
+    }
+
+        .background-container h2,
+        .background-container p,
+        .background-container ul,
+        .background-container table {
+            text-align: center;
+            width: 100%;
+        }
+
+        .background-container ul {
+            padding-left: 80px;
+            font-size: 18px;
+            list-style-type: none;
+        }
+
+        .background-container table {
+            margin-top: 50px;
+        }
+
+    .centered-button-container {
+        text-align: center;
+    }
+
+    .black-outline-button {
+        background-color: #003366;
+        border: 2px solid #003366;
+        color: white;
+        font-size: 1.1em;
+        padding: 12px 100px;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto;
+    }
+
+        .black-outline-button:hover {
+            background-color: #002244;
+            border-color: #002244;
+        }
+
+    form {
+        font-size: 18px; /* Adjust the font size as needed */
+    }
+
+    /* Increase font size for input fields */
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+        font-size: 16px; /* Adjust the font size as needed */
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+        font-weight: normal; /* Ensure h2 is not bold */
+    }
+
+    .form-container {
+        background-color: #e6e6e6; /* Light grey */
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+        margin: 20px auto;
+        flex-grow: 1;
+        border: none;
+    }
+
+
+
+    /* Button styles */
+    .btn-submit {
+        background-color: #003366; /* Deep blue */
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-submit:hover {
+            background-color: #002244; /* Darker blue on hover */
+        }
+
+    /* Validation message styles */
+    .text-danger {
+        color: red;
+        font-size: 14px;
+        margin-top: -15px;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    /* Adjust image position */
+    .logo-image {
+        width: 70px;
+        height: 70px;
+        margin-right: 30px;
+        margin-left: 10px; /* Adjust left margin for image */
+    }
+
+    .quiz-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        width: 100%;
+        margin: 20px auto;
+        text-align: center;
+        display: none;
+    }
+
+    .quiz-card {
+        display: none;
+    }
+
+        .quiz-card.active {
+            display: block;
+        }
+
+    .quiz-question {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+
+    .quiz-options label {
+        display: block;
+        background-color: #f4f4f4;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+    .quiz-options input[type="radio"] {
+        display: none;
+    }
+
+        .quiz-options label:hover,
+        .quiz-options input[type="radio"]:checked + label {
+            background-color: #d9eaff;
+        }
+
+    .next-button {
+        display: none;
+        background-color: #003366;
+        color: white;
+        padding: 12px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+
+        .next-button:hover {
+            background-color: #002244;
+        }
+</style>
+
+
+<html>
+
+
+
+<body>
+    <div class="background-image"></div>
+    <div class="background-container">
+        <div class="centered-text">
+            <img src="~/Content/themes/base/images/SPCA_logo.png" alt="SPCA Logo" class="logo-image">
+            <h2>Volunteer Registration Form</h2>
+        </div>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <br />
+                @Html.HiddenFor(model => model.Email)
+                @Html.HiddenFor(model => model.CellNo)
+                @Html.HiddenFor(model => model.FullName)
+                @Html.HiddenFor(model => model.Surname)
+
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmergencyContactName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EmergencyContactName, new { htmlAttributes = new { @class = "form-control" } })
+
+                        <br /> @Html.ValidationMessageFor(model => model.EmergencyContactName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmergencyContactCellNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EmergencyContactCellNo, new { htmlAttributes = new { @class = "form-control" } })
+                        <br />
+                        <br /> @Html.ValidationMessageFor(model => model.EmergencyContactCellNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Experience, "Experience", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Experience", ViewBag.Experience as SelectList, htmlAttributes: new { @class = "form-control" })
+
+                        <br /> @Html.ValidationMessageFor(model => model.Experience, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Availability, "Availability", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Availability", null, htmlAttributes: new { @class = "form-control" })
+
+                        <br /> @Html.ValidationMessageFor(model => model.Availability, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.VolunteerType, "VolunteerType", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("VolunteerType", null, htmlAttributes: new { @class = "form-control", @id = "VolunteerType" })
+                        <br />@Html.ValidationMessageFor(model => model.VolunteerType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <br />
+
+            </div>
+
+            <div class="quiz-container" id="quizContainerNoPreference">
+                <div class="quiz-card active" id="question1">
+                    <div class="quiz-question">1. Why do you want to volunteer at our animal shelter?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q1a" name="Question1Answer" value="a">
+                        <label for="q1a">I love animals and want to make a difference.</label>
+                        <input type="radio" id="q1b" name="Question1Answer" value="b">
+                        <label for="q1b">I need volunteer hours for school/work.</label>
+                        <input type="radio" id="q1c" name="Question1Answer" value="c">
+                        <label for="q1c">I’m looking for something to do in my free time.</label>
+                    </div>
+                </div>
+                <!-- Repeat the above structure for each question -->
+                <div class="quiz-card" id="question2">
+                    <div class="quiz-question">2. How would you handle an aggressive or scared animal?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q2a" name="Question2Answer" value="a">
+                        <label for="q2a">Approach slowly and try to calm them.</label>
+                        <input type="radio" id="q2b" name="Question2Answer" value="b">
+                        <label for="q2b">Leave them alone and call for help.</label>
+                        <input type="radio" id="q2c" name="Question2Answer" value="c">
+                        <label for="q2c">Ignore them and move on to another task.</label>
+                    </div>
+                </div>
+                <!-- Question 3 -->
+                <div class="quiz-card" id="question3">
+                    <div class="quiz-question">3. What is the most important reason for spaying/neutering pets?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q3a" name="Question3Answer" value="a">
+                        <label for="q3a">To control the pet population.</label>
+                        <input type="radio" id="q3b" name="Question3Answer" value="b">
+                        <label for="q3b">To improve the pet’s health.</label>
+                        <input type="radio" id="q3c" name="Question3Answer" value="c">
+                        <label for="q3c">To make pets easier to manage.</label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="quiz-card" id="question4">
+                    <div class="quiz-question">4. How often should a dog be walked?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q4a" name="Question4Answer" value="a">
+                        <label for="q4a">Once a day.</label>
+                        <input type="radio" id="q4b" name="Question4Answer" value="b">
+                        <label for="q4b">2-3 times a day.</label>
+                        <input type="radio" id="q4c" name="Question4Answer" value="c">
+                        <label for="q4c">Once a week.</label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="quiz-card" id="question5">
+                    <div class="quiz-question">5. What should you do if you notice a sick animal in the shelter?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q5a" name="Question5Answer" value="a">
+                        <label for="q5a">Inform a staff member immediately.</label>
+                        <input type="radio" id="q5b" name="Question5Answer" value="b">
+                        <label for="q5b">Try to treat the animal yourself.</label>
+                        <input type="radio" id="q5c" name="Question5Answer" value="c">
+                        <label for="q5c">Wait and see if the animal gets better on its own.</label>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="quiz-card" id="question6">
+                    <div class="quiz-question">6. Which of the following tasks are you comfortable doing? (Select all that apply)</div>
+                    <div class="quiz-options">
+                        <input type="checkbox" id="q6a" name="Question6Answer" value="a">
+                        <label for="q6a">Cleaning cages and kennels.</label>
+                        <input type="checkbox" id="q6b" name="Question6Answer" value="b">
+                        <label for="q6b">Feeding animals.</label>
+                        <input type="checkbox" id="q6c" name="Question6Answer" value="c">
+                        <label for="q6c">Assisting with animal adoptions.</label>
+                        <input type="checkbox" id="q6d" name="Question6Answer" value="d">
+                        <label for="q6d">Handling administrative work.</label>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="quiz-card" id="question7">
+                    <div class="quiz-question">7. How would you react if an animal you’re caring for is adopted?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q7a" name="Question7Answer" value="a">
+                        <label for="q7a">Feel happy for the animal.</label>
+                        <input type="radio" id="q7b" name="Question7Answer" value="b">
+                        <label for="q7b">Feel sad and try to avoid getting attached next time.</label>
+                        <input type="radio" id="q7c" name="Question7Answer" value="c">
+                        <label for="q7c">Feel indifferent; it’s just part of the job.</label>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="quiz-card" id="question8">
+                    <div class="quiz-question">8. What is the most important quality a volunteer should have when working with animals?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q8a" name="Question8Answer" value="a">
+                        <label for="q8a">Patience.</label>
+                        <input type="radio" id="q8b" name="Question8Answer" value="b">
+                        <label for="q8b">Strength.</label>
+                        <input type="radio" id="q8c" name="Question8Answer" value="c">
+                        <label for="q8c">Experience.</label>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="quiz-card" id="question9">
+                    <div class="quiz-question">9. How would you prioritize your tasks if multiple animals need attention at once?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q9a" name="Question9Answer" value="a">
+                        <label for="q9a">Focus on the sick or injured animals first.</label>
+                        <input type="radio" id="q9b" name="Question9Answer" value="b">
+                        <label for="q9b">Start with the easiest tasks to get them out of the way.</label>
+                        <input type="radio" id="q9c" name="Question9Answer" value="c">
+                        <label for="q9c">Ask a staff member for guidance.</label>
+                    </div>
+                </div>
+
+                <!-- ... add all 10 questions similarly ... -->
+                <div class="quiz-card" id="question10">
+                    <div class="quiz-question">10. Are you comfortable working with all types of animals, including those that might be dirty or smelly?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="q10a" name="Question10Answer" value="a">
+                        <label for="q10a">Yes, I understand it’s part of the job.</label>
+                        <input type="radio" id="q10b" name="Question10Answer" value="b">
+                        <label for="q10b">I prefer to work with clean and healthy animals only.</label>
+                        <input type="radio" id="q10c" name="Question10Answer" value="c">
+                        <label for="q10c">I’m okay with it, but it depends on the situation.</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="quiz-container" id="quizContainerPuppyTraining">
+                <!-- Question 1 -->
+                <div class="quiz-card active" id="puppyTrainingQuestion1">
+                    <div class="quiz-question">1. How would you handle a puppy that is barking excessively?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="puppyTrainQ1a" name="PuppyTrainingQuestion1Answer" value="a">
+                        <label for="puppyTrainQ1a">Use a calm voice and try to redirect its attention.</label><br>
+
+                        <input type="radio" id="puppyTrainQ1b" name="PuppyTrainingQuestion1Answer" value="b">
+                        <label for="puppyTrainQ1b">Ignore the barking until it stops.</label><br>
+
+                        <input type="radio" id="puppyTrainQ1c" name="PuppyTrainingQuestion1Answer" value="c">
+                        <label for="puppyTrainQ1c">Yell at the puppy to stop.</label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-card" id="puppyTrainingQuestion2">
+                    <div class="quiz-question">2. What is the best way to teach a puppy to sit?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="puppyTrainQ2a" name="PuppyTrainingQuestion2Answer" value="a">
+                        <label for="puppyTrainQ2a">Push the puppy down into a sitting position.</label><br>
+
+                        <input type="radio" id="puppyTrainQ2b" name="PuppyTrainingQuestion2Answer" value="b">
+                        <label for="puppyTrainQ2b">Use treats and a command word like "sit."</label><br>
+
+                        <input type="radio" id="puppyTrainQ2c" name="PuppyTrainingQuestion2Answer" value="c">
+                        <label for="puppyTrainQ2c">Wait for the puppy to sit on its own.</label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-card" id="puppyTrainingQuestion3">
+                    <div class="quiz-question">3. How should you respond if a puppy is chewing on furniture?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="puppyTrainQ3a" name="PuppyTrainingQuestion3Answer" value="a">
+                        <label for="puppyTrainQ3a">Give the puppy a chew toy as a substitute.</label><br>
+
+                        <input type="radio" id="puppyTrainQ3b" name="PuppyTrainingQuestion3Answer" value="b">
+                        <label for="puppyTrainQ3b">Scold the puppy loudly to scare it away.</label><br>
+
+                        <input type="radio" id="puppyTrainQ3c" name="PuppyTrainingQuestion3Answer" value="c">
+                        <label for="puppyTrainQ3c">Ignore the behavior.</label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="quiz-card" id="puppyTrainingQuestion4">
+                    <div class="quiz-question">4. What should you do if a puppy is not responding to training commands?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="puppyTrainQ4a" name="PuppyTrainingQuestion4Answer" value="a">
+                        <label for="puppyTrainQ4a">Increase the volume and firmness of your commands.</label><br>
+
+                        <input type="radio" id="puppyTrainQ4b" name="PuppyTrainingQuestion4Answer" value="b">
+                        <label for="puppyTrainQ4b">Use more treats and praise to encourage it.</label><br>
+
+                        <input type="radio" id="puppyTrainQ4c" name="PuppyTrainingQuestion4Answer" value="c">
+                        <label for="puppyTrainQ4c">Stop the training session immediately.</label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="quiz-card" id="puppyTrainingQuestion5">
+                    <div class="quiz-question">5. How should you approach socializing a puppy with other dogs?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="puppyTrainQ5a" name="PuppyTrainingQuestion5Answer" value="a">
+                        <label for="puppyTrainQ5a">Allow the puppy to interact with dogs of all sizes right away.</label><br>
+
+                        <input type="radio" id="puppyTrainQ5b" name="PuppyTrainingQuestion5Answer" value="b">
+                        <label for="puppyTrainQ5b">Gradually introduce the puppy to calm and friendly dogs.</label><br>
+
+                        <input type="radio" id="puppyTrainQ5c" name="PuppyTrainingQuestion5Answer" value="c">
+                        <label for="puppyTrainQ5c">Keep the puppy isolated to avoid any risks.</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="quiz-container" id="quizContainerCatCuddling">
+                <!-- Question 1 -->
+                <div class="quiz-card active" id="catCuddlingQuestion1">
+                    <div class="quiz-question">1. What would you do if a cat is shy and hiding?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="catCuddleQ1a" name="CatCuddlingQuestion1Answer" value="a">
+                        <label for="catCuddleQ1a">Give it some space and try again later.</label><br>
+                        <input type="radio" id="catCuddleQ1b" name="CatCuddlingQuestion1Answer" value="b">
+                        <label for="catCuddleQ1b">Use treats to encourage it to come out.</label><br>
+                        <input type="radio" id="catCuddleQ1c" name="CatCuddlingQuestion1Answer" value="c">
+                        <label for="catCuddleQ1c">Reach in and pull it out gently.</label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-card" id="catCuddlingQuestion2">
+                    <div class="quiz-question">2. How would you handle a cat that seems aggressive or frightened?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="catCuddleQ2a" name="CatCuddlingQuestion2Answer" value="a">
+                        <label for="catCuddleQ2a">Approach slowly with calming words.</label><br>
+                        <input type="radio" id="catCuddleQ2b" name="CatCuddlingQuestion2Answer" value="b">
+                        <label for="catCuddleQ2b">Avoid eye contact and wait for the cat to come to you.</label><br>
+                        <input type="radio" id="catCuddleQ2c" name="CatCuddlingQuestion2Answer" value="c">
+                        <label for="catCuddleQ2c">Make loud noises to show dominance.</label>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-card" id="catCuddlingQuestion3">
+                    <div class="quiz-question">3. If a cat starts purring loudly, what does it usually mean?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="catCuddleQ3a" name="CatCuddlingQuestion3Answer" value="a">
+                        <label for="catCuddleQ3a">The cat is content and comfortable.</label><br>
+                        <input type="radio" id="catCuddleQ3b" name="CatCuddlingQuestion3Answer" value="b">
+                        <label for="catCuddleQ3b">The cat is hungry or seeking attention.</label><br>
+                        <input type="radio" id="catCuddleQ3c" name="CatCuddlingQuestion3Answer" value="c">
+                        <label for="catCuddleQ3c">The cat is feeling threatened.</label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="quiz-card" id="catCuddlingQuestion4">
+                    <div class="quiz-question">4. What is the best way to introduce yourself to a new cat?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="catCuddleQ4a" name="CatCuddlingQuestion4Answer" value="a">
+                        <label for="catCuddleQ4a">Extend your hand and let the cat sniff you.</label><br>
+                        <input type="radio" id="catCuddleQ4b" name="CatCuddlingQuestion4Answer" value="b">
+                        <label for="catCuddleQ4b">Pick up the cat immediately to establish trust.</label><br>
+                        <input type="radio" id="catCuddleQ4c" name="CatCuddlingQuestion4Answer" value="c">
+                        <label for="catCuddleQ4c">Ignore the cat until it approaches you.</label>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="quiz-card" id="catCuddlingQuestion5">
+                    <div class="quiz-question">5. How can you tell if a cat is overstimulated during petting?</div>
+                    <div class="quiz-options">
+                        <input type="radio" id="catCuddleQ5a" name="CatCuddlingQuestion5Answer" value="a">
+                        <label for="catCuddleQ5a">The cat starts twitching its tail or ears.</label><br>
+                        <input type="radio" id="catCuddleQ5b" name="CatCuddlingQuestion5Answer" value="b">
+                        <label for="catCuddleQ5b">The cat remains still and closes its eyes.</label><br>
+                        <input type="radio" id="catCuddleQ5c" name="CatCuddlingQuestion5Answer" value="c">
+                        <label for="catCuddleQ5c">The cat starts kneading with its paws.</label>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <button type="button" class="next-button" id="nextButton" onclick="nextQuestion()">Next</button>
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10 centered-button-container">
+                    <button type="submit" class="black-outline-button" id="submitButton" style="display: none;">Submit</button>
+                </div>
+            </div>
+
+        }
+    </div>
+    <script>
+        document.getElementById('VolunteerType').addEventListener('change', function () {
+            const selectedType = this.value;
+            const quizContainerNoPreference = document.getElementById('quizContainerNoPreference');
+            const quizContainerPuppyTraining = document.getElementById('quizContainerPuppyTraining');
+            const quizContainerCatCuddling = document.getElementById('quizContainerCatCuddling');
+
+            
+            quizContainerNoPreference.style.display = 'none';
+            quizContainerPuppyTraining.style.display = 'none';
+            quizContainerCatCuddling.style.display = 'none';
+
+           
+            currentQuestion = 1;
+
+            
+            if (selectedType === "No Preference") {
+                quizContainerNoPreference.style.display = 'block';
+                totalQuestions = 10; 
+            } else if (selectedType === "Puppy Training") {
+                quizContainerPuppyTraining.style.display = 'block';
+                totalQuestions = 5;
+            } else if (selectedType === "Cat Cuddling") {
+                quizContainerCatCuddling.style.display = 'block';
+                totalQuestions = 5; 
+            }
+
+          
+            document.querySelectorAll('.quiz-card').forEach((card) => card.classList.remove('active'));
+
+            if (selectedType === "No Preference") {
+                document.getElementById(`question${currentQuestion}`).classList.add('active');
+            } else if (selectedType === "Puppy Training") {
+                document.getElementById(`puppyTrainingQuestion${currentQuestion}`).classList.add('active');
+            } else if (selectedType === "Cat Cuddling") {
+                document.getElementById(`catCuddlingQuestion${currentQuestion}`).classList.add('active');
+            }
+
+            document.getElementById('nextButton').style.display = 'none';
+            document.getElementById('submitButton').style.display = 'none';
+        });
+
+        let currentQuestion = 1;
+        let totalQuestions = 10; 
+
+        function nextQuestion() {
+            const selectedType = document.getElementById('VolunteerType').value;
+
+            if (selectedType === "No Preference") {
+                document.getElementById(`question${currentQuestion}`).classList.remove('active');
+            } else if (selectedType === "Puppy Training") {
+                document.getElementById(`puppyTrainingQuestion${currentQuestion}`).classList.remove('active');
+            } else if (selectedType === "Cat Cuddling") {
+                document.getElementById(`catCuddlingQuestion${currentQuestion}`).classList.remove('active');
+            }
+
+            currentQuestion++;
+
+            if (currentQuestion <= totalQuestions) {
+                if (selectedType === "No Preference") {
+                    document.getElementById(`question${currentQuestion}`).classList.add('active');
+                } else if (selectedType === "Puppy Training") {
+                    document.getElementById(`puppyTrainingQuestion${currentQuestion}`).classList.add('active');
+                } else if (selectedType === "Cat Cuddling") {
+                    document.getElementById(`catCuddlingQuestion${currentQuestion}`).classList.add('active');
+                }
+                document.getElementById('nextButton').style.display = 'none';
+            }
+
+            if (currentQuestion > totalQuestions) {
+                document.getElementById('nextButton').innerText = 'Submit';
+                document.getElementById('nextButton').type = 'submit';
+            }
+        }
+
+        document.querySelectorAll('.quiz-options input').forEach((input) => {
+            input.addEventListener('change', () => {
+                if (currentQuestion < totalQuestions) {
+                    document.getElementById('nextButton').style.display = 'block';
+                } else {
+                    document.getElementById('submitButton').style.display = 'block';
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

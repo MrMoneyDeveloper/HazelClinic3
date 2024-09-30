@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HazelClinic3.Models.User1>
+
+@{
+    ViewBag.Title = "View Registered Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4">View Registered Users:</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-3">
+    <p>
+        @Html.ActionLink("Register User", "Register", null, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Login User", "Login", null, new { @class = "btn btn-success" })
+        @Html.ActionLink("Back to Admin Dashboard", "AdminLog", null, new { @class = "btn btn-secondary" })
+    </p>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.UserId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Firstname)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Lastname)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Mobile)</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn btn-primary btn-sm" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
